@@ -1,0 +1,13 @@
+import React from 'react';
+import Link from 'next/link';
+
+export default function Component({ id, title, content, date }: { id: string, title: string, content: string, date: string }) {
+    return (
+        <div key={id} className="border p-4 my-4">
+            <Link href={`/home/post/${id}`}><h2 className="text-blue-600">{title}</h2></Link>
+            <p className="text-black-500">{date}</p>
+            <p className='text-black'>{content}</p>
+        </div>
+    );
+}
+

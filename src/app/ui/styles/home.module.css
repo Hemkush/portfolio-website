@@ -1,0 +1,11 @@
+.text_ {
+    color: #333
+}
+
+.bg_ {
+    background-color: #f0f0f0
+}
+
+.fit_content {
+    width: fit-content;
+}
