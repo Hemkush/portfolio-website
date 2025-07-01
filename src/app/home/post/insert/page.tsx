@@ -22,7 +22,7 @@ export default function Page() {
       [name]: value
     }))
   };
-console.log("know your",user);
+
   const handleSubmit = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     const uuid = uuidv4();
@@ -46,7 +46,7 @@ console.log("know your",user);
 
   useEffect(() => {
     getSession().then((session) => {
-       setUser(session?.user || null);
+       setUser(session?.user as User || null);
       if (!session?.user) {
         router.push('/home/blog');
       }
