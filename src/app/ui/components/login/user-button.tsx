@@ -4,7 +4,6 @@ import { auth } from "../../../../../auth.config"
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuTrigger,
 } from "@/app/ui/components/dropdown-menu"
