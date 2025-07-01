@@ -2,7 +2,7 @@
 import { v4 as uuidv4 } from 'uuid';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { User } from "@/app/lib/definition"
+import { User } from "@/app/lib/definition";
 import { getSession } from 'next-auth/react';
 
 export default function Page() {
