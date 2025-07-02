@@ -79,7 +79,7 @@ export default function Page() {
         router.push('/home/blog');
       }
     })
-  }, []);
+  }, [router]);
 
   const postContent = useMemo(() => {
     return content || formData.content;
