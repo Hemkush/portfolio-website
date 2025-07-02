@@ -3,14 +3,14 @@ import { v4 as uuidv4 } from 'uuid';
 import { useState, useEffect, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import { User } from "@/app/lib/definition";
-import { getSession } from 'next-auth/react';
+// import { getSession } from 'next-auth/react';
 
 export default function Page() {
   const router = useRouter()
   const PROMPT = "You are a creative blog writer. write a 50-word blog post about the title below. You can write anything you want, but it must be at least 50 words long. The title is: "
   const [generating, setGenerating] = useState(false);
   const [content, setContent] = useState('');
-  const [user, setUser] = useState<User | null>(null);
+  const [user] = useState<User | null>(null);
   const [formData, setFormData] = useState({
     id: '',
     title: '',
@@ -73,12 +73,12 @@ export default function Page() {
 
   useEffect(() => {
     console.log('useEffect called', process.env.OPENAI_API_KEY);
-    getSession().then((session) => {
-       setUser(session?.user as User || null);
-      if (!session?.user) {
-        router.push('/home/blog');
-      }
-    })
+    // getSession().then((session) => {
+    //    setUser(session?.user as User || null);
+    //   if (!session?.user) {
+    //     router.push('/home/blog');
+    //   }
+    // })
   }, [router]);
 
   const postContent = useMemo(() => {
