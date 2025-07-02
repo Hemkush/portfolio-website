@@ -1,12 +1,15 @@
 "use client";
 import { v4 as uuidv4 } from 'uuid';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import { User } from "@/app/lib/definition";
 import { getSession } from 'next-auth/react';
 
 export default function Page() {
   const router = useRouter()
+  const PROMPT = "You are a creative blog writer. write a 50-word blog post about the title below. You can write anything you want, but it must be at least 50 words long. The title is: "
+  const [generating, setGenerating] = useState(false);
+  const [content, setContent] = useState('');
   const [user, setUser] = useState<User | null>(null);
   const [formData, setFormData] = useState({
     id: '',
@@ -26,7 +29,7 @@ export default function Page() {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const uuid = uuidv4();
-    fetch(`/api/handlers?id=${uuid}&title=${formData.title}&author=${user?.name}&content=${formData.content}&date=${formData.date}`, {
+    fetch(`/api/handlers?id=${uuid}&title=${formData.title}&author=${user?.name}&content=${content || formData.content}&date=${formData.date}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -44,7 +47,32 @@ export default function Page() {
     }).catch(console.error)
   }
 
+  const generateContent = () => {
+    setGenerating(true);
+    if (!formData?.title) { return false }
+    const requestParams = {
+      model: "gpt-4o-mini",
+      messages: [{ "role": "system", "content": PROMPT + formData?.title },
+      { "role": "user", "content": formData?.title },]
+
+    }
+    fetch('https://api.openai.com/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`
+      },
+      body: JSON.stringify(requestParams)
+    }).then(response => response.json())
+      .then(data => {
+        setContent(data.choices[0].message.content);
+        console.log(data.choices[0].message.content);
+        setGenerating(false);
+      }).catch(console.error);
+  }
+
   useEffect(() => {
+    console.log('useEffect called', process.env.OPENAI_API_KEY);
     getSession().then((session) => {
        setUser(session?.user as User || null);
       if (!session?.user) {
@@ -52,6 +80,11 @@ export default function Page() {
       }
     })
   }, []);
+
+  const postContent = useMemo(() => {
+    return content || formData.content;
+ 
+  }, [content, formData.content]);
 
   return (
     <div className="bg-white p-8 rounded shadow">
@@ -64,7 +97,9 @@ export default function Page() {
         </div>
         <div>
           <label htmlFor="content" className="block font-medium">Content:</label>
-          <textarea id="content" name="content" rows={4} value={formData.content} onChange={handleChange} className="w-full border-2 border-purple-100 p-2 rounded-md focus:border-purple-200 focus:outline-none"></textarea>
+          <textarea id="content" name="content" rows={4} value={postContent} onChange={handleChange} className="w-full border-2 border-purple-100 p-2 rounded-md focus:border-purple-200 focus:outline-none"></textarea>
+          {generating && <p className='text-purple-700 my-1'>Generating content...</p>}
+          <button onClick={generateContent} type="button" className="bg-blue-400 text-white px-4 py-2 rounded-md bg-purple-600  hover:bg-purple-700">Generate Content</button>
         </div>
         <div>
           <label htmlFor="date" className="block font-medium">Date:</label>
