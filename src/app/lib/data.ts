@@ -16,6 +16,8 @@ export async function connectToDB() {
         console.error("Error connecting to the database:", error);
     }
 }
+
+export const dynamic = 'force-dynamic';
 export async function getPosts() {
     try {
         unstable_noStore(); // Prevent caching of this function
