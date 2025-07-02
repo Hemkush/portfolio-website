@@ -4,7 +4,6 @@ import { Button } from "@/app/ui/components/button"
 // import { posts } from '@/app/lib/placeholder-data';
 import Post from '@/app/ui/components/Posts/Post';
 import { getPosts } from '@/app/lib/data';
-// import { auth } from "../../../../auth.config"
 
 export default async function Page() {
   const posts = await getPosts();
