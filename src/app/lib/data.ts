@@ -1,5 +1,5 @@
 import   { createClient } from '@vercel/postgres';
-import { unstable_noStore as noStore } from 'next/cache';
+import { unstable_noStore } from 'next/cache';
 import { sql } from '@vercel/postgres';
 
 export async function connectToDB() {
@@ -18,7 +18,7 @@ export async function connectToDB() {
 }
 export async function getPosts() {
     try {
-        noStore();
+        unstable_noStore(); // Prevent caching of this function
        // await new Promise((resolve) => setTimeout(resolve, 1000)); // Simulate a delay
         const data = await sql`SELECT * FROM posts`;
     return data.rows;
