@@ -28,18 +28,28 @@ export default function NavLinks() {
     <>
       {links.map((link) => (
         <Link
-          key={link.name}
-          href={link.href}
-          className={clsx(
-            'flex items-center gap-2 px-4 py-2 rounded-md transition-colors',
-            pathname === link.href
-              ? 'bg-gray-200 text-gray-900'
-              : 'text-gray-700 hover:bg-gray-100 hover:text-gray-900'
-          )}
-        >
-          <p className="hidden md:block" style={{ color: 'Black' }}>{link.name}</p>
-        </Link>
+  key={link.name}
+  href={link.href}
+  className={clsx(
+    'flex items-center gap-2 px-4 py-2 rounded-md transition-colors',
+    pathname === link.href
+      ? 'bg-gray-200 text-gray-900'
+      : 'text-gray-700 hover:bg-gray-100 hover:text-gray-900'
+  )}
+>
+  <p
+    className={clsx('text-sm', {
+      'hidden md:block': link.name.length > 10, // hide on mobile if text is too long
+      'block': link.name.length <= 10, // show on mobile if text is short
+    })}
+    style={{ color: 'Black' }}
+  >
+    {link.name}
+  </p>
+</Link>
       ))}
     </>
   );
 }
+
+
