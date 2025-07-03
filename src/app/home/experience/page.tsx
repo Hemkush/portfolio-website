@@ -1,87 +1,47 @@
-import React from "react";
+import React from 'react';
+import { Section } from '../about/section';
+import { ExperienceCard } from './experienceCard';
+import { RoleCard } from './roleCard';
+import { WORK_EXPERIENCE_DATA, LEADERSHIP_ROLES_DATA, VOLUNTEER_EXPERIENCE_DATA } from '../constant';
 
-const experiences = [
-    {
-        title: "Software Engineer Intern",
-        company: "Tech Innovators Inc.",
-        period: "June 2023 - Aug 2023",
-        description: [
-            "Developed a real-time dashboard using React and TypeScript, improving data visibility for 500+ users.",
-            "Collaborated with cross-functional teams to deliver features ahead of schedule.",
-            "Automated testing pipelines, reducing manual QA time by 30%."
-        ],
-        type: "Internship"
-    },
-    {
-        title: "Volunteer Web Developer",
-        company: "Code for Good",
-        period: "Jan 2023 - May 2023",
-        description: [
-            "Built and maintained a donation platform for a local non-profit, increasing donations by 20%.",
-            "Mentored new volunteers in web development best practices."
-        ],
-        type: "Volunteer"
-    },
-    {
-        title: "Project Manager",
-        company: "Smart Campus Navigation (College Course Project)",
-        period: "Sep 2022 - Dec 2022",
-        description: [
-            "Led a team of 5 in designing a mobile app to assist new students in navigating campus.",
-            "Coordinated agile sprints, managed timelines, and ensured clear communication.",
-            "Presented project outcomes to faculty, receiving top marks for innovation and teamwork."
-        ],
-        type: "Academic"
-    },
-    {
-        title: "Frontend Developer",
-        company: "Freelance",
-        period: "Mar 2022 - Aug 2022",
-        description: [
-            "Created responsive websites for small businesses using React and Tailwind CSS.",
-            "Optimized site performance, achieving 95+ Lighthouse scores."
-        ],
-        type: "Work"
-    }
-];
+const ExperiencePage: React.FC = () => {
+    return (
+        <div className="container mx-auto px-4 md:px-8 pb-16">
+            <header className="text-center py-8">
+                <h1 className="text-4xl md:text-3xl font-extrabold text-gray-800">Professional Journey</h1>
+                <p className="mt-2 text-lg text-gray-800/60">My experiences in the industry, leadership, and community.</p>
+            </header>
 
-const typeColors: Record<string, string> = {
-    Internship: "bg-blue-100 text-blue-800",
-    Volunteer: "bg-green-100 text-green-800",
-    Academic: "bg-purple-100 text-purple-800",
-    Work: "bg-yellow-100 text-yellow-800"
+            <div className="space-y-12">
+                {/* Work Experience Section */}
+                <Section title="Work Experience">
+                    <div className="space-y-8">
+                        {WORK_EXPERIENCE_DATA.map((exp, index) => (
+                            <ExperienceCard key={index} experience={exp} />
+                        ))}
+                    </div>
+                </Section>
+                
+                {/* Leadership & Volunteer Section */}
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                    <Section title="Leadership Roles">
+                         <div className="space-y-6">
+                            {LEADERSHIP_ROLES_DATA.map((role, index) => (
+                                <RoleCard key={index} title={role.role} organization={role.organization} timeline={role.timeline} description={role.description} />
+                            ))}
+                        </div>
+                    </Section>
+                    <Section title="Volunteer Experience">
+                        <div className="space-y-6">
+                            {VOLUNTEER_EXPERIENCE_DATA.map((exp, index) => (
+                                <RoleCard key={index} title={exp.role} organization={exp.organization} timeline={exp.timeline} description={exp.description} />
+                            ))}
+                        </div>
+                    </Section>
+                </div>
+            </div>
+        </div>
+    );
 };
 
-export default function ExperiencePage() {
-    return (
-        <main className="max-w-3xl mx-auto py-10 px-4">
-            <h1 className="text-3xl font-bold mb-8 text-center">Experience</h1>
-            <div className="space-y-8">
-                {experiences.map((exp, idx) => (
-                    <div
-                        key={idx}
-                        className="bg-white shadow-md rounded-lg p-6 hover:shadow-xl transition-shadow"
-                    >
-                        <div className="flex items-center justify-between mb-2">
-                            <h2 className="text-xl font-semibold">{exp.title}</h2>
-                            <span
-                                className={`px-3 py-1 rounded-full text-xs font-medium ${typeColors[exp.type]}`}
-                            >
-                                {exp.type}
-                            </span>
-                        </div>
-                        <div className="flex items-center justify-between mb-1">
-                            <span className="text-gray-700">{exp.company}</span>
-                            <span className="text-gray-500 text-sm">{exp.period}</span>
-                        </div>
-                        <ul className="list-disc list-inside mt-2 text-gray-800 space-y-1">
-                            {exp.description.map((point, i) => (
-                                <li key={i}>{point}</li>
-                            ))}
-                        </ul>
-                    </div>
-                ))}
-            </div>
-        </main>
-    );
-}
+export default ExperiencePage;

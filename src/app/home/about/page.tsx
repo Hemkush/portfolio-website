@@ -63,7 +63,7 @@ const AboutPage: React.FC = () => {
         </div>
 
         {/* Intro text section */}
-        <div className="mt-8 bg-gray-800/50 backdrop-blur-sm border border-gray-700/50 rounded-xl p-6 shadow-lg">
+        <div className="mt-8 bg-gray-800/80 backdrop-blur-sm border border-gray-700/50 rounded-xl p-6 shadow-lg">
           <p className="text-gray-300 leading-relaxed text-lg">
             {INTRODUCTION.text}
           </p>
@@ -145,7 +145,7 @@ const AboutPage: React.FC = () => {
       </main>
 
       <footer className="container mx-auto text-center mt-16 mb-8 text-gray-500 border-t border-gray-800 pt-8">
-        <p>Portfolio of Alex Doe &copy; {new Date().getFullYear()}</p>
+        <p>Portfolio of Hemant Kushwaha &copy; {new Date().getFullYear()}</p>
       </footer>
     </>
   );

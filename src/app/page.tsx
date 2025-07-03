@@ -34,7 +34,7 @@ Take a look around — you might just find the perfect teammate, problem-solver,
                 </div>
 
             </div>
-            <div className="bg-gray-800 hidden md:block absolute top-0 right-0 bottom-0 left-2/3 z-0"></div> 
+            <div className="bg-gray-800/60 hidden md:block absolute top-0 right-0 bottom-0 left-2/3 z-0"></div> 
         </main>
   );
 }
