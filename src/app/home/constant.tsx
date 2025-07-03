@@ -17,26 +17,26 @@ export const PROFILE_IMAGE_URL: string = '/profile.png';
 
 // Text content for the introduction section
 export const INTRODUCTION = {
-  greeting: "Hello, I'm Alex Doe",
-  title: "Creative Frontend Developer & UI/UX Enthusiast",
-  text: "I build beautiful, responsive, and user-centric web applications. With a passion for clean code and delightful user experiences, I turn complex problems into elegant digital solutions. I'm always eager to learn new technologies and collaborate with creative minds to bring ideas to life."
+  greeting: "Hello, I'm Hemant Kushwaha",
+  title: "Creative Developer & Aspiring Product Manager",
+  text: "A passionate developer with 3+ years of professional experience in software and web development, currently pursuing my Master’s in Information Systems at the University of Maryland. I’ve worked across diverse domains like BFSI, Telecom, and Data Analytics, building responsive web applications and AI-driven solutions. As I deepen my knowledge in data, artificial intelligence, and business strategy, I’m driven by a strong ambition to transition into product management—where I can blend technical expertise with user-focused innovation. Whether leading cross-functional teams, analyzing complex systems, or managing live events, I thrive on solving real-world problems with creativity and impact. Explore my work and join me on this journey of turning ideas into meaningful digital products."
 };
 
 // Text content for the objective section
-export const OBJECTIVE: string = "My objective is to leverage my skills in modern web technologies to create impactful and visually stunning applications. I aim to contribute to a forward-thinking team that values innovation, quality, and user-focused design, while continuously growing as a developer and a leader in the field.";
+export const OBJECTIVE: string = "Passionate and versatile developer with experience in software and web development, currently expanding my expertise in data, artificial intelligence, and business strategy. Driven by a strong interest in product innovation and user-centric solutions, I aspire to transition into a product management role, where I can blend technical insight with business acumen to create impactful digital products.";
 
 // Education history data
 export const EDUCATION_DATA: EducationItem[] = [
   {
-    degree: 'M.S. in Human-Computer Interaction',
-    institution: 'Stanford University',
-    years: '2020 - 2022',
+    degree: 'Master of Science in Information Systems',
+    institution: 'University of Maryland, College Park',
+    years: '2025 - 2026',
     logo: <span className="text-3xl" role="img" aria-label="graduation cap">🎓</span>
   },
   {
-    degree: 'B.Tech in Information Technology',
+    degree: 'B.Tech in Mechanical Engineering',
     institution: 'National Institute of Technology',
-    years: '2016 - 2020',
+    years: '2017 - 2021',
     logo: <span className="text-3xl" role="img" aria-label="school building">🏫</span>
   },
 ];
@@ -97,5 +97,10 @@ export const ACHIEVEMENTS_DATA: Achievement[] = [
 
 // List of core skills
 export const SKILLS_DATA: string[] = [
-  'React', 'TypeScript', 'Next.js', 'Node.js', 'Tailwind CSS', 'Figma', 'UI/UX Design', 'GraphQL', 'Firebase', 'Git & GitHub', 'Jest', 'CI/CD'
+  'Python', 'Java', 'SQL', 'TypeScript', 'Next.js', 'SpringBoot', 'Node.js', 'Tailwind CSS', 'Git & GitHub', 'Data Analytics', 'Agile Methodologies', 'Statistics'
+];
+
+// List of soft skills
+export const SKILLS_SOFT: string[] = [
+  'Adaptability', 'Critical Thinking', 'Creativity', 'Detail-Oriented', 'Documentations', 'Problem-Solving', 'Collaboration', 'Communication', 'Time Management', 'Leadership', 'Empathy'
 ];

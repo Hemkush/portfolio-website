@@ -25,6 +25,7 @@ import {
   HOBBIES_DATA,
   ACHIEVEMENTS_DATA,
   SKILLS_DATA,
+  SKILLS_SOFT,
   PROFILE_IMAGE_URL,
 } from '../constant';
 
@@ -52,7 +53,7 @@ const AboutPage: React.FC = () => {
           <div className="flex-shrink-0">
           </div>
           <div className="flex-1 text-center md:text-left pb-4">
-            <h1 className="text-3xl md:text-5xl font-extrabold text-white">
+            <h1 className="text-2xl md:text-4xl font-extrabold text-cyan-400">
               {INTRODUCTION.greeting}
             </h1>
             <p className="mt-1 text-lg md:text-2xl font-semibold text-cyan-400">
@@ -75,9 +76,18 @@ const AboutPage: React.FC = () => {
             <Section title="My Objective">
               <p className="text-gray-300 leading-relaxed">{OBJECTIVE}</p>
             </Section>
-            <Section title="Core Skills">
+            <Section title="Technical Skills">
               <div className="flex flex-wrap gap-2">
                 {SKILLS_DATA.map((skill) => (
+                  <span key={skill} className="bg-gray-700 text-cyan-300 text-sm font-medium px-3 py-1 rounded-full cursor-default transition-colors hover:bg-cyan-900/50 hover:text-cyan-200">
+                    {skill}
+                  </span>
+                ))}
+              </div>
+            </Section>
+            <Section title="Soft Skills">
+              <div className="flex flex-wrap gap-2">
+                {SKILLS_SOFT.map((skill) => (
                   <span key={skill} className="bg-gray-700 text-cyan-300 text-sm font-medium px-3 py-1 rounded-full cursor-default transition-colors hover:bg-cyan-900/50 hover:text-cyan-200">
                     {skill}
                   </span>
@@ -96,7 +106,7 @@ const AboutPage: React.FC = () => {
                     <div>
                       <h3 className="font-bold text-lg text-white">{item.degree}</h3>
                       <p className="text-cyan-400">{item.institution}</p>
-                      <p className="text-gray-400 text-sm">{item.years}</p>
+                      <p className="text-gray-600 text-sm">{item.years}</p>
                     </div>
                   </li>
                 ))}
