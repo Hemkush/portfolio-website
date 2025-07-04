@@ -1,7 +1,7 @@
 import React from 'react';
 import { Section } from '../about/section';
-import { ImageSlideshow } from './imageSlideshow';
-import { CONTACT_DETAILS, SOCIAL_LINKS, SOCIAL_LIFE_IMAGES } from '../constant';
+// import { ImageSlideshow } from './imageSlideshow';
+import { CONTACT_DETAILS, SOCIAL_LINKS } from '../constant';
 
 export const ContactPage: React.FC = () => {
     return (
@@ -10,7 +10,6 @@ export const ContactPage: React.FC = () => {
                 <h1 className="text-4xl md:text-3xl font-extrabold text-gray-800">Get In Touch</h1>
                 <p className="mt-2 text-lg text-gray-400">I am always open to discussing new projects, creative ideas, or opportunities to connect.</p>
             </header>
-
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 space-y-12">
                 {/* LEFT COLUMN */}
                 <div className="flex flex-col gap-8">
@@ -64,7 +63,7 @@ export const ContactPage: React.FC = () => {
 
                     <Section title="A Glimpse Into My Life">
                       <div className='w-full' style={{ height: '450px' }}>
-                        <ImageSlideshow images={SOCIAL_LIFE_IMAGES} />
+                        {/* <ImageSlideshow images={SOCIAL_LIFE_IMAGES} /> */}
                         </div>
                     </Section>
                 </div>

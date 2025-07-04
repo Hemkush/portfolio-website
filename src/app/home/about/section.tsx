@@ -18,3 +18,5 @@ export const Section: React.FC<SectionProps> = ({ title, children, className = '
     </div>
   );
 };
+
+export default Section;
