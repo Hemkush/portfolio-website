@@ -66,3 +66,9 @@ export interface Course {
   skills: string[];
   ongoing?: boolean;
 }
+
+export interface SocialLink {
+  name: string;
+  url: string;
+  icon: ReactNode;
+}
