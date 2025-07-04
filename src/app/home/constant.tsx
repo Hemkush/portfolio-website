@@ -276,10 +276,11 @@ export const SOCIAL_LINKS: SocialLink[] = [
     },
 ];
 
-// export const SOCIAL_LIFE_IMAGES: string[] = [
-//     '/UMD_view.png', // University of Maryland view
-//     '/NIT_cover.png',
-//     '/UMD_cover.png', // University of Maryland cover
-//   '/NIT_mainBuilding.png', // National Institute of Technology gate
-//   '/UMD_cover1.png'
-// ];
+export const SOCIAL_LIFE_IMAGES: string[] = [
+    '/UMD_view.png', // University of Maryland view
+    '/NIT_cover.png',
+    '/UMD_cover.png', // University of Maryland cover
+  '/NIT_mainBuilding.png', // National Institute of Technology gate
+  '/UMD_cover1.png', 
+  '/NIT Gate.png',
+];

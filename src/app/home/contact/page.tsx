@@ -1,9 +1,9 @@
 import React from 'react';
 import { Section } from '../about/section';
-// import { ImageSlideshow } from './imageSlideshow';
-import { CONTACT_DETAILS, SOCIAL_LINKS } from '../constant';
+import { ImageSlideshow } from './imageSlideshow';
+import { CONTACT_DETAILS, SOCIAL_LINKS, SOCIAL_LIFE_IMAGES } from '../constant';
 
-export const ContactPage: React.FC = () => {
+ const ContactPage: React.FC = () => {
     return (
         <div className="container mx-auto px-4 md:px-8 pb-16">
             <header className="text-center py-8">
@@ -63,7 +63,7 @@ export const ContactPage: React.FC = () => {
 
                     <Section title="A Glimpse Into My Life">
                       <div className='w-full' style={{ height: '450px' }}>
-                        {/* <ImageSlideshow images={SOCIAL_LIFE_IMAGES} /> */}
+                        <ImageSlideshow images={SOCIAL_LIFE_IMAGES} />
                         </div>
                     </Section>
                 </div>
