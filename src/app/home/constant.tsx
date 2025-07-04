@@ -158,63 +158,91 @@ export const PROJECT_DATA: Project[] = [
 // Work Experience Data
 export const WORK_EXPERIENCE_DATA: WorkExperience[] = [
     {
-        company: 'Innovate Inc.',
-        role: 'Senior Frontend Developer',
-        timeline: 'Jan 2022 - Present',
+        company: 'Tata Consultancy Services (TCS)',
+        role: 'Software Developer',
+        timeline: 'Jul 2021 - Dec 2024',
         description: [
-            'Led the development of a new design system using React and Storybook, increasing team productivity by 30%.',
-            'Architected and implemented a state management solution with Redux Toolkit for a large-scale customer-facing application.',
-            'Mentored junior developers, conducted code reviews, and championed best practices for code quality and testing.'
+            'Engaged in 3 full-stack development projects, collaborating with product, QA, and DevOps teams to deliver scalable software.',
+            'Developed 30+ front-end components using HTML5, CSS3, and TypeScript, improving load speed by 30% and ensuring cross-browser compatibility (95%+). Built and deployed 8+ RESTful APIs with Spring Boot.',
+            'Delivered requirements aligned with stakeholder goals, resulting in a 95% satisfaction score from post-delivery surveys.',
+            'Maintained 95%+ story completion rate, actively engaging in agile ceremonies and retrospectives to refine processes and improve team velocity.',
+            'Collaborated in daily stand-ups and planning sessions for a team of 8 developers, increasing sprint velocity by 20%.',
+            'Consistently adhered to code of conduct of TCS and maintained strict confidentiality of all project deliverables and company information, ensuring secure handling of sensitive data and compliance with internal policies.'
         ],
-        skills: ['React', 'TypeScript', 'Redux', 'Storybook', 'Jest', 'CI/CD', 'Leadership'],
+        skills: ['Java', 'Spring Boot', 'HTML5', 'CSS3', 'TypeScript', 'Angular', 'SQL', 'Web Development', 'Restful APIs', 'Collaboration', 'Agile Methodologies', 'Git'],
         recommendation: {
-            name: 'Jane Smith',
-            title: 'Engineering Manager at Innovate Inc.',
-            text: '"Alex is a phenomenal developer and a true leader. Their technical expertise and commitment to quality are second to none. They consistently delivered high-impact features and elevated the entire team\'s performance."'
+            name: 'Syed Ahmed',
+            title: 'Project Lead at TCS',
+            text: '"Hemant is a phenomenal developer and a true collaborator. Their technical expertise and commitment to quality are second to none. They consistently delivered high-impact features and elevated the entire team\'s performance."'
         }
     },
     {
-        company: 'Creative Solutions LLC',
-        role: 'Frontend Developer',
-        timeline: 'Jun 2020 - Dec 2021',
+        company: 'The Sparks Foundation',
+        role: 'ML/DS Intern',
+        timeline: 'Jul 2020',
         description: [
-            'Collaborated in an agile team to build and maintain multiple client websites using Next.js and Tailwind CSS.',
-            'Translated Figma designs into pixel-perfect, responsive, and accessible user interfaces.',
-            'Improved website performance scores by over 20% through code splitting, image optimization, and lazy loading.'
+            'Completed a 4-week internship focused on real-world machine learning and business analytics applications.',
+            'Analyzed 3 real-world datasets, applying machine learning techniques to solve classification and regression problems.',
+            'Built and evaluated models using Python libraries such as pandas, NumPy, scikit-learn, and matplotlib, improving prediction accuracy by up to 85% in project tasks.',
+            'Strengthened Python programming proficiency and enhanced understanding of data preprocessing, feature engineering, and performance metrics.',
+            'Developed a better grasp of data-driven decision-making, presenting insights through data visualization and reporting tools.'
         ],
-        skills: ['Next.js', 'Tailwind CSS', 'Figma', 'Vercel', 'Performance Optimization'],
+        skills: ['Machine Learning', 'Data Science', 'Python', 'Data Analysis', 'Model Evaluation', 'Regression Analysis'],
+    },
+    {
+        company: 'Blitz Jobs',
+        role: 'Data Analyst Intern',
+        timeline: 'Jun 2020 - Jul 2020',
+        description: [
+            'Developed a Tableau dashboard to visualize marketing insights, enabling faster and more informed decision-making for stakeholders.',
+            'Supported the design of a machine learning model by recommending algorithm types and tuning key parameters to improve campaign targeting.',
+            'Contributed to data preprocessing, exploratory analysis, and model planning to enhance marketing efficiency and customer segmentation strategies.',
+        ],
+        skills: ['Data Visualization', 'Tableau', 'Machine Learning Fundamentals', 'Model Design', 'Cross-functional Collaboration'],
     }
 ];
 
 // Leadership Roles Data
 export const LEADERSHIP_ROLES_DATA: LeadershipRole[] = [
     {
-        organization: 'University Coding Club',
-        role: 'President',
-        timeline: '2019 - 2020',
-        description: 'Organized weekly coding workshops, managed the annual hackathon with over 200 participants, and secured sponsorships from local tech companies. Grew club membership by 50%.'
+        organization: 'University of Maryland - Robert H. Smith School of Business',
+        role: 'Program Representative (Master’s in Information Systems)',
+        timeline: 'Aug 2025 - Present',
+        description: 'I was recently elected as a Program Representative, where my role involves actively representing my department in Assembly meetings. As part of my responsibilities, I am expected to stay informed about issues on the agenda in advance and engage in regular communication with students and faculty within my program. This includes gathering input, addressing concerns, and caucusing with members of the department prior to meetings to ensure that our collective perspectives are accurately represented. This position allows me to contribute to academic governance and strengthen collaboration between students and administration.'
     },
     {
-        organization: 'Open Source Community',
-        role: 'Lead Maintainer',
-        timeline: '2022 - Present',
-        description: 'Manage contributions, review pull requests, and define the feature roadmap for a popular open-source UI component library with over 10k weekly downloads.'
+        organization: 'NITRUTSAV NIT ROURKELA',
+        role: 'Core-Coordinator',
+        timeline: 'Dec 2019 - Feb 2020',
+        description: 'NITR UTSAV is a Literary and Cultural fest of NIT Rourkela. Notably serving as a core coordinator for the requirement team, overseeing a team of 20 dedicated members.  Acquired valuable insights into team leadership, management dynamics, and the critical importance of cohesive work.'
+    },
+    {
+        organization: 'Pantomime-Official Dramatic Club of NITR',
+        role: 'Coordinator',
+        timeline: 'Apr 2019 - Apr 2020',
+        description: 'As a coordinator of the dramatics club, I was responsible for leading the planning and execution of performances. Coordinated various successful street plays, stage plays, and mime acts, drawing large and engaged audiences. Developed confidence in public speaking and performance, leading to impactful and well-received theatrical productions.'
+    },
+    {
+        organization: 'SPIC MACAY',
+        role: 'Coordinator',
+        timeline: 'Jul 2019 - May 2020',
+        description: 'My involvement as the coordinator of the SPIC MACAY Society demonstrated my event management skills, where our team successfully organized events attracting over five hundred attendees. I also played a pivotal role in the planning and execution of the event, ensuring a smooth and enjoyable experience for participants.'
     }
 ];
 
 // Volunteer Experience Data
 export const VOLUNTEER_EXPERIENCE_DATA: VolunteerExperience[] = [
     {
-        organization: 'Code for a Cause',
-        role: 'Volunteer Mentor',
-        timeline: 'Summer 2023',
-        description: 'Mentored a group of aspiring developers during a 3-month bootcamp, providing guidance on web development fundamentals, career advice, and project-based learning.'
+        organization: 'University of Maryland - Robert H. Smith School of Business',
+        role: 'Track Representative (MSIS - Spring 2025)',
+        timeline: 'Feb 2025 - Present',
+        description: 'Facilitating clear communication between cohort members, faculty, and administration, while striving to enhance the educational, cultural, and social experiences of the cohort. This strengthens my interpersonal and organizational abilities.'
     },
     {
-        organization: 'Local Food Bank',
-        role: 'Website Manager',
-        timeline: '2021 - Present',
-        description: 'Voluntarily rebuilt and now maintain the local food bank’s website, improving online donation accessibility and volunteer sign-up rates by 40%.'
+        organization: 'AASRA',
+        role: 'Member',
+        timeline: 'Jan 2018 - May 2021',
+        description: 'Coordinated a science exhibition where underprivileged students showcased their creativity via various projects, managed the Diya Project creating seasonal employment opportunities for women in underprivileged areas of Rourkela, Old age home visits, teaching in Birsa Munda School.'
     }
 ];
 
