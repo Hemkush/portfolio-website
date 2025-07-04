@@ -4,8 +4,10 @@ import type { ReactNode } from 'react';
 export interface EducationItem {
   degree: string;
   institution: string;
-  years: string;
+  years?: string;
   logo: ReactNode;
+  gpa?: string;
+  skills?: string[]
 }
 
 export interface Hobby {

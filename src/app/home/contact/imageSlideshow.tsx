@@ -28,8 +28,6 @@ export const ImageSlideshow: React.FC<ImageSlideshowProps> = ({ images, interval
         <Image
           key={index}
           src={src}
-          loading="eager"
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           alt={`Social life gallery image ${index + 1}`}
           fill={true}
           className={`object-cover transition-opacity duration-1000 ease-in-out ${

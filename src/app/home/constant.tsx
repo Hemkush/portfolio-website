@@ -37,18 +37,29 @@ export const OBJECTIVE: string = "Passionate and versatile developer with experi
 export const EDUCATION_DATA: EducationItem[] = [
   {
     degree: 'Master of Science in Information Systems',
-    institution: 'University of Maryland, College Park',
+    institution: 'University of Maryland - Robert H. Smith School of Business',
     years: '2025 - 2026',
-    logo: <span className="text-3xl" role="img" aria-label="graduation cap">🎓</span>
-  },
+    logo: '/business_logo.ico',
+    gpa: '3.93/4.0',
+    skills: ['Problem Solving', 'Business Acumen', 'Empathy', 'Strategic Thinking', 'Data Analysis', 'SQL', 'Leadership', 'Communication', 'Teamwork', 'Python', 'Collaborative Problem Solving']
+  },  
   {
-    degree: 'B.Tech in Mechanical Engineering',
+    degree: 'B.Tech in Information Technology',
     institution: 'National Institute of Technology',
     years: '2017 - 2021',
-    logo: <span className="text-3xl" role="img" aria-label="school building">🏫</span>
+    logo: '/rourkela_logo.ico',
+    gpa: '8.13/10.0',
+    skills: ['Problem Solving', 'Empathy', 'Strategic Thinking', 'Management', 'Leadership', 'Team Management', 'Communication', 'Teamwork', 'Collaborative Problem Solving']
+  },
+  {
+    degree: 'Senior School Certificate (Class XII)',
+    institution: 'Jawahar Navodaya Vidyalaya, Sonbhadra',
+    years: '',
+    logo: '/JNV_logo.ico',
+    gpa: '90.6%',
+    skills: ['Physics', 'Chemistry', 'Mathematics', 'Diversity & Inclusion', 'Leadership', 'Teamwork', 'Communication', 'Problem Solving', 'Critical Thinking', 'Adaptability', 'Time Management']
   },
 ];
-
 // Hobbies and interests data
 export const HOBBIES_DATA: Hobby[] = [
   {

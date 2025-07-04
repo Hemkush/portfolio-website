@@ -99,14 +99,38 @@ const AboutPage: React.FC = () => {
           {/* Right Column (Education, Achievements, Hobbies) */}
           <div className="lg:col-span-2 flex flex-col gap-8">
             <Section title="Education">
-              <ul className="space-y-6">
+              <ul className="space-y-8">
                 {EDUCATION_DATA.map((item, index) => (
-                  <li key={index} className="flex items-start gap-4">
-                    <div className="flex-shrink-0 mt-1">{item.logo}</div>
-                    <div>
+                  <li key={index} className="flex items-start gap-5">
+                    <div className="flex-shrink-0 mt-1 bg-white/90 rounded-md p-1">
+                      {typeof item.logo === 'string' && (
+                        <Image
+                          src={item.logo}
+                          alt={`${item.institution} logo`}
+                          width={48}
+                          height={48}
+                          className="h-12 w-12 object-contain"
+                        />
+                      )}
+                    </div>
+                    <div className="flex-grow">
                       <h3 className="font-bold text-lg text-white">{item.degree}</h3>
-                      <p className="text-cyan-400">{item.institution}</p>
-                      <p className="text-gray-600 text-sm">{item.years}</p>
+                      <p className="text-cyan-400 font-medium">{item.institution}</p>
+                      <div className="flex items-baseline justify-between text-sm text-gray-400 mt-1">
+                        <span>{item.years}</span>
+                        {item.gpa && <span className="font-semibold">GPA: {item.gpa}</span>}
+                      </div>
+                      {item.skills && item.skills.length > 0 && (
+                        <div className="mt-3">
+                          <div className="flex flex-wrap gap-2">
+                            {item.skills.map(skill => (
+                              <span key={skill} className="bg-gray-700 text-cyan-300 text-xs font-medium px-2.5 py-1 rounded-full">
+                                {skill}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+                      )}
                     </div>
                   </li>
                 ))}
