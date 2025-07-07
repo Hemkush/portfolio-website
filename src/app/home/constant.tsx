@@ -153,6 +153,13 @@ export const PROJECT_DATA: Project[] = [
       description: 'Utilized Python (Pandas, NumPy, Matplotlib) to clean and analyze 100K+ global COVID-19 records, identifying trends in infection, recovery, and mortality rates; applied data wrangling and visualization skills to derive actionable insights. Created interactive visualizations and summarized findings into a report that scored 95%+ on evaluation, demonstrating proficiency in data storytelling, statistical analysis, and real-world problem solving.',
       skills: ['Python', 'Pandas', 'NumPy', 'Matplotlib', 'Data Analysis', 'Data Visualization', 'Data Wrangling']
   },
+  {
+      name: 'Analyzing Big Data with SQL',
+      timeline: '2020',
+      ongoing: false,
+      description: 'Successfully applied advanced SQL queries using Microsoft SQL Server to analyze and extract insights from large-scale datasets, demonstrating strong skills in data querying, aggregation, and trend analysis.',
+      skills: ['SQL', 'Data Analysis', 'Data Wrangling']
+  },
 ];
 
 // Work Experience Data
@@ -249,19 +256,27 @@ export const VOLUNTEER_EXPERIENCE_DATA: VolunteerExperience[] = [
 // Coursework Data
 export const COURSES_DATA: Course[] = [
     {
-        name: 'AI For Everyone',
-        platform: 'DeepLearning.AI',
-        year: 'Present',
-        description: 'Exploring the fundamentals of Artificial Intelligence, machine learning, and their impact on society and business.',
-        skills: ['AI', 'Machine Learning', 'Data Science', 'Ethics'],
-        ongoing: true,
+        name: 'Using Python for Automation',
+        platform: 'LinkedIn Learning',
+        year: 'July 2025',
+        description: 'Recently completed a comprehensive course on Python Automation, where I gained hands-on experience streamlining repetitive tasks such as file handling, bulk data updates, and web scraping using Beautiful Soup and Selenium. The course deepened my skills in parsing, error handling, and working efficiently with the command line. I also explored API integration, enhancing my ability to build connected, scalable solutions. This journey wasn’t just about writing code—it was about leveraging Python to craft smart, time-saving automation tools that elevate productivity and problem-solving in real-world applications.',
+        skills: ['Web Scraping', 'Python', 'Process Automation', 'Data Extraction', 'Selenium', 'Beautiful Soup'],
+        ongoing: false,
     },
     {
-        name: 'Advanced TypeScript',
-        platform: 'Udemy',
-        year: '2023',
-        description: 'A deep dive into advanced TypeScript features, including generics, decorators, and type manipulation.',
-        skills: ['TypeScript', 'Generics', 'Decorators', 'Type-level Programming']
+        name: 'Learning Next.js',
+        platform: 'LinkedIn Learning',
+        year: 'July 2025',
+        description: 'Through this course, I gained a solid foundation in Next.js and learned how to leverage its features to enhance the developer experience and improve application performance. The course provided a comprehensive, hands-on project that guided me through the entire development lifecycle—from setup to cloud deployment—enabling me to understand the practical applications of server-side rendering, routing, and API integration. This experience has equipped me with the skills and confidence to apply Next.js and TypeScript effectively in future web development projects.',
+        skills: ['Next.js', 'Web Development', 'React.js', 'Frontend Development'],
+        ongoing: false,
+    },
+    {
+        name: 'Product Management First Steps',
+        platform: 'LinkedIn Learning',
+        year: 'June 2025',
+        description: 'Throughout the course, I learned to identify various types of products and distinguish between different industry sectors. I explored the essential elements that contribute to building a high-quality extended team and gained insight into effectively managing a product life cycle. The course also covered how to develop a strong research plan, how to break down and present a compelling idea pitch, and how to manage product iterations by identifying versions, releases, and sprints. Additionally, I learned how to track project progress using a burndown chart and define a go-to-market strategy—skills that are foundational to successful product management.',
+        skills: ['Product Management', 'Product Life Cycle', 'Agile Methodologies'],
     },
     {
         name: 'GraphQL: The Big Picture',
