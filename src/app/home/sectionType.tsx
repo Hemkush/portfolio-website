@@ -75,3 +75,8 @@ export interface SocialLink {
   url: string;
   icon: ReactNode;
 }
+
+export interface ChatMessage {
+  sender: 'user' | 'ai';
+  text: string;
+}

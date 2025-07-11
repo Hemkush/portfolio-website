@@ -1,3 +1,4 @@
+import Chatbot from '@/app/home/aiAssistant/chatbot';
 import NavLinks from '@/app/ui/components/nav-link';
 export default function SideNav() {
 
@@ -6,6 +7,7 @@ export default function SideNav() {
       <div className="flex justify-between items-center py-4 gap-4">
         <NavLinks />
       </div>
+      <Chatbot />
     </div>
   );
 }

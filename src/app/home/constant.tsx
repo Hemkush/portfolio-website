@@ -383,3 +383,26 @@ export const SOCIAL_LIFE_IMAGES: string[] = [
   '/UMD_cover1.png', 
   '/NIT Gate.png',
 ];
+
+export const getPortfolioContext = () => {
+    // A helper function to prevent stringifying React nodes (icons)
+    const replacer = (key: string, value: unknown) => {
+        if (key === 'icon') {
+        return 'react_node';
+        }
+        return value;
+    };
+
+    const context = `
+        Introduction: ${JSON.stringify(INTRODUCTION, replacer)}
+        Objective: ${OBJECTIVE}
+        Skills: ${JSON.stringify(SKILLS_DATA, replacer)}
+        Work Experience: ${JSON.stringify(WORK_EXPERIENCE_DATA, replacer)}
+        Leadership Roles: ${JSON.stringify(LEADERSHIP_ROLES_DATA, replacer)}
+        Volunteer Experience: ${JSON.stringify(VOLUNTEER_EXPERIENCE_DATA, replacer)}
+        Education: ${JSON.stringify(EDUCATION_DATA, replacer)}
+        Hobbies: ${JSON.stringify(HOBBIES_DATA, replacer)}
+        Achievements: ${JSON.stringify(ACHIEVEMENTS_DATA, replacer)}
+    `;
+    return context.replace(/"/g, "'"); // Use single quotes to avoid issues
+};

@@ -1,6 +1,6 @@
 "use client";
 import { v4 as uuidv4 } from 'uuid';
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import { Section } from '../../about/section';
 export default function Page() {
@@ -74,9 +74,9 @@ export default function Page() {
       }).catch(console.error);
   }
 
-  useEffect(() => {
-    console.log('useEffect called', process.env.OPENAI_API_KEY);
-  }, [router]);
+  // useEffect(() => {
+  //   console.log('useEffect called', process.env.OPENAI_API_KEY);
+  // }, [router]);
 
   const postContent = useMemo(() => {
     return content || formData.content;

@@ -1,11 +1,5 @@
 import React from 'react';
-// import type { Course } from '../sectionType';
 
-// interface CourseCardProps {
-//   course: Course;
-// }
-
-// export const CourseCard: React.FC<CourseCardProps> = ({ course }) => {
 export default function CourseCard({ name, description, date, skills, ongoing, platform }: {  name: string, description: string, date: string, skills: string[], ongoing?: boolean, platform?: string }) {
   return (
     <div className="bg-gray-800/60 backdrop-blur-sm border border-gray-700/60 rounded-xl p-6 flex flex-col gap-4 shadow-lg transition-all duration-300 hover:border-cyan-400/50 hover:shadow-cyan-500/10">
