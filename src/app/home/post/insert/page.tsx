@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { Section } from '../../about/section';
 export default function Page() {
   const router = useRouter()
-  const PROMPT = "You are a creative blog writer. write a 50-word blog post about the title below. You can write anything you want, but it must be at least 50 words long. The title is: "
+  const PROMPT = "You are a creative blog writer. write a 200 to 300 words blog post about the title below. You can write anything you want, but it must be at least 50 words long. The title is: "
   const [generating, setGenerating] = useState(false);
   const [content, setContent] = useState('');
   const [formData, setFormData] = useState({
@@ -26,6 +26,7 @@ export default function Page() {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (formData.title !== '' && formData.content !== '') {
     const uuid = uuidv4();
     fetch(`/api/handlers?id=${uuid}&title=${formData.title}&author=${formData.author}&content=${content || formData.content}&date=${formData.date}`, {
       method: 'POST',
@@ -44,6 +45,9 @@ export default function Page() {
       });
       router.push('/home/blog');
     }).catch(console.error)
+  } else {
+      alert('Please write a title and content before submitting.');
+    }
   }
 
   const generateContent = () => {

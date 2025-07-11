@@ -5,6 +5,7 @@ import { getPosts } from '@/app/lib/data';
 
 export default async function Page() {
   const posts = await getPosts();
+  
   return (
 
     <div className="container mx-auto px-4 md:px-8 pb-16">

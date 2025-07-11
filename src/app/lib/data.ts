@@ -23,6 +23,18 @@ export async function getPosts() {
         unstable_noStore(); // Prevent caching of this function
        // await new Promise((resolve) => setTimeout(resolve, 1000)); // Simulate a delay
         const data = await sql`SELECT * FROM posts`;
+        console.log("Posts data:", data.rows);
+    return data.rows;
+    } catch (error) {
+        console.error("Error connecting to the database:", error);
+    }
+}
+
+export async function getCoursework() {
+    try {
+        unstable_noStore(); // Prevent caching of this function
+       // await new Promise((resolve) => setTimeout(resolve, 1000)); // Simulate a delay
+        const data = await sql`SELECT * FROM course_details`;
     return data.rows;
     } catch (error) {
         console.error("Error connecting to the database:", error);
