@@ -26,7 +26,7 @@ export default function Page() {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (formData.title !== '' && formData.content !== '') {
+    // if (formData.title !== '' && formData.content !== '') {
     const uuid = uuidv4();
     fetch(`/api/handlers?id=${uuid}&title=${formData.title}&author=${formData.author}&content=${content || formData.content}&date=${formData.date}`, {
       method: 'POST',
@@ -45,9 +45,9 @@ export default function Page() {
       });
       router.push('/home/blog');
     }).catch(console.error)
-  } else {
-      alert('Please write a title and content before submitting.');
-    }
+  // } else {
+  //     alert('Please write a title and content before submitting.');
+  //   }
   }
 
   const generateContent = () => {
