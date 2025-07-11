@@ -28,7 +28,7 @@ if (courseData) {
 
     const sortedOnlineCourses = onlineCourses ? [...onlineCourses].sort((a, b) => Number(b.course_status) - Number(a.course_status)) : [];
     console.log("Sorted Online Courses:", sortedOnlineCourses);
-    const sortedGraduateCourses = graduateCourses ? [...graduateCourses].sort((a, b) => Number(b.ongoing) - Number(a.ongoing)) : [];
+    const sortedGraduateCourses = graduateCourses ? [...graduateCourses].sort((a, b) => Number(b.course_status) - Number(a.course_status)) : [];
     return (
         <div className="container mx-auto px-4 md:px-8 pb-16">
             <header className="text-center py-8">
