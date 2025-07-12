@@ -212,8 +212,11 @@ import { getPortfolioContext } from '../constant';
 import type { ChatMessage } from '../sectionType';
 
 const ChatIcon = (props: React.SVGProps<SVGSVGElement>) => (
+    // <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" {...props}>
+    //     <path strokeLinecap="round" strokeLinejoin="round" d="M8.625 12a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 01-2.555-.337A5.972 5.972 0 015.41 20.97a5.969 5.969 0 01-.474-.065 4.48 4.48 0 00.978-2.025c.09-.455.09-.934.09-1.425v-2.134c0-2.639 3.13-4.75 7-4.75h1.5a.75.75 0 01.75.75v3.375c0 .621.504 1.125 1.125 1.125h2.25c.621 0 1.125-.504 1.125-1.125v-2.25s.008-.018.008-.026zM12 3c5.18 0 9.448 3.013 9.448 6.75 0 1.413-.468 2.723-1.258 3.795a.75.75 0 01-1.233-.736V12a4.5 4.5 0 00-4.5-4.5h-1.5a4.5 4.5 0 00-4.5 4.5v2.134c0 .561.096 1.11.267 1.625a.75.75 0 01-1.233.736A10.43 10.43 0 013 12c0-3.737 4.268-6.75 9-6.75z" />
+    // </svg>
     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" {...props}>
-        <path strokeLinecap="round" strokeLinejoin="round" d="M8.625 12a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 01-2.555-.337A5.972 5.972 0 015.41 20.97a5.969 5.969 0 01-.474-.065 4.48 4.48 0 00.978-2.025c.09-.455.09-.934.09-1.425v-2.134c0-2.639 3.13-4.75 7-4.75h1.5a.75.75 0 01.75.75v3.375c0 .621.504 1.125 1.125 1.125h2.25c.621 0 1.125-.504 1.125-1.125v-2.25s.008-.018.008-.026zM12 3c5.18 0 9.448 3.013 9.448 6.75 0 1.413-.468 2.723-1.258 3.795a.75.75 0 01-1.233-.736V12a4.5 4.5 0 00-4.5-4.5h-1.5a4.5 4.5 0 00-4.5 4.5v2.134c0 .561.096 1.11.267 1.625a.75.75 0 01-1.233.736A10.43 10.43 0 013 12c0-3.737 4.268-6.75 9-6.75z" />
+        <path strokeLinecap="round" strokeLinejoin="round" d="M4.804 21.644A6.707 6.707 0 0 0 6 21.75a6.721 6.721 0 0 0 3.583-1.029c.774.182 1.584.279 2.417.279 5.322 0 9.75-3.97 9.75-9 0-5.03-4.428-9-9.75-9s-9.75 3.97-9.75 9c0 2.409 1.025 4.587 2.674 6.192.232.226.277.428.254.543a3.73 3.73 0 0 1-.814 1.686.75.75 0 0 0 .44 1.223ZM8.25 10.875a1.125 1.125 0 1 0 0 2.25 1.125 1.125 0 0 0 0-2.25ZM10.875 12a1.125 1.125 0 1 1 2.25 0 1.125 1.125 0 0 1-2.25 0Zm4.875-1.125a1.125 1.125 0 1 0 0 2.25 1.125 1.125 0 0 0 0-2.25Z"/>
     </svg>
 );
 
@@ -265,7 +268,7 @@ const Chatbot: React.FC = () => {
                 if (messages.length === 0) {
                      setMessages([{
                         sender: 'ai',
-                        text: "Hello! I'm Alex's AI assistant. How can I help you today? Feel free to ask about his skills, projects, or experience."
+                        text: "Hello! I'm Hemant's AI assistant. How can I help you today? Feel free to ask about his skills, projects, or experience."
                     }]);
                 }
             } catch (e) {
@@ -288,7 +291,7 @@ const Chatbot: React.FC = () => {
 
         try {
             const portfolioContext = getPortfolioContext();
-            const systemPrompt = `You are a helpful, friendly, and professional AI assistant for Alex Doe's portfolio website. Your purpose is to answer questions about Alex based ONLY on the detailed portfolio information provided. Be conversational and engaging. If a question is outside the scope of the provided context, politely state that you can only answer questions related to Alex Doe's professional profile. Do not invent information. Here is the portfolio data: ${portfolioContext}`;
+            const systemPrompt = `You are a helpful, friendly, and professional AI assistant for Hemant Kushwaha's portfolio website. Your purpose is to answer questions about Hemant based ONLY on the detailed portfolio information provided. Be conversational and engaging. If a question is outside the scope of the provided context, politely state that you can only answer questions related to Hemant Doe's professional profile. Do not invent information. Here is the portfolio data: ${portfolioContext}`;
 
             const apiMessages = newMessages.map(msg => ({
                 role: msg.sender === 'user' ? 'user' : 'assistant',
@@ -376,7 +379,7 @@ const Chatbot: React.FC = () => {
                                 type="text"
                                 value={input}
                                 onChange={(e) => setInput(e.target.value)}
-                                placeholder="Ask about Alex..."
+                                placeholder="Ask about Hemant..."
                                 disabled={isLoading || error !== null || !openai}
                                 className="w-full bg-gray-700/50 border border-gray-600 rounded-lg py-2 px-3 text-white focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 transition-colors disabled:opacity-50"
                                 aria-label="Chat input"
@@ -404,7 +407,7 @@ const Chatbot: React.FC = () => {
                     role="tooltip"
                     className="absolute top-1/2 right-full mr-4 -translate-y-1/2 w-max whitespace-nowrap bg-gray-700 text-white text-sm px-3 py-1.5 rounded-lg shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
                 >
-                    Chat with my AI Assistant!
+                    Chat with my Assistant!
                 </div>
             </div>
         </>
