@@ -7,7 +7,9 @@ import type { EducationItem,
     WorkExperience, 
     LeadershipRole,
     SocialLink,
+    Course,
     VolunteerExperience } from './sectionType';
+    
 
 // URLs for the dynamic background
 export const BACKGROUND_IMAGES: string[] = [
@@ -252,99 +254,99 @@ export const VOLUNTEER_EXPERIENCE_DATA: VolunteerExperience[] = [
     }
 ];
 
-// Coursework Data
-// export const COURSES_DATA: Course[] = [
-//     {
-//         name: 'Using Python for Automation',
-//         platform: 'LinkedIn Learning',
-//         year: 'July 2025',
-//         description: 'Recently completed a comprehensive course on Python Automation, where I gained hands-on experience streamlining repetitive tasks such as file handling, bulk data updates, and web scraping using Beautiful Soup and Selenium. The course deepened my skills in parsing, error handling, and working efficiently with the command line. I also explored API integration, enhancing my ability to build connected, scalable solutions. This journey wasn’t just about writing code—it was about leveraging Python to craft smart, time-saving automation tools that elevate productivity and problem-solving in real-world applications.',
-//         skills: ['Web Scraping', 'Python', 'Process Automation', 'Data Extraction', 'Selenium', 'Beautiful Soup'],
-//         ongoing: false,
-//     },
-//     {
-//         name: 'Learning Next.js',
-//         platform: 'LinkedIn Learning',
-//         year: 'July 2025',
-//         description: 'Through this course, I gained a solid foundation in Next.js and learned how to leverage its features to enhance the developer experience and improve application performance. The course provided a comprehensive, hands-on project that guided me through the entire development lifecycle—from setup to cloud deployment—enabling me to understand the practical applications of server-side rendering, routing, and API integration. This experience has equipped me with the skills and confidence to apply Next.js and TypeScript effectively in future web development projects.',
-//         skills: ['Next.js', 'Web Development', 'React.js', 'Frontend Development'],
-//         ongoing: false,
-//     },
-//     {
-//         name: 'Product Management First Steps',
-//         platform: 'LinkedIn Learning',
-//         year: 'June 2025',
-//         description: 'Throughout the course, I learned to identify various types of products and distinguish between different industry sectors. I explored the essential elements that contribute to building a high-quality extended team and gained insight into effectively managing a product life cycle. The course also covered how to develop a strong research plan, how to break down and present a compelling idea pitch, and how to manage product iterations by identifying versions, releases, and sprints. Additionally, I learned how to track project progress using a burndown chart and define a go-to-market strategy—skills that are foundational to successful product management.',
-//         skills: ['Product Management', 'Product Life Cycle', 'Agile Methodologies'],
-//         ongoing: false,
-//     },
-//     {
-//         name: 'GraphQL: The Big Picture',
-//         platform: 'Pluralsight',
-//         year: '2023',
-//         description: 'Comprehensive overview of GraphQL, including schema design, queries, mutations, and subscriptions.',
-//         skills: ['GraphQL', 'Apollo Client', 'Schema Design', 'API Design'],
-//         ongoing: false,
-//     },
-//     {
-//         name: 'Google Cloud Skills Boost',
-//         platform: 'Google Cloud',
-//         year: '2022',
-//         description: 'Completed several quests on Google Cloud technologies, focusing on serverless architecture and cloud functions.',
-//         skills: ['Google Cloud Platform', 'Firebase', 'Serverless', 'Cloud Functions']
-//     },
-//     {
-//         name: 'Web Accessibility Fundamentals',
-//         platform: 'Coursera',
-//         year: '2022',
-//         description: 'Learned to build web applications that are accessible to people with disabilities, following WCAG standards.',
-//         skills: ['Accessibility (a11y)', 'WCAG', 'ARIA', 'Semantic HTML']
-//     }
-// ];
+//Coursework Data
+export const COURSES_DATA: Course[] = [
+    {
+        name: 'Using Python for Automation',
+        platform: 'LinkedIn Learning',
+        year: 'July 2025',
+        description: 'Recently completed a comprehensive course on Python Automation, where I gained hands-on experience streamlining repetitive tasks such as file handling, bulk data updates, and web scraping using Beautiful Soup and Selenium. The course deepened my skills in parsing, error handling, and working efficiently with the command line. I also explored API integration, enhancing my ability to build connected, scalable solutions. This journey wasn’t just about writing code—it was about leveraging Python to craft smart, time-saving automation tools that elevate productivity and problem-solving in real-world applications.',
+        skills: ['Web Scraping', 'Python', 'Process Automation', 'Data Extraction', 'Selenium', 'Beautiful Soup'],
+        ongoing: false,
+    },
+    {
+        name: 'Learning Next.js',
+        platform: 'LinkedIn Learning',
+        year: 'July 2025',
+        description: 'Through this course, I gained a solid foundation in Next.js and learned how to leverage its features to enhance the developer experience and improve application performance. The course provided a comprehensive, hands-on project that guided me through the entire development lifecycle—from setup to cloud deployment—enabling me to understand the practical applications of server-side rendering, routing, and API integration. This experience has equipped me with the skills and confidence to apply Next.js and TypeScript effectively in future web development projects.',
+        skills: ['Next.js', 'Web Development', 'React.js', 'Frontend Development'],
+        ongoing: false,
+    },
+    {
+        name: 'Product Management First Steps',
+        platform: 'LinkedIn Learning',
+        year: 'June 2025',
+        description: 'Throughout the course, I learned to identify various types of products and distinguish between different industry sectors. I explored the essential elements that contribute to building a high-quality extended team and gained insight into effectively managing a product life cycle. The course also covered how to develop a strong research plan, how to break down and present a compelling idea pitch, and how to manage product iterations by identifying versions, releases, and sprints. Additionally, I learned how to track project progress using a burndown chart and define a go-to-market strategy—skills that are foundational to successful product management.',
+        skills: ['Product Management', 'Product Life Cycle', 'Agile Methodologies'],
+        ongoing: false,
+    },
+    {
+        name: 'GraphQL: The Big Picture',
+        platform: 'Pluralsight',
+        year: '2023',
+        description: 'Comprehensive overview of GraphQL, including schema design, queries, mutations, and subscriptions.',
+        skills: ['GraphQL', 'Apollo Client', 'Schema Design', 'API Design'],
+        ongoing: false,
+    },
+    {
+        name: 'Google Cloud Skills Boost',
+        platform: 'Google Cloud',
+        year: '2022',
+        description: 'Completed several quests on Google Cloud technologies, focusing on serverless architecture and cloud functions.',
+        skills: ['Google Cloud Platform', 'Firebase', 'Serverless', 'Cloud Functions']
+    },
+    {
+        name: 'Web Accessibility Fundamentals',
+        platform: 'Coursera',
+        year: '2022',
+        description: 'Learned to build web applications that are accessible to people with disabilities, following WCAG standards.',
+        skills: ['Accessibility (a11y)', 'WCAG', 'ARIA', 'Semantic HTML']
+    }
+];
 
-// // Graduate Coursework Data
-// export const GRADUATE_COURSES_DATA: Course[] = [
-//     {
-//         name: 'Data Processing and Analysis in Python',
-//         platform: 'University of Maryland',
-//         year: '2025',
-//         description: 'In-depth study of algorithm design and analysis, covering topics like dynamic programming, graph algorithms, and NP-completeness.',
-//         skills: ['Python Programming', 'Regular Expressions', 'Text Processing', 'Machine Learning', 'Pandas', 'NumPy'],
-//         ongoing: false,
-//     },
-//     {
-//         name: 'Database Management Systems',
-//         platform: 'University of Maryland',
-//         year: '2025',
-//         description: 'A comprehensive introduction to machine learning theory and practical applications, including supervised and unsupervised learning models.',
-//         skills: ['SQL', 'Entity-Relationship Diagrams', 'Relational Databases', 'Database Design'],
-//         ongoing: false,
-//     },
-//     {
-//         name: 'Data Models and Decision Using R',
-//         platform: 'University of Maryland',
-//         year: '2025',
-//         description: 'Exploring the principles of designing, implementing, and evaluating user interfaces. Focus on user-centered design methodologies.',
-//         skills: ['Statistics (Hypothesis testing, Correlation, IQR, Outlier analysis, T-test)', 'Advanced Excel', 'R Programming', 'Data Visualization', 'Data Analysis'],
-//         ongoing: false,
-//     },
-//     {
-//         name: 'Business Process Analysis for Information Systems',
-//         platform: 'University of Maryland',
-//         year: '2025',
-//         description: 'Exploring the principles of designing, implementing, and evaluating user interfaces. Focus on user-centered design methodologies.',
-//         skills: ['Business Process Modeling', 'Business Process Management', 'Systems Analysis', 'Requirements Gathering', 'Documentation', 'System Design', 'Agile Methodologies', 'Project Management'],
-//         ongoing: false,
-//     },
-//     {
-//         name: 'Blockchain Technologies and Business Applications',    
-//         platform: 'University of Maryland',
-//         year: '2025',
-//         description: 'Exploring the principles of designing, implementing, and evaluating user interfaces. Focus on user-centered design methodologies.',
-//         skills: ['Blockchain', 'Cryptography', 'Distributed Ledger Technology', 'Ethereum'],
-//         ongoing: true
-//     }
-// ];
+// Graduate Coursework Data
+export const GRADUATE_COURSES_DATA: Course[] = [
+    {
+        name: 'Data Processing and Analysis in Python',
+        platform: 'University of Maryland',
+        year: '2025',
+        description: 'In-depth study of algorithm design and analysis, covering topics like dynamic programming, graph algorithms, and NP-completeness.',
+        skills: ['Python Programming', 'Regular Expressions', 'Text Processing', 'Machine Learning', 'Pandas', 'NumPy'],
+        ongoing: false,
+    },
+    {
+        name: 'Database Management Systems',
+        platform: 'University of Maryland',
+        year: '2025',
+        description: 'A comprehensive introduction to machine learning theory and practical applications, including supervised and unsupervised learning models.',
+        skills: ['SQL', 'Entity-Relationship Diagrams', 'Relational Databases', 'Database Design'],
+        ongoing: false,
+    },
+    {
+        name: 'Data Models and Decision Using R',
+        platform: 'University of Maryland',
+        year: '2025',
+        description: 'Exploring the principles of designing, implementing, and evaluating user interfaces. Focus on user-centered design methodologies.',
+        skills: ['Statistics (Hypothesis testing, Correlation, IQR, Outlier analysis, T-test)', 'Advanced Excel', 'R Programming', 'Data Visualization', 'Data Analysis'],
+        ongoing: false,
+    },
+    {
+        name: 'Business Process Analysis for Information Systems',
+        platform: 'University of Maryland',
+        year: '2025',
+        description: 'Exploring the principles of designing, implementing, and evaluating user interfaces. Focus on user-centered design methodologies.',
+        skills: ['Business Process Modeling', 'Business Process Management', 'Systems Analysis', 'Requirements Gathering', 'Documentation', 'System Design', 'Agile Methodologies', 'Project Management'],
+        ongoing: false,
+    },
+    {
+        name: 'Blockchain Technologies and Business Applications',    
+        platform: 'University of Maryland',
+        year: '2025',
+        description: 'Exploring the principles of designing, implementing, and evaluating user interfaces. Focus on user-centered design methodologies.',
+        skills: ['Blockchain', 'Cryptography', 'Distributed Ledger Technology', 'Ethereum'],
+        ongoing: true
+    }
+];
 
 // Contact Page Data
 export const CONTACT_DETAILS = {
@@ -397,6 +399,9 @@ export const getPortfolioContext = () => {
         Introduction: ${JSON.stringify(INTRODUCTION, replacer)}
         Objective: ${OBJECTIVE}
         Skills: ${JSON.stringify(SKILLS_DATA, replacer)}
+        Graduate Courses: ${JSON.stringify(GRADUATE_COURSES_DATA, replacer)}
+        Projects: ${JSON.stringify(PROJECT_DATA, replacer)}
+        Courses: ${JSON.stringify(COURSES_DATA, replacer)}
         Work Experience: ${JSON.stringify(WORK_EXPERIENCE_DATA, replacer)}
         Leadership Roles: ${JSON.stringify(LEADERSHIP_ROLES_DATA, replacer)}
         Volunteer Experience: ${JSON.stringify(VOLUNTEER_EXPERIENCE_DATA, replacer)}

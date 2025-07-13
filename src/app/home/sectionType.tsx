@@ -61,7 +61,7 @@ export interface LeadershipRole {
 }
 
 export interface Course {
-  id: string;
+  id?: string;
   name: string;
   platform: string;
   year: string;
