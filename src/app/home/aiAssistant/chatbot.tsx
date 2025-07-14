@@ -86,7 +86,7 @@ const Chatbot: React.FC = () => {
         try {
             const portfolioContext = getPortfolioContext();
             
-            const systemPrompt = `You are a helpful, friendly, and professional AI assistant for Hemant's portfolio website. Your purpose is to answer questions about Hemant based on the detailed portfolio information provided in an effective and engaging manner. Be conversational and engaging. If a question is outside the scope of the provided context, politely state that you can only answer questions related to Hemant's professional profile. Do not invent information. Here is the portfolio data: ${portfolioContext}`;
+            const systemPrompt = `You are a helpful, friendly, and professional AI assistant for Hemant's portfolio website. Your purpose is to answer questions about Hemant based on the detailed portfolio information provided in an effective, engaging manner, and present information in a structured way. Be conversational and engaging. If a question is outside the scope of the provided context, politely state that you can only answer questions related to Hemant's professional profile. Do not invent information. Here is the portfolio data: ${portfolioContext}`;
 
             const apiMessages = newMessages.map(msg => ({
                 role: msg.sender === 'user' ? 'user' : 'assistant',

@@ -142,7 +142,7 @@ export const PROJECT_DATA: Project[] = [
   },
    {
       name: 'AI-Powered Social Media Automation Bot',
-      timeline: 'June 2024 - Present',
+      timeline: 'June 2025 - Present',
       ongoing: true,
       description: 'I am currently developing an AI-powered social media automation bot designed to help users post content across multiple platforms—including X (formerly Twitter), LinkedIn, and Facebook—with a single click. The bot leverages AI to generate tailored content, adapting it to meet each platform’s specific format, tone, and character limitations. I am building features to schedule daily posts automatically and customize content variations to maximize user engagement. This project is aimed at simplifying social media management while ensuring consistent and optimized visibility. ',
       skills: ['Python', 'Gemini / NLP API Usage', 'Prompt Engineering']
@@ -367,7 +367,7 @@ export const SOCIAL_LINKS: SocialLink[] = [
     },
     {
         name: 'Instagram',
-        url: '#',
+        url: 'https://www.instagram.com/hem__kush?igsh=anplMnRzNjJ1ODJy',
         icon: <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fillRule="evenodd" d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.85s-.011 3.584-.069 4.85c-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07s-3.584-.012-4.85-.07c-3.252-.148-4.771-1.691-4.919-4.919-.058-1.265-.069-1.645-.069-4.85s.011-3.584.069-4.85c.149-3.225 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.85-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948s.014 3.667.072 4.947c.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072s3.667-.014 4.947-.072c4.358-.2 6.78-2.618 6.98-6.98.059-1.281.073-1.689.073-4.948s-.014-3.667-.072-4.947c-.2-4.358-2.618-6.78-6.98-6.98-1.281-.058-1.689-.072-4.948-.072zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.162 6.162 6.162 6.162-2.759 6.162-6.162-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4s1.791-4 4-4 4 1.79 4 4-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" clipRule="evenodd" /></svg>
     },
     {
