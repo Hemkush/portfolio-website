@@ -1,6 +1,9 @@
+'use client';
+import { useState } from 'react';
 import React from 'react';
 
 export default function CourseCard({ name, description, date, skills, ongoing, platform }: {  name: string, description: string, date: string, skills: string[], ongoing?: boolean, platform?: string }) {
+  const [isExpanded, setIsExpanded] = useState(false);
   return (
     <div className="bg-gray-800/60 backdrop-blur-sm border border-gray-700/60 rounded-xl p-6 flex flex-col gap-4 shadow-lg transition-all duration-300 hover:border-cyan-400/50 hover:shadow-cyan-500/10">
       {/* Card Header */}
@@ -15,7 +18,14 @@ export default function CourseCard({ name, description, date, skills, ongoing, p
       </div>
 
       {/* Description */}
-      <p className="text-gray-300 text-sm flex-grow">{description}</p>
+      <p className={`text-gray-300 text-sm flex-grow ${!isExpanded ? 'line-clamp-5' : ''}`}>{description}</p>
+      <button
+          onClick={() => setIsExpanded(!isExpanded)}
+          className="text-cyan-400 hover:text-cyan-300 font-semibold text-sm mt-2 transition-colors display: contents"
+          aria-expanded={isExpanded}
+        >
+          {isExpanded ? 'Read Less' : 'Read More'}
+        </button>
       
       {/* Skills Section */}
       <div className="mt-auto pt-4 border-t border-gray-700/50">

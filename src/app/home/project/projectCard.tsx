@@ -25,7 +25,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
 
       {/* Description with toggle */}
       <div>
-        <p className={`text-gray-300 transition-all duration-300 ease-in-out ${!isExpanded ? 'line-clamp-3' : ''}`}>
+        <p className={`text-gray-300 transition-all duration-300 ease-in-out ${!isExpanded ? 'line-clamp-5' : ''}`}>
           {project.description}
         </p>
         <button

@@ -16,7 +16,7 @@ export function PostSkeleton() {
 export function PostsSkeleton() {
   return (
     <>
-      {Array.from({ length: 6 }, (_, index) => (
+      {Array.from({ length: 10 }, (_, index) => (
         <PostSkeleton key={index} />
       ))}
     </>

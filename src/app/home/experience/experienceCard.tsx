@@ -1,3 +1,5 @@
+'use client';
+import { useState } from 'react';
 import React from 'react';
 import type { WorkExperience } from '../sectionType';
 
@@ -6,6 +8,7 @@ interface ExperienceCardProps {
 }
 
 export const ExperienceCard: React.FC<ExperienceCardProps> = ({ experience }) => {
+    const [isExpanded, setIsExpanded] = useState(false);
     return (
         <div className="bg-gray-800/60 backdrop-blur-sm border border-gray-700/60 rounded-xl p-6 shadow-lg transition-all duration-300 hover:border-cyan-400/50 hover:shadow-cyan-500/10">
             <div className="flex flex-col md:flex-row gap-6">
@@ -18,11 +21,18 @@ export const ExperienceCard: React.FC<ExperienceCardProps> = ({ experience }) =>
 
                 {/* Right Side: Description and Skills */}
                 <div className="md:w-2/3">
-                    <ul className="list-disc list-inside space-y-2 text-gray-300">
+                    <ul className={`list-disc list-inside space-y-2 text-gray-300 ${!isExpanded ? 'line-clamp-5' : ''}`}>
                         {experience.description.map((point, index) => (
                             <li key={index}>{point}</li>
                         ))}
                     </ul>
+                    <button
+          onClick={() => setIsExpanded(!isExpanded)}
+          className="text-cyan-400 hover:text-cyan-300 font-semibold text-sm mt-2 transition-colors"
+          aria-expanded={isExpanded}
+        >
+          {isExpanded ? 'Read Less' : 'Read More'}
+        </button>
                     
                     <div className="mt-4 pt-4 border-t border-gray-700/50">
                         <h4 className="text-sm font-semibold text-gray-200 mb-2">Skills Leveraged:</h4>
