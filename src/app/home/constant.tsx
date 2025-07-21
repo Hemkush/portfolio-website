@@ -144,8 +144,8 @@ export const PROJECT_DATA: Project[] = [
       name: 'AI-Powered Social Media Automation Bot',
       timeline: 'June 2025 - Present',
       ongoing: true,
-      description: 'I am currently developing an AI-powered social media automation bot designed to help users post content across multiple platforms—including X (formerly Twitter), LinkedIn, and Facebook—with a single click. The bot leverages AI to generate tailored content, adapting it to meet each platform’s specific format, tone, and character limitations. I am building features to schedule daily posts automatically and customize content variations to maximize user engagement. This project is aimed at simplifying social media management while ensuring consistent and optimized visibility. ',
-      skills: ['Python', 'Gemini / NLP API Usage', 'Prompt Engineering']
+      description: 'To tackle the repetitive and time-consuming nature of social media management, I developed a sophisticated AI-Powered Social Media Automation Bot. This Python-based solution seamlessly integrates with the Twitter (X) and Reddit REST APIs to fully automate content pipelines. The bot is engineered to generate over 30 unique content variations per campaign and features dynamic scheduling logic for real-time, customized publishing. A key feature is its ability to perform real-time web scraping for the latest AI news, which is then structured and made available to the user through interactive dropdowns for on-demand content generation. The project successfully reduced manual posting efforts by 90% and was meticulously documented, covering everything from API endpoints to error-handling workflows and demonstrating sound judgment in managing complex automation tasks.',
+      skills: ['Python', 'Gemini / NLP API Usage', 'Prompt Engineering', 'Scripting', 'Task Automation']
   },
   {
       name: 'COVID-19 Data Analysis using Python',
