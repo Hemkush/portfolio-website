@@ -30,6 +30,19 @@ export async function getPosts() {
     }
 }
 
+export async function deletePosts(id: string) {
+    
+    try {
+        unstable_noStore(); // Prevent caching of this function
+       // await new Promise((resolve) => setTimeout(resolve, 1000)); // Simulate a delay
+        const data = await sql`DELETE FROM posts WHERE id = (${id})`;
+        console.log("Deleted data:", data.rows);
+    return data.rows;
+    } catch (error) {
+        console.error("Error connecting to the database:", error);
+    }
+}
+
 export async function getCoursework() {
     try {
         unstable_noStore(); // Prevent caching of this function

@@ -41,7 +41,7 @@ export const EDUCATION_DATA: EducationItem[] = [
     institution: 'University of Maryland - Robert H. Smith School of Business',
     years: '2025 - 2026',
     logo: '/business_logo.ico',
-    gpa: '3.93/4.0',
+    gpa: '3.93/4.00',
     skills: ['Problem Solving', 'Business Acumen', 'Empathy', 'Strategic Thinking', 'Data Analysis', 'SQL', 'Leadership', 'Communication', 'Teamwork', 'Python', 'Collaborative Problem Solving']
   },  
   {
@@ -49,7 +49,7 @@ export const EDUCATION_DATA: EducationItem[] = [
     institution: 'National Institute of Technology',
     years: '2017 - 2021',
     logo: '/rourkela_logo.ico',
-    gpa: '8.13/10.0',
+    gpa: '3.40/4.00',
     skills: ['Problem Solving', 'Empathy', 'Strategic Thinking', 'Management', 'Leadership', 'Team Management', 'Communication', 'Teamwork', 'Collaborative Problem Solving']
   },
   {
