@@ -4,6 +4,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import OpenAI from "openai";
 import { getPortfolioContext } from '../constant';
 import type { ChatMessage } from '../sectionType';
+import { getPosts } from '@/app/lib/data';
 
 const ChatIcon = (props: React.SVGProps<SVGSVGElement>) => (
     // <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" {...props}>
@@ -85,8 +86,11 @@ const Chatbot: React.FC = () => {
 
         try {
             const portfolioContext = getPortfolioContext();
-            
-            const systemPrompt = `You are a helpful, friendly, and professional AI assistant for Hemant's portfolio website. Your purpose is to answer questions about Hemant based on the detailed portfolio information provided in an effective, engaging manner, and present information in a structured way. Be conversational and engaging. If a question is outside the scope of the provided context, politely state that you can only answer questions related to Hemant's professional profile. Do not invent information. Here is the portfolio data: ${portfolioContext}`;
+              const postData = await getPosts().then((posts) => JSON.stringify(posts?.map((post) => ({
+                title: post.title,
+                content: post.content
+              }))));  
+            const systemPrompt = `You are a helpful, friendly, and professional AI assistant for Hemant's portfolio website. Your purpose is to answer questions about Hemant based on the detailed portfolio information provided in an effective, engaging manner, and present information in a structured way. Be conversational and engaging. If a question is outside the scope of the provided context, politely state that you can only answer questions related to Hemant's professional profile. Do not invent information. Here is the portfolio data: ${portfolioContext} ${postData}`;
 
             const apiMessages = newMessages.map(msg => ({
                 role: msg.sender === 'user' ? 'user' : 'assistant',

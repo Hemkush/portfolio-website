@@ -386,6 +386,43 @@ export const SOCIAL_LIFE_IMAGES: string[] = [
   '/NIT Gate.png',
 ];
 
+// export async function getPosts() {
+//     try {
+//         unstable_noStore(); // Prevent caching of this function
+//        // await new Promise((resolve) => setTimeout(resolve, 1000)); // Simulate a delay
+//         const data = await sql`SELECT * FROM posts`;
+//         console.log("Posts data:", data.rows);
+//     return data.rows;
+//     } catch (error) {
+//         console.error("Error connecting to the database:", error);
+//     }
+// }
+
+// export async function getPosts() {
+//   try {
+//     unstable_noStore(); // Prevent caching of this function
+//     const data = await sql`SELECT * FROM posts`;
+
+//     // Convert data to string format
+//     const replacer = (key: string, value: unknown) => {
+      
+//       return value;
+//     };
+
+//     const postsContext = data.rows.map((post) => {
+//       return `
+//         Title: ${JSON.stringify(post.title, replacer)}
+//         Content: ${JSON.stringify(post.content, replacer)}
+//         Date: ${JSON.stringify(post.date, replacer)}
+//       `;
+//     }).join('\n');
+
+//     return postsContext.replace(/"/g, "'"); // Use single quotes to avoid issues
+//   } catch (error) {
+//     console.error("Error connecting to the database:", error);
+//   }
+// }
+
 export const getPortfolioContext = () => {
     // A helper function to prevent stringifying React nodes (icons)
     const replacer = (key: string, value: unknown) => {
