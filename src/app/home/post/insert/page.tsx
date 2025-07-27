@@ -1,12 +1,15 @@
 "use client";
 import { v4 as uuidv4 } from 'uuid';
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { Section } from '../../about/section';
+import { User } from '@/app/lib/definition';
+import { getSession } from 'next-auth/react';
 export default function Page() {
   const router = useRouter()
   const PROMPT = "You are a creative blog writer. write a 200 to 300 words blog post about the title below. You can write anything you want, but it must be at least 50 words long. The title is: "
   const [generating, setGenerating] = useState(false);
+  const [user, setUser] = useState<User | null>(null);
   const [content, setContent] = useState('');
   const [formData, setFormData] = useState({
     id: '',
@@ -28,7 +31,7 @@ export default function Page() {
     e.preventDefault();
     // if (formData.title !== '' && formData.content !== '') {
     const uuid = uuidv4();
-    fetch(`/api/handlers?id=${uuid}&title=${formData.title}&author=${formData.author}&content=${content || formData.content}&date=${formData.date}`, {
+    fetch(`/api/handlers?id=${uuid}&title=${formData.title}&author=${user?.name}&content=${content || formData.content}&date=${formData.date}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -74,9 +77,14 @@ export default function Page() {
       }).catch(console.error);
   }
 
-  // useEffect(() => {
-  //   console.log('useEffect called', process.env.OPENAI_API_KEY);
-  // }, [router]);
+   useEffect(() => {
+    getSession().then((session) => {
+      setUser(session?.user as User | null);
+      if (!session?.user) {
+        router.push('/blog/posts');
+      }
+    })
+  });
 
   const postContent = useMemo(() => {
     return content || formData.content;

@@ -24,7 +24,7 @@ const links = [
   { name: 'Projects', href: '/home/project', icon: LightBulbIcon},
   { name: 'Course', href: '/home/course', icon: BookOpenIcon },
   { name: 'Blogs', href: '/home/blog', icon: DocumentDuplicateIcon },
-  { name: 'Contact', href: '/home/contact', icon: EnvelopeIcon },
+  { name: 'Contact', href: '/home/contact', icon: EnvelopeIcon }
 ];
 
 // export default function NavLinks() {
