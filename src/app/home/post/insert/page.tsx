@@ -81,7 +81,7 @@ export default function Page() {
     getSession().then((session) => {
       setUser(session?.user as User | null);
       if (!session?.user) {
-        router.push('/blog/posts');
+        router.push('/home/blog');
       }
     })
   });

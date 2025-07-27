@@ -1,5 +1,5 @@
 import   { createClient } from '@vercel/postgres';
-import { unstable_noStore } from 'next/cache';
+//import { unstable_noStore } from 'next/cache';
 import { sql } from '@vercel/postgres';
 
 export async function connectToDB() {
@@ -20,10 +20,9 @@ export async function connectToDB() {
 export const dynamic = 'force-dynamic';
 export async function getPosts() {
     try {
-        unstable_noStore(); // Prevent caching of this function
+        // unstable_noStore(); // Prevent caching of this function
        // await new Promise((resolve) => setTimeout(resolve, 1000)); // Simulate a delay
         const data = await sql`SELECT * FROM posts`;
-        console.log("Posts data:", data.rows);
     return data.rows;
     } catch (error) {
         console.error("Error connecting to the database:", error);
@@ -33,10 +32,9 @@ export async function getPosts() {
 export async function deletePosts(id: string) {
     
     try {
-        unstable_noStore(); // Prevent caching of this function
+        // unstable_noStore(); // Prevent caching of this function
        // await new Promise((resolve) => setTimeout(resolve, 1000)); // Simulate a delay
         const data = await sql`DELETE FROM posts WHERE id = (${id})`;
-        console.log("Deleted data:", data.rows);
     return data.rows;
     } catch (error) {
         console.error("Error connecting to the database:", error);
@@ -45,7 +43,7 @@ export async function deletePosts(id: string) {
 
 export async function getCoursework() {
     try {
-        unstable_noStore(); // Prevent caching of this function
+        // unstable_noStore(); // Prevent caching of this function
         const data = await sql`SELECT * FROM course_details`;
     return data.rows;
     } catch (error) {

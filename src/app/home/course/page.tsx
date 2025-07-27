@@ -27,7 +27,6 @@ if (courseData) {
 // graduateCourses = courseData?.filter((courseDetail) => courseDetail.course_platform === "Robert H. Smith School of Business (UMD)") || [];
 
     const sortedOnlineCourses = onlineCourses ? [...onlineCourses].sort((a, b) => Number(b.course_status) - Number(a.course_status)) : [];
-    console.log("Sorted Online Courses:", sortedOnlineCourses);
     const sortedGraduateCourses = graduateCourses ? [...graduateCourses].sort((a, b) => Number(b.course_status) - Number(a.course_status)) : [];
     return (
         <div className="container mx-auto px-4 md:px-8 pb-16">
