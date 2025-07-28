@@ -9,8 +9,8 @@ interface PageProps {
 export default async function Page({ params }: PageProps) {
     const resolvedParams = await params;
     const posts = await getPosts();
-    console.log("Resolved Params:", resolvedParams);
-    console.log("Posts:", posts);
+    // console.log("Resolved Params:", resolvedParams);
+    // console.log("Posts:", posts);
     const post = posts?.find((post) => post.id === resolvedParams.id);
     
     return (
@@ -24,7 +24,7 @@ export default async function Page({ params }: PageProps) {
           id={post.id}
           title={post.title}
           content={post.content}
-          date={post.date}
+          date={post.date.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
           author={post.author}
            /> : <p>Post not found.</p>}
            </Section>
