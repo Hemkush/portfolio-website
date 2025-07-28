@@ -46,7 +46,7 @@ export default async function Page() {
           id={post.id}
           title={post.title}
           content={post.content}
-          date={post.date}
+          date={post.date.toLocaleDateString('en-US')}
           author={post.author}
         />
       ))}

@@ -22,7 +22,7 @@ export async function getPosts() {
     try {
         // unstable_noStore(); // Prevent caching of this function
        // await new Promise((resolve) => setTimeout(resolve, 1000)); // Simulate a delay
-        const data = await sql`SELECT * FROM posts`;
+        const data = await sql`SELECT * FROM posts ORDER BY date DESC`;
     return data.rows;
     } catch (error) {
         console.error("Error connecting to the database:", error);
