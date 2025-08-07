@@ -219,6 +219,12 @@ export const LEADERSHIP_ROLES_DATA: LeadershipRole[] = [
         description: 'I was recently elected as a Program Representative, where my role involves actively representing my department in Assembly meetings. As part of my responsibilities, I am expected to stay informed about issues on the agenda in advance and engage in regular communication with students and faculty within my program. This includes gathering input, addressing concerns, and caucusing with members of the department prior to meetings to ensure that our collective perspectives are accurately represented. This position allows me to contribute to academic governance and strengthen collaboration between students and administration.'
     },
     {
+        organization: 'National Institute of Technology Rourkela',
+        role: 'Placement Coordinator',
+        timeline: 'May 2020 - May 2021',
+        description: 'Coordinated end-to-end campus recruitment activities for over 800 students, managing logistics, hospitality, and communication with corporate partners to ensure a seamless placement process.Built strong industry-institute relationships and collaborated with stakeholders to improve student placement outcomes and align company needs with student goals. Designed and led professional development workshops—such as resume building, mock interviews, and group discussions—to enhance students’ job readiness and engagement with placement services.'
+    },
+    {
         organization: 'NITRUTSAV NIT ROURKELA',
         role: 'Core-Coordinator',
         timeline: 'Dec 2019 - Feb 2020',
@@ -385,43 +391,6 @@ export const SOCIAL_LIFE_IMAGES: string[] = [
   '/UMD_cover1.png', 
   '/NIT Gate.png',
 ];
-
-// export async function getPosts() {
-//     try {
-//         unstable_noStore(); // Prevent caching of this function
-//        // await new Promise((resolve) => setTimeout(resolve, 1000)); // Simulate a delay
-//         const data = await sql`SELECT * FROM posts`;
-//         console.log("Posts data:", data.rows);
-//     return data.rows;
-//     } catch (error) {
-//         console.error("Error connecting to the database:", error);
-//     }
-// }
-
-// export async function getPosts() {
-//   try {
-//     unstable_noStore(); // Prevent caching of this function
-//     const data = await sql`SELECT * FROM posts`;
-
-//     // Convert data to string format
-//     const replacer = (key: string, value: unknown) => {
-      
-//       return value;
-//     };
-
-//     const postsContext = data.rows.map((post) => {
-//       return `
-//         Title: ${JSON.stringify(post.title, replacer)}
-//         Content: ${JSON.stringify(post.content, replacer)}
-//         Date: ${JSON.stringify(post.date, replacer)}
-//       `;
-//     }).join('\n');
-
-//     return postsContext.replace(/"/g, "'"); // Use single quotes to avoid issues
-//   } catch (error) {
-//     console.error("Error connecting to the database:", error);
-//   }
-// }
 
 export const getPortfolioContext = () => {
     // A helper function to prevent stringifying React nodes (icons)
