@@ -117,12 +117,13 @@ export const ACHIEVEMENTS_DATA: Achievement[] = [
 
 // List of core skills
 export const SKILLS_DATA: string[] = [
-  'Python', 'Java', 'SQL', 'TypeScript', 'Next.js', 'SpringBoot', 'Node.js', 'Tailwind CSS', 'Git & GitHub', 'Data Analytics', 'Agile Methodologies', 'Statistics'
+  'Python', 'Java', 'SQL', 'TypeScript', 'JavaScript', 'Next.js', 'SpringBoot', 'Node.js', 'Tailwind CSS', 'Git & GitHub', 'Data Analytics', 'RAG', 'Data Visualization', 'Web Scraping',
+  'Natural Language Processing', 'Machine Learning', 'Deep Learning', 'Web Development', 'Agile Scrum', 'LangChain', 'LangGraph', 'FastAPI', 'AI Integration', 'Statistics'
 ];
 
 // List of soft skills
 export const SKILLS_SOFT: string[] = [
-  'Adaptability', 'Critical Thinking', 'Creativity', 'Detail-Oriented', 'Documentations', 'Problem-Solving', 'Collaboration', 'Communication', 'Time Management', 'Leadership', 'Empathy'
+  'Adaptability', 'Critical Thinking', 'Creativity', 'Detail-Oriented', 'Documentations', 'Problem-Solving', 'Collaboration', 'Communication', 'Time Management', 'Leadership', 'Empathy', 'Teamwork', 'Project Management', 'User-Centric Design', 'Business Acumen', 'Strategic Thinking'
 ];
 
 export const PROJECT_DATA: Project[] = [

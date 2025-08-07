@@ -7,7 +7,7 @@ import { auth } from "../../../../auth.config"
 
 export default async function Page() {
   const posts = await getPosts();
-  const session = await auth()
+  const session = await auth();
   
   return (
 
@@ -20,9 +20,9 @@ export default async function Page() {
             <Section title="Latest Posts">
                 {session ? (
                 <div className="flex justify-end mb-6">
-                    <div className="flex items-center gap-2 pr-2">
+                    {/* <div className="flex items-center gap-2 pr-2">
                     <UserButton />
-                    </div>
+                    </div> */}
                     <Link href="/home/post/insert">
                     <button className="bg-cyan-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-cyan-600 transition-colors duration-300 flex items-center gap-2 shadow-lg shadow-cyan-500/20">
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
