@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+// import { useState } from 'react';
 import React from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -12,7 +12,7 @@ const TrashIcon = (props: React.SVGProps<SVGSVGElement>) => (
     </svg>
 );
 export default function Component({ id, title, content, date, author }: { id: string, title: string, content: string, date: string, author?: string }) {
-  const [isExpanded, setIsExpanded] = useState(false);
+  // const [isExpanded, setIsExpanded] = useState(false);
   const router = useRouter()
   const handleDeleteClick = (e: React.MouseEvent) => {
     e.stopPropagation(); // Prevent the card's main click event
@@ -41,13 +41,14 @@ export default function Component({ id, title, content, date, author }: { id: st
         </div>
 
         {/* Snippet */}
-        <p className={`text-gray-300 leading-relaxed ${!isExpanded ? 'line-clamp-4' : ''}`}>{content}</p>
+        {/* <p className={`text-gray-300 leading-relaxed ${!isExpanded ? 'line-clamp-4' : ''}`}>{content}</p> */}
+        <p className={`text-gray-300 leading-relaxed`}>{content}</p>
         <button
-          onClick={() => setIsExpanded(!isExpanded)}
+          // onClick={() => setIsExpanded(!isExpanded)}
           className="text-cyan-400 hover:text-cyan-300 font-semibold text-sm mt-2 transition-colors display: contents"
-          aria-expanded={isExpanded}
+          // aria-expanded={isExpanded}
         >
-          {isExpanded ? 'Read Less' : 'Read More'}
+          {/* {isExpanded ? 'Read Less' : 'Read More'} */}
         </button>
 
         {/* Tags Section */}
