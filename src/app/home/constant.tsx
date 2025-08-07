@@ -127,6 +127,13 @@ export const SKILLS_SOFT: string[] = [
 
 export const PROJECT_DATA: Project[] = [
   {
+      name: 'Document Analysis RAG-Chatbot',
+      timeline: 'July 2025 - Present',
+      ongoing: true,
+      description: 'Engineered an end-to-end FastAPI RAG chatbot using LangChain & LangGraph to process user queries from uploaded documents. Developed multi-agent capability and full-stack integration (frontend + backend) for enhanced accuracy and contextual depth. Tested and scaled the solution across 10+ documents with high accuracy, focusing on user-oriented interaction and documentation insight.',
+      skills: ['React', 'FastAPI', 'RAG', 'LangChain', 'LandGraph', 'Multi-Agent Systems', 'Full-Stack Development', 'Document Analysis', 'Python', 'AI Integration']
+  },
+  {
       name: 'Interactive Portfolio Website',
       timeline: 'June 2025 - Present',
       ongoing: true,
@@ -134,18 +141,18 @@ export const PROJECT_DATA: Project[] = [
       skills: ['React', 'Next.js', 'TypeScript', 'Tailwind CSS', 'OpenAI API', 'Vercel']
   },
   {
-      name: 'AI-Driven Analytical Dashboard for E-Livestock Global System',
-      timeline: 'Feb 2025 - Present',
-      ongoing: true,
-      description: 'Associated with University of Maryland - Robert H. Smith School of Business, to develop and implement an AI-driven analytical tool that helps E-Livestock Global transform its operations by empowering farmers to track livestock health and productivity through predictive disease management and optimized feeding; optimize the supply chain for efficiency and transparency through fraud reduction; and enable data-driven market responsiveness by providing deep consumer insights and market trend forecasting. Ultimately, this tool will facilitate stakeholders by providing easily digestible reports and dashboards for data-driven decision-making.',
-      skills: ['Project Management', 'Software Development Life Cycle (SDLC)', 'Data Modeling', 'Process Modeling', 'Systems Analysis', 'Documentation']
-  },
-   {
       name: 'AI-Powered Social Media Automation Bot',
       timeline: 'June 2025 - Present',
       ongoing: true,
       description: 'To tackle the repetitive and time-consuming nature of social media management, I developed a sophisticated AI-Powered Social Media Automation Bot. This Python-based solution seamlessly integrates with the Twitter (X) and Reddit REST APIs to fully automate content pipelines. The bot is engineered to generate over 30 unique content variations per campaign and features dynamic scheduling logic for real-time, customized publishing. A key feature is its ability to perform real-time web scraping for the latest AI news, which is then structured and made available to the user through interactive dropdowns for on-demand content generation. The project successfully reduced manual posting efforts by 90% and was meticulously documented, covering everything from API endpoints to error-handling workflows and demonstrating sound judgment in managing complex automation tasks.',
       skills: ['Python', 'Gemini / NLP API Usage', 'Prompt Engineering', 'Scripting', 'Task Automation']
+  },
+  {
+      name: 'AI-Driven Analytical Dashboard for E-Livestock Global System',
+      timeline: 'Feb 2025 - Present',
+      ongoing: true,
+      description: 'Associated with University of Maryland - Robert H. Smith School of Business, to develop and implement an AI-driven analytical tool that helps E-Livestock Global transform its operations by empowering farmers to track livestock health and productivity through predictive disease management and optimized feeding; optimize the supply chain for efficiency and transparency through fraud reduction; and enable data-driven market responsiveness by providing deep consumer insights and market trend forecasting. Ultimately, this tool will facilitate stakeholders by providing easily digestible reports and dashboards for data-driven decision-making.',
+      skills: ['Project Management', 'Software Development Life Cycle (SDLC)', 'Data Modeling', 'Process Modeling', 'Systems Analysis', 'Documentation']
   },
   {
       name: 'COVID-19 Data Analysis using Python',
