@@ -29,10 +29,10 @@ if (courseData) {
     const sortedOnlineCourses = onlineCourses ? [...onlineCourses].sort((a, b) => Number(b.course_status) - Number(a.course_status)) : [];
     const sortedGraduateCourses = graduateCourses ? [...graduateCourses].sort((a, b) => Number(b.course_status) - Number(a.course_status)) : [];
     return (
-        <div className="container mx-auto px-4 md:px-8 pb-16">
-            <header className="text-center py-8">
-                <h1 className="text-4xl md:text-3xl font-extrabold text-gray-800">My Learning Journey</h1>
-                <p className="mt-2 text-lg text-gray-400">A collection of my academic and self-paced learning activities.</p>
+        <div className="page-shell">
+            <header className="page-header">
+                <h1 className="page-title">My Learning Journey</h1>
+                <p className="page-subtitle">A collection of my academic and self-paced learning activities.</p>
             </header>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mt-4 lg:items-start">

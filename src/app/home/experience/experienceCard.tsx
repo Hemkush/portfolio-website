@@ -16,12 +16,12 @@ export const ExperienceCard: React.FC<ExperienceCardProps> = ({ experience }) =>
                 <div className="md:w-1/3">
                     <h3 className="text-xl font-bold text-white">{experience.role}</h3>
                     <p className="text-lg font-semibold text-cyan-400">{experience.company}</p>
-                    <p className="text-sm text-gray-400 mt-1">{experience.timeline}</p>
+                    <p className="text-sm text-slate-400 mt-1">{experience.timeline}</p>
                 </div>
 
                 {/* Right Side: Description and Skills */}
                 <div className="md:w-2/3">
-                    <ul className={`list-disc list-inside space-y-2 text-gray-300 ${!isExpanded ? 'line-clamp-5' : ''}`}>
+                    <ul className={`list-disc list-inside space-y-2 text-slate-300 ${!isExpanded ? 'line-clamp-5' : ''}`}>
                         {experience.description.map((point, index) => (
                             <li key={index}>{point}</li>
                         ))}
@@ -53,9 +53,9 @@ export const ExperienceCard: React.FC<ExperienceCardProps> = ({ experience }) =>
                                     <path d="M4 9a1 1 0 011-1h10a1 1 0 011 1v7a1 1 0 01-1 1H5a1 1 0 01-1-1V9zm1-3a1 1 0 00-1 1v1.5a1 1 0 001 1h10a1 1 0 001-1V7a1 1 0 00-1-1H5z"></path>
                                 </svg>
                                 <blockquote className="pl-8">
-                                    <p className="text-gray-300">{experience.recommendation.text}</p>
+                                    <p className="text-slate-300">{experience.recommendation.text}</p>
                                     <footer className="text-right mt-2 not-italic">
-                                        <cite className="text-sm text-gray-400">
+                                        <cite className="text-sm text-slate-400">
                                             — {experience.recommendation.name}, {experience.recommendation.title}
                                         </cite>
                                     </footer>

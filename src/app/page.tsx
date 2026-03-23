@@ -47,37 +47,70 @@ export default function AISkillsPage() {
 
         <div style={{ position: 'relative', zIndex: 1, maxWidth: '1200px', margin: '0 auto', padding: `${TOP_PANEL_OFFSET_PX}px 24px 80px` }}>
           <div style={{ padding: '24px 0 44px', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
-            <div style={{ maxWidth: '760px' }}>
-              <div style={{ display: 'inline-block', marginBottom: '14px', padding: '5px 10px', border: '1px solid rgba(56,189,248,0.35)', color: '#38bdf8', fontSize: '10px', letterSpacing: '1.5px', textTransform: 'uppercase', borderRadius: '2px', fontFamily: "'DM Mono', monospace" }}>
-                Open to Work
-              </div>
-              <h1 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 'clamp(40px, 7vw, 72px)', letterSpacing: '2px', lineHeight: 0.95, background: 'linear-gradient(135deg, #e2e8f0 0%, #38bdf8 70%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
-                Hemant Kushwaha
-              </h1>
-              <p style={{ marginTop: '14px', fontSize: '13px', color: '#cbd5e1', letterSpacing: '0.2px' }}>
-                AI Engineer · MS Information Systems · UMD · GPA 3.94
-              </p>
-              <p style={{ marginTop: '6px', fontSize: '12px', color: '#94a3b8', letterSpacing: '0.2px' }}>
-                OPT-eligible May 2026 · Open to AI Engineer / ML Engineer roles
-              </p>
-              <div style={{ marginTop: '20px', display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
-                <CtaButton asChild variant="primary" size="md">
-                  <Link href="/home/contact">Contact Me</Link>
-                </CtaButton>
-                <CtaButton asChild variant="secondary" size="md">
-                  <Link href="/home/project">View Projects</Link>
-                </CtaButton>
-              </div>
-              <div style={{ marginTop: '10px', fontSize: '11px', color: '#94a3b8' }}>
-                {hasResume ? (
-                  <CtaButton asChild variant="tertiary" size="sm">
-                    <a href="/resume.pdf" target="_blank" rel="noreferrer">
-                      Download Resume
-                    </a>
+            <div
+              style={{
+                display: 'grid',
+                gridTemplateColumns: isMobile ? '1fr' : 'minmax(0, 760px) minmax(260px, 1fr)',
+                gap: '24px',
+                alignItems: 'start',
+              }}
+            >
+              <div>
+                <div style={{ display: 'inline-block', marginBottom: '14px', padding: '5px 10px', border: '1px solid rgba(56,189,248,0.35)', color: '#38bdf8', fontSize: '10px', letterSpacing: '1.5px', textTransform: 'uppercase', borderRadius: '2px', fontFamily: "'DM Mono', monospace" }}>
+                  Open to Work
+                </div>
+                <h1 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 'clamp(40px, 7vw, 72px)', letterSpacing: '2px', lineHeight: 0.95, background: 'linear-gradient(135deg, #e2e8f0 0%, #38bdf8 70%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
+                  Hemant Kushwaha
+                </h1>
+                <p style={{ marginTop: '14px', fontSize: '13px', color: '#cbd5e1', letterSpacing: '0.2px' }}>
+                  AI Engineer · MS Information Systems · UMD · GPA 3.94
+                </p>
+                <p style={{ marginTop: '6px', fontSize: '12px', color: '#94a3b8', letterSpacing: '0.2px' }}>
+                  OPT-eligible May 2026 · Open to AI Engineer / ML Engineer roles
+                </p>
+                <div style={{ marginTop: '20px', display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
+                  <CtaButton asChild variant="primary" size="md">
+                    <Link href="/home/contact">Contact Me</Link>
                   </CtaButton>
-                ) : (
-                  <span>Resume file unavailable right now — use Contact Me and I will share it.</span>
-                )}
+                  <CtaButton asChild variant="secondary" size="md">
+                    <Link href="/home/project">View Projects</Link>
+                  </CtaButton>
+                </div>
+                <div style={{ marginTop: '10px', fontSize: '11px', color: '#94a3b8' }}>
+                  {hasResume ? (
+                    <CtaButton asChild variant="tertiary" size="sm">
+                      <a href="/resume.pdf" target="_blank" rel="noreferrer">
+                        Download Resume
+                      </a>
+                    </CtaButton>
+                  ) : (
+                    <span>Resume file unavailable right now — use Contact Me and I will share it.</span>
+                  )}
+                </div>
+              </div>
+
+              <div
+                style={{
+                  border: '1px solid rgba(56,189,248,0.22)',
+                  background: 'rgba(56,189,248,0.06)',
+                  borderRadius: '2px',
+                  padding: '18px 18px 16px',
+                  backdropFilter: 'blur(8px)',
+                  minHeight: '184px',
+                }}
+              >
+                <div style={{ fontSize: '10px', letterSpacing: '2px', textTransform: 'uppercase', color: '#7dd3fc', marginBottom: '10px', fontFamily: "'DM Mono', monospace" }}>
+                  Professional Summary
+                </div>
+                <p style={{ fontSize: '12px', color: '#cbd5e1', lineHeight: 1.75, marginBottom: '8px' }}>
+                  AI Engineer with 3.5+ years of software engineering experience and hands-on delivery of production AI systems across RAG, multi-agent workflows, and full-stack applications.
+                </p>
+                <p style={{ fontSize: '12px', color: '#cbd5e1', lineHeight: 1.75, marginBottom: '8px' }}>
+                  Experienced in building reliable, business-aligned solutions end-to-end using FastAPI, React/Next.js, PostgreSQL, and modern LLM tooling.
+                </p>
+                <p style={{ fontSize: '12px', color: '#cbd5e1', lineHeight: 1.75 }}>
+                  Strong in stakeholder communication, system design, and translating ambiguity into measurable outcomes in fast-paced teams.
+                </p>
               </div>
             </div>
           </div>

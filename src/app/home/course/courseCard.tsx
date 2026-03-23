@@ -14,11 +14,11 @@ export default function CourseCard({ name, description, date, skills, ongoing, p
                 <span className="bg-green-500/20 text-green-300 text-xs font-semibold px-2.5 py-0.5 rounded-full">Ongoing</span>
             )}
         </div>
-        <p className="text-sm font-semibold text-cyan-400">{platform} - <span className="text-gray-400 font-normal">{date}</span></p>
+        <p className="text-sm font-semibold text-cyan-400">{platform} - <span className="text-slate-400 font-normal">{date}</span></p>
       </div>
 
       {/* Description */}
-      <p className={`text-gray-300 text-sm flex-grow ${!isExpanded ? 'line-clamp-5' : ''}`}>{description}</p>
+      <p className={`text-slate-300 text-sm flex-grow ${!isExpanded ? 'line-clamp-5' : ''}`}>{description}</p>
       <button
           onClick={() => setIsExpanded(!isExpanded)}
           className="text-cyan-400 hover:text-cyan-300 font-semibold text-sm mt-2 transition-colors display: contents"

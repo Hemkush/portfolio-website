@@ -23,20 +23,18 @@ const AboutPage: React.FC = () => {
       </header>
 
       {/* Main content starts here, overlapping the banner */}
-      <main className="relative container mx-auto px-4 md:px-8 -mt-20 md:-mt-24">
+      <main className="relative page-shell -mt-20 md:-mt-24">
         {/* Profile picture and name/title section */}
-        <div className="flex flex-col md:flex-row items-center md:items-end gap-4 md:gap-8">
+        <div className="flex flex-col md:flex-row items-center md:items-center gap-4 md:gap-8">
             <Image
               src={PROFILE_IMAGE_URL}
               alt="Alex Doe"
               width={192}
               height={192}
-              className="w-40 h-40 md:w-48 md:h-48 rounded-full object-cover border-4 md:border-8 border-gray-900 shadow-2xl transition-transform duration-300 hover:scale-105"
+              className="-mt-14 md:-mt-20 w-40 h-40 md:w-48 md:h-48 rounded-full object-cover border-4 md:border-8 border-gray-900 shadow-2xl transition-transform duration-300 hover:scale-105"
               priority
             />
-          <div className="flex-shrink-0">
-          </div>
-          <div className="flex-1 text-center md:text-left pb-4">
+          <div className="flex-1 text-center md:text-left">
             <h1 className="text-2xl md:text-4xl font-extrabold text-cyan-400">
               {INTRODUCTION.greeting}
             </h1>

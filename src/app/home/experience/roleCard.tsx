@@ -16,8 +16,8 @@ export const RoleCard: React.FC<RoleCardProps> = ({ title, organization, timelin
       <div className="flex-grow">
         <h3 className="text-lg font-bold text-white">{title}</h3>
         <p className="font-semibold text-cyan-400">{organization}</p>
-        <p className="text-xs text-gray-400 mt-1 mb-3">{timeline}</p>
-        <p className={`text-gray-300 text-sm leading-relaxed ${!isExpanded ? 'line-clamp-5' : ''}`}>{description}</p>
+        <p className="text-xs text-slate-400 mt-1 mb-3">{timeline}</p>
+        <p className={`text-slate-300 text-sm leading-relaxed ${!isExpanded ? 'line-clamp-5' : ''}`}>{description}</p>
         <button
           onClick={() => setIsExpanded(!isExpanded)}
           className="text-cyan-400 hover:text-cyan-300 font-semibold text-sm mt-2 transition-colors"

@@ -55,10 +55,10 @@ const ExperiencePage: React.FC = () => {
     //     </div>
     // );
 return (
-        <div className="container mx-auto px-4 md:px-8 pb-16">
-            <header className="text-center py-8">
-                <h1 className="text-4xl md:text-3xl font-extrabold text-gray-800">Professional Journey</h1>
-                <p className="mt-2 text-lg text-gray-400">My experiences in the industry, leadership, and community.</p>
+        <div className="page-shell">
+            <header className="page-header">
+                <h1 className="page-title">Professional Journey</h1>
+                <p className="page-subtitle">My experiences in the industry, leadership, and community.</p>
             </header>
 
             <Section title="Work Experience">

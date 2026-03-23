@@ -23,6 +23,66 @@ const SendIcon = (props: React.SVGProps<SVGSVGElement>) => (
     </svg>
 );
 
+const SECTION_LABELS = new Set([
+  'Quick Answer',
+  'Key Points',
+  'Impact / Outcomes',
+  'Tech Stack',
+  'Source Confidence',
+  'Suggested Next Question',
+]);
+
+function renderStructuredAiText(text: string) {
+  const lines = text.split('\n').map((line) => line.trim()).filter((line) => line.length > 0);
+  const blocks: React.ReactNode[] = [];
+  let listItems: string[] = [];
+
+  const flushList = () => {
+    if (listItems.length === 0) return;
+    blocks.push(
+      <ul key={`list-${blocks.length}`} className="list-disc pl-5 space-y-1">
+        {listItems.map((item, index) => (
+          <li key={`${item}-${index}`}>{item}</li>
+        ))}
+      </ul>
+    );
+    listItems = [];
+  };
+
+  for (const line of lines) {
+    const sectionMatch = line.match(/^([A-Za-z /]+):$/);
+    if (sectionMatch && SECTION_LABELS.has(sectionMatch[1])) {
+      flushList();
+      blocks.push(
+        <h4 key={`heading-${blocks.length}`} className="mt-2 text-xs font-semibold text-cyan-300">
+          {sectionMatch[1]}
+        </h4>
+      );
+      continue;
+    }
+
+    if (line.startsWith('- ')) {
+      listItems.push(line.slice(2));
+      continue;
+    }
+
+    flushList();
+    blocks.push(
+      <p key={`p-${blocks.length}`} className="leading-relaxed">
+        {line}
+      </p>
+    );
+  }
+
+  flushList();
+
+  if (blocks.length === 0) {
+    return <p className="leading-relaxed">{text}</p>;
+  }
+
+  return <div className="space-y-1">{blocks}</div>;
+}
+
 const Chatbot: React.FC = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [messages, setMessages] = useState<ChatMessage[]>([]);
@@ -134,7 +194,9 @@ const Chatbot: React.FC = () => {
                                         ? 'bg-cyan-600 text-white rounded-br-lg'
                                         : 'bg-gray-700 text-gray-200 rounded-bl-lg'
                                 }`}>
-                                    <p className="text-sm leading-relaxed">{msg.text}</p>
+                                    <div className="text-sm">
+                                        {msg.sender === 'ai' ? renderStructuredAiText(msg.text) : <p className="leading-relaxed">{msg.text}</p>}
+                                    </div>
                                 </div>
                             </div>
                         ))}

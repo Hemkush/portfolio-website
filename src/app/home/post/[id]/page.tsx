@@ -14,10 +14,10 @@ export default async function Page({ params }: PageProps) {
     const post = posts?.find((post) => post.id === resolvedParams.id);
     
     return (
-        <div className="container mx-auto px-4 md:px-8 pb-16">
-        <header className="text-center py-8">
-            <h1 className="text-4xl md:text-3xl font-extrabold text-gray-800">Blog Post</h1>
-            <p className="mt-2 text-lg text-gray-400">Read the latest insights and updates.</p>
+        <div className="page-shell">
+        <header className="page-header">
+            <h1 className="page-title">Blog Post</h1>
+            <p className="page-subtitle">Read the latest insights and updates.</p>
         </header>
         <Section title="Post Details"> 
             {post ? <Post key={post.id}

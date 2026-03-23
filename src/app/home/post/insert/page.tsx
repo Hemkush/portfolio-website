@@ -103,32 +103,32 @@ export default function Page() {
   }, [content, formData.content]);
 
   return (
-    <div className="container mx-auto px-4 md:px-8 pb-16">
-            <header className="text-center py-8">
-                <h1 className="text-4xl md:text-3xl font-extrabold text-gray-800">Create a New Blog Post</h1>
-                <p className="mt-2 text-lg text-gray-400">Share your latest thoughts and ideas.</p>
+    <div className="page-shell">
+            <header className="page-header">
+                <h1 className="page-title">Create a New Blog Post</h1>
+                <p className="page-subtitle">Share your latest thoughts and ideas.</p>
             </header>
             <Section title="New Post Details">
       <form onSubmit={handleSubmit} className="space-y-4">
         {errorMessage && <p className="text-red-400 text-sm">{errorMessage}</p>}
 
         <div>
-          <label htmlFor="title" className="block font-medium">Title:</label>
-          <input type="text" id="title" name="title" value={formData.title} onChange={handleChange} className="w-full border-2 bg-white text-black border-purple-100 p-2 rounded-md focus:border-purple-200 focus:outline-none" />
+          <label htmlFor="title" className="block font-medium text-slate-200">Title:</label>
+          <input type="text" id="title" name="title" value={formData.title} onChange={handleChange} className="input-dark mt-1" />
         </div>
         <div>
-          <label htmlFor="content" className="block font-medium">Content:</label>
-          <textarea id="content" name="content" rows={4} value={postContent} onChange={handleChange} className="w-full border-2 bg-white text-black border-purple-100 p-2 rounded-md focus:border-purple-200 focus:outline-none"></textarea>
-          {generating && <p className='text-gray-800/60 my-1'>Generating content...</p>}
-          <button onClick={generateContent} type="button" className="bg-gray-800/60 text-white px-4 py-2 rounded-md bg-gray-600  hover:bg-gray-800">Generate Content</button>
+          <label htmlFor="content" className="block font-medium text-slate-200">Content:</label>
+          <textarea id="content" name="content" rows={4} value={postContent} onChange={handleChange} className="input-dark mt-1"></textarea>
+          {generating && <p className='text-gray-400 my-1'>Generating content...</p>}
+          <button onClick={generateContent} type="button" className="btn-secondary-dark mt-1">Generate Content</button>
         </div>
         <div>
-          <label htmlFor="date" className="block font-medium">Date:</label>
-          <input type="text" id="date" name="date" value={formData.date} readOnly className="w-full border-2 text-black border-purple-100 p-2 rounded-md focus:border-purple-200 focus:outline-none" />
+          <label htmlFor="date" className="block font-medium text-slate-200">Date:</label>
+          <input type="text" id="date" name="date" value={formData.date} readOnly className="input-dark mt-1" />
 
         </div>
         <div>
-          <button type="submit" className="bg-gray-800/60 text-white px-4 py-2 rounded-md bg-gray-600  hover:bg-gray-800">Submit</button>
+          <button type="submit" className="btn-secondary-dark">Submit</button>
         </div>
       </form>
       </Section>
