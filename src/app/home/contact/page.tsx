@@ -1,10 +1,11 @@
-'use client';
+﻿'use client';
 import { useState } from 'react';
 import React from 'react';
 import { Section } from '../about/section';
 import { ImageSlideshow } from './imageSlideshow';
 import { CONTACT_DETAILS, SOCIAL_LINKS, SOCIAL_LIFE_IMAGES } from '../constant';
 import { v4 as uuidv4 } from 'uuid';
+import { CtaButton } from '@/app/ui/components/cta-button';
 
 //  const ContactPage: React.FC = () => {
 //     return (
@@ -85,9 +86,21 @@ export default function ContactPage() {
     const [message, setMessage] = useState('');
     const [status, setStatus] = useState<SubmissionStatus>('idle');
     const [feedbackMessage, setFeedbackMessage] = useState('');
+    const emailIsValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim());
+    const messageLength = message.trim().length;
+    const messageMinLength = 20;
+    const messageMaxLength = 1200;
+    const messageTooShort = message.length > 0 && messageLength < messageMinLength;
+    const messageTooLong = messageLength > messageMaxLength;
+    const formIsValid = name.trim().length > 0 && emailIsValid && messageLength >= messageMinLength && !messageTooLong;
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
+        if (!formIsValid) {
+          setStatus('error');
+          setFeedbackMessage('Please fix the highlighted fields before sending your message.');
+          return;
+        }
         setStatus('sending');
         setFeedbackMessage('');
 
@@ -105,18 +118,23 @@ export default function ContactPage() {
     },
     body: JSON.stringify(formData),
   })
-    .then((response) => response.json())
+    .then(async (response) => {
+      const data = await response.json().catch(() => ({}));
+      if (!response.ok) {
+        throw new Error(data?.message || 'Error sending message. Please try again.');
+      }
+      return data;
+    })
     .then(() => {
       setStatus('success');
       setFeedbackMessage('Thank you for your message! I will get back to you soon.');
       setName('');
       setEmail('');
       setMessage('');
-      console.log("formData",formData);
     })
-    .catch(() => {
+    .catch((error: Error) => {
       setStatus('error');
-      setFeedbackMessage('Error sending message. Please try again.');
+      setFeedbackMessage(error.message || 'Error sending message. Please try again.');
     })
     .finally(() => {
       setTimeout(() => setStatus('idle'), 5000);
@@ -143,8 +161,9 @@ export default function ContactPage() {
     return (
         <div className="container mx-auto px-4 md:px-8 pb-16">
             <header className="text-center py-8">
-                <h1 className="text-4xl md:text-3xl font-extrabold text-gray-800">Get In Touch</h1>
-                <p className="mt-2 text-lg text-gray-400">I am always open to discussing new projects, creative ideas, or opportunities to connect.</p>
+                <h1 className="text-4xl md:text-3xl font-extrabold text-gray-100">Get In Touch</h1>
+                <p className="mt-2 text-lg text-gray-300">I am always open to discussing new projects, creative ideas, or opportunities to connect.</p>
+                <p className="mt-2 text-sm text-cyan-300">Usually replies within 24-48 hours.</p>
             </header>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mt-8">
@@ -188,8 +207,11 @@ export default function ContactPage() {
                                     onChange={(e) => setEmail(e.target.value)}
                                     required
                                     disabled={status === 'sending'}
-                                    className="w-full bg-gray-700/50 border border-gray-600 rounded-md py-2 px-3 text-white focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 disabled:opacity-50"
+                                    className={`w-full bg-gray-700/50 border rounded-md py-2 px-3 text-white focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 disabled:opacity-50 ${email.length > 0 && !emailIsValid ? 'border-red-500' : 'border-gray-600'}`}
                                 />
+                                {email.length > 0 && !emailIsValid && (
+                                  <p className="mt-1 text-xs text-red-400">Please enter a valid email address.</p>
+                                )}
                             </div>
                             <div>
                                 <label htmlFor="message" className="block text-sm font-medium text-gray-300 mb-1">Message</label>
@@ -201,14 +223,29 @@ export default function ContactPage() {
                                     onChange={(e) => setMessage(e.target.value)}
                                     required
                                     disabled={status === 'sending'}
-                                    className="w-full bg-gray-700/50 border border-gray-600 rounded-md py-2 px-3 text-white focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 disabled:opacity-50"
+                                    className={`w-full bg-gray-700/50 border rounded-md py-2 px-3 text-white focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 disabled:opacity-50 ${messageTooShort || messageTooLong ? 'border-red-500' : 'border-gray-600'}`}
                                 ></textarea>
+                                <div className="mt-1 flex items-center justify-between">
+                                  <p className={`text-xs ${messageTooShort || messageTooLong ? 'text-red-400' : 'text-gray-400'}`}>
+                                    {messageTooShort
+                                      ? `Message should be at least ${messageMinLength} characters.`
+                                      : messageTooLong
+                                        ? `Message should be at most ${messageMaxLength} characters.`
+                                        : `Please include enough detail (${messageMinLength}+ characters).`}
+                                  </p>
+                                  <p className={`text-xs ${messageTooLong ? 'text-red-400' : 'text-gray-500'}`}>
+                                    {messageLength}/{messageMaxLength}
+                                  </p>
+                                </div>
                             </div>
                             <div className="pt-1">
-                                <button 
+                                <CtaButton
                                     type="submit" 
-                                    disabled={status === 'sending'}
-                                    className="w-full bg-cyan-500 text-white font-bold py-2.5 px-4 rounded-lg hover:bg-cyan-600 transition-colors duration-300 flex items-center justify-center gap-2 shadow-lg shadow-cyan-500/20 disabled:bg-gray-600 disabled:cursor-not-allowed"
+                                    variant="primary"
+                                    size="lg"
+                                    fullWidth
+                                    disabled={status === 'sending' || !formIsValid}
+                                    className="shadow-lg shadow-cyan-500/20 disabled:bg-gray-600 disabled:shadow-none normal-case tracking-normal text-sm rounded-lg"
                                 >
                                     {status === 'sending' ? (
                                         <>
@@ -219,7 +256,7 @@ export default function ContactPage() {
                                             Sending...
                                         </>
                                     ) : 'Send Message'}
-                                </button>
+                                </CtaButton>
                                 {status === 'success' && <p className="text-green-400 text-sm mt-3 text-center">{feedbackMessage}</p>}
                                 {status === 'error' && <p className="text-red-400 text-sm mt-3 text-center">{feedbackMessage}</p>}
                             </div>
@@ -249,3 +286,4 @@ export default function ContactPage() {
         </div>
     );
 }
+

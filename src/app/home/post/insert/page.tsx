@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import { v4 as uuidv4 } from 'uuid';
 import { useState, useMemo, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
@@ -10,6 +10,7 @@ export default function Page() {
   const [generating, setGenerating] = useState(false);
   const [user, setUser] = useState<User | null>(null);
   const [content, setContent] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
   const [formData, setFormData] = useState({
     id: '',
     title: '',
@@ -28,6 +29,7 @@ export default function Page() {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setErrorMessage('');
     const uuid = uuidv4();
     fetch('/api/handlers', {
       method: 'POST',
@@ -40,7 +42,11 @@ export default function Page() {
         author: user?.name || '',
         content: content || formData.content,
       })
-    }).then(() => {
+    }).then(async (response) => {
+      const data = await response.json().catch(() => ({}));
+      if (!response.ok) {
+        throw new Error(data?.message || 'Unable to create blog post.');
+      }
       // Clear form fields
       setFormData({
         id: '',
@@ -50,7 +56,9 @@ export default function Page() {
         date: ''
       });
       router.push('/home/blog');
-    }).catch(console.error)
+    }).catch((error: Error) => {
+      setErrorMessage(error.message || 'Unable to create blog post.');
+    })
   }
 
   const generateContent = () => {
@@ -67,9 +75,15 @@ export default function Page() {
       body: JSON.stringify({ title: formData.title })
     }).then(response => response.json())
       .then(data => {
+        if (data?.error) {
+          setErrorMessage(data.error);
+          setGenerating(false);
+          return;
+        }
         setContent(data.content || '');
         setGenerating(false);
       }).catch(() => {
+        setErrorMessage('Failed to generate content.');
         setGenerating(false);
       });
   }
@@ -96,6 +110,7 @@ export default function Page() {
             </header>
             <Section title="New Post Details">
       <form onSubmit={handleSubmit} className="space-y-4">
+        {errorMessage && <p className="text-red-400 text-sm">{errorMessage}</p>}
 
         <div>
           <label htmlFor="title" className="block font-medium">Title:</label>
@@ -120,3 +135,4 @@ export default function Page() {
     </div>
   );
 }
+

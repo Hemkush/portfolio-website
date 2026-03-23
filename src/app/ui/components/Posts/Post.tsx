@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 // import { useState } from 'react';
 import React from 'react';
 import Link from 'next/link';
@@ -15,10 +15,15 @@ export default function Component({ id, title, content, date, author }: { id: st
   const handleDeleteClick = async (e: React.MouseEvent) => {
     e.stopPropagation(); // Prevent the card's main click event
     try {
-      await fetch(`/api/handlers?id=${encodeURIComponent(id)}`, { method: 'DELETE' });
+      const response = await fetch(`/api/handlers?id=${encodeURIComponent(id)}`, { method: 'DELETE' });
+      if (!response.ok) {
+        const data = await response.json().catch(() => ({}));
+        throw new Error(data?.message || 'Failed to delete post.');
+      }
       router.refresh();
     } catch (error) {
       console.error('Failed to delete post:', error);
+      alert(error instanceof Error ? error.message : 'Failed to delete post.');
     }
   };
   
@@ -62,4 +67,5 @@ export default function Component({ id, title, content, date, author }: { id: st
     </div>
     );
 }
+
 

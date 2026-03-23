@@ -4,7 +4,7 @@ import Link from 'next/link';
 import {
   AcademicCapIcon,
   UserIcon,
-  HomeIcon,
+  CpuChipIcon,
   DocumentDuplicateIcon,
   EnvelopeIcon,
   LightBulbIcon,
@@ -17,7 +17,7 @@ import { usePathname, useRouter } from 'next/navigation';
 // // Map of links to display in the side navigation.
 // // Depending on the size of the application, this would be stored in a database.
 const links = [
-  { name: 'AI Expertise', href: '/', icon: HomeIcon  },
+  { name: 'AI Expertise', href: '/', icon: CpuChipIcon  },
   { name: 'About', href: '/home/about', icon: UserIcon},
   { name: 'Experience', href: '/home/experience', icon: AcademicCapIcon},
   { name: 'Projects', href: '/home/project', icon: LightBulbIcon},
@@ -65,8 +65,8 @@ export default function NavLinks() {
    const currentPage = pathname;
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-gray-800/60 backdrop-blur-lg border-b border-gray-700/50 shadow-lg">
-      <nav className="container mx-auto px-4 md:px-8">
+    <header className="fixed top-0 left-0 right-0 z-50 font-sans bg-slate-900 border-b border-slate-700 shadow-lg">
+      <nav className="mx-auto w-full max-w-[1200px] px-4 md:px-8">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center">
             <Link href="/" className="text-xl font-bold text-white">Hemant Kushwaha</Link>
@@ -81,13 +81,13 @@ export default function NavLinks() {
                   href={link.href}
                   className={`flex items-center gap-2 px-3 py-2 rounded-md transition-colors duration-200
                     ${isActive
-                      ? 'bg-gray-800/60 text-gray-300'
-                      : 'text-gray-300 hover:bg-gray-700/50 hover:text-white'
+                      ? 'bg-cyan-500/20 text-cyan-200 ring-1 ring-cyan-400/60'
+                      : 'text-slate-200 hover:bg-slate-700/60 hover:text-white'
                     }
                   `}
                 >
                   <link.icon className="h-5 w-5" />
-                  <span className="font-medium">
+                  <span className={`font-medium ${isActive ? 'font-semibold' : ''}`}>
                     {link.name}
                   </span>
                 </Link>
