@@ -17,7 +17,7 @@ import { usePathname, useRouter } from 'next/navigation';
 // // Map of links to display in the side navigation.
 // // Depending on the size of the application, this would be stored in a database.
 const links = [
-  { name: 'Home', href: '/', icon: HomeIcon  },
+  { name: 'AI Expertise', href: '/', icon: HomeIcon  },
   { name: 'About', href: '/home/about', icon: UserIcon},
   { name: 'Experience', href: '/home/experience', icon: AcademicCapIcon},
   { name: 'Projects', href: '/home/project', icon: LightBulbIcon},
