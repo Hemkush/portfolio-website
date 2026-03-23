@@ -55,7 +55,7 @@ export default function AISkillsPage() {
                 Hemant Kushwaha
               </h1>
               <p style={{ marginTop: '14px', fontSize: '13px', color: '#cbd5e1', letterSpacing: '0.2px' }}>
-                AI Engineer · MS Information Systems · UMD · GPA 3.93
+                AI Engineer · MS Information Systems · UMD · GPA 3.94
               </p>
               <p style={{ marginTop: '6px', fontSize: '12px', color: '#94a3b8', letterSpacing: '0.2px' }}>
                 OPT-eligible May 2026 · Open to AI Engineer / ML Engineer roles

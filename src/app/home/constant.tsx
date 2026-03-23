@@ -41,7 +41,7 @@ export const EDUCATION_DATA: EducationItem[] = [
     institution: 'University of Maryland - Robert H. Smith School of Business',
     years: '2025 - 2026',
     logo: '/business_logo.ico',
-    gpa: '3.93/4.00',
+    gpa: '3.94/4.00',
     skills: ['Problem Solving', 'Business Acumen', 'Empathy', 'Strategic Thinking', 'Data Analysis', 'SQL', 'Leadership', 'Communication', 'Teamwork', 'Python', 'Collaborative Problem Solving']
   },  
   {
