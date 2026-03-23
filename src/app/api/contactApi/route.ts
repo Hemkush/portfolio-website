@@ -40,10 +40,16 @@ export async function GET() {
 }
 export async function POST(request: Request) {
   const { searchParams } = new URL(request.url);
-  const id = searchParams.get('id');
-  const name = searchParams.get('name');
-  const email = searchParams.get('email');
-  const message = searchParams.get('message');
+  let payload: Record<string, string | null> = {};
+  try {
+    payload = await request.json();
+  } catch {
+    payload = {};
+  }
+  const id = payload.id ?? searchParams.get('id');
+  const name = payload.name ?? searchParams.get('name');
+  const email = payload.email ?? searchParams.get('email');
+  const message = payload.message ?? searchParams.get('message');
   // const author = searchParams.get('author');
 
   try {

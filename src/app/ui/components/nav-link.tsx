@@ -1,5 +1,6 @@
 'use client';
 import React from 'react';
+import Link from 'next/link';
 import {
   AcademicCapIcon,
   UserIcon,
@@ -9,14 +10,12 @@ import {
   LightBulbIcon,
   BookOpenIcon,
 } from '@heroicons/react/24/outline';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 // import { usePathname } from 'next/navigation';
 // import clsx from 'clsx';
 
 // // Map of links to display in the side navigation.
 // // Depending on the size of the application, this would be stored in a database.
-// import Link from 'next/link';
-
 const links = [
   { name: 'Home', href: '/', icon: HomeIcon  },
   { name: 'About', href: '/home/about', icon: UserIcon},
@@ -61,33 +60,25 @@ const links = [
 // }
 
 export default function NavLinks() {
+   const router = useRouter();
    const pathname = usePathname();
-   const [currentPage, setCurrentPage] = React.useState(pathname);
-
-   const handleNavClick = (href: string) => {
-     setCurrentPage(href);
-     window.location.href = href;
-   };
+   const currentPage = pathname;
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-gray-800/60 backdrop-blur-lg border-b border-gray-700/50 shadow-lg">
       <nav className="container mx-auto px-4 md:px-8">
         <div className="flex items-center justify-between h-16">
-          <div className="flex items-center cursor-pointer" onClick={() => window.location.href = '/'}>
-            <span className="text-xl font-bold text-white">Hemant Kushwaha</span>
+          <div className="flex items-center">
+            <Link href="/" className="text-xl font-bold text-white">Hemant Kushwaha</Link>
           </div>
           {/* Desktop Nav */}
           <div className="hidden md:flex items-center space-x-2">
             {links.map((link) => {
               const isActive = currentPage === link.href;
               return (
-                <a
+                <Link
                   key={link.name}
                   href={link.href}
-                  onClick={(e) => {
-                      e.preventDefault();
-                      handleNavClick(link.href)
-                  }}
                   className={`flex items-center gap-2 px-3 py-2 rounded-md transition-colors duration-200
                     ${isActive
                       ? 'bg-gray-800/60 text-gray-300'
@@ -99,7 +90,7 @@ export default function NavLinks() {
                   <span className="font-medium">
                     {link.name}
                   </span>
-                </a>
+                </Link>
               );
             })}
           </div>
@@ -108,7 +99,7 @@ export default function NavLinks() {
                 <select 
                     className="bg-gray-800 text-white border border-gray-700 rounded p-2 capitalize"
                     value={currentPage}
-                    onChange={(e) => handleNavClick(e.target.value)}
+                    onChange={(e) => router.push(e.target.value)}
                 >
                     {links.map(item => <option key={item.name} value={item.href}>{item.name}</option>)}
                 </select>

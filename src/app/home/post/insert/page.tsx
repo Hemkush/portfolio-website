@@ -7,7 +7,6 @@ import { User } from '@/app/lib/definition';
 import { getSession } from 'next-auth/react';
 export default function Page() {
   const router = useRouter()
-  const PROMPT = "You are a creative blog writer. write a 200 to 300 words blog post about the title below. You can write anything you want, but it must be at least 50 words long. The title is: "
   const [generating, setGenerating] = useState(false);
   const [user, setUser] = useState<User | null>(null);
   const [content, setContent] = useState('');
@@ -16,7 +15,7 @@ export default function Page() {
     title: '',
     author: '',
     content: '',
-    date: new Date().toLocaleDateString('en-US').slice(0, 10)
+    date: new Date().toISOString().slice(0, 10)
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -29,14 +28,18 @@ export default function Page() {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // if (formData.title !== '' && formData.content !== '') {
     const uuid = uuidv4();
-    fetch(`/api/handlers?id=${uuid}&title=${formData.title}&author=${user?.name}&content=${content || formData.content}&date=${formData.date}`, {
+    fetch('/api/handlers', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ ...formData, id: uuid })
+      body: JSON.stringify({
+        ...formData,
+        id: uuid,
+        author: user?.name || '',
+        content: content || formData.content,
+      })
     }).then(() => {
       // Clear form fields
       setFormData({
@@ -48,33 +51,27 @@ export default function Page() {
       });
       router.push('/home/blog');
     }).catch(console.error)
-  // } else {
-  //     alert('Please write a title and content before submitting.');
-  //   }
   }
 
   const generateContent = () => {
     setGenerating(true);
-    if (!formData?.title) { return false }
-    const requestParams = {
-      model: "gpt-4o-mini",
-      messages: [{ "role": "system", "content": PROMPT + formData?.title },
-      { "role": "user", "content": formData?.title },]
-
+    if (!formData?.title) {
+      setGenerating(false);
+      return false
     }
-    fetch('https://api.openai.com/v1/chat/completions', {
+    fetch('/api/ai/generate-blog', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`
       },
-      body: JSON.stringify(requestParams)
+      body: JSON.stringify({ title: formData.title })
     }).then(response => response.json())
       .then(data => {
-        setContent(data.choices[0].message.content);
-        console.log(data.choices[0].message.content);
+        setContent(data.content || '');
         setGenerating(false);
-      }).catch(console.error);
+      }).catch(() => {
+        setGenerating(false);
+      });
   }
 
    useEffect(() => {
@@ -84,7 +81,7 @@ export default function Page() {
         router.push('/home/blog');
       }
     })
-  });
+  }, [router]);
 
   const postContent = useMemo(() => {
     return content || formData.content;

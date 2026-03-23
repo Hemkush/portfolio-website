@@ -1,9 +1,6 @@
 'use client';
 import React, { useState, useEffect, useRef } from 'react';
-import OpenAI from "openai";
-import { getPortfolioContext } from '../constant';
 import type { ChatMessage } from '../sectionType';
-import { getPosts } from '@/app/lib/data';
 
 const ChatIcon = (props: React.SVGProps<SVGSVGElement>) => (
     // <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" {...props}>
@@ -31,7 +28,6 @@ const Chatbot: React.FC = () => {
     const [messages, setMessages] = useState<ChatMessage[]>([]);
     const [input, setInput] = useState('');
     const [isLoading, setIsLoading] = useState(false);
-    const [openai, setOpenai] = useState<OpenAI | null>(null);
     const [error, setError] = useState<string | null>(null);
     const messagesEndRef = useRef<null | HTMLDivElement>(null);
     const inputRef = useRef<null | HTMLInputElement>(null);
@@ -51,30 +47,19 @@ const Chatbot: React.FC = () => {
     useEffect(() => {
         if (!isOpen) return;
 
-        if (!openai) {
-            try {
-                const client = new OpenAI({
-                    apiKey: process.env.OPENAI_API_KEY as string,
-                    dangerouslyAllowBrowser: true, // Required for browser-side usage
-                });
-                setOpenai(client);
-
-                if (messages.length === 0) {
-                     setMessages([{
-                        sender: 'ai',
-                        text: "Hello! I'm Hemant's AI assistant. How can I help you today? Feel free to ask about his skills, projects, or experience."
-                    }]);
-                }
-            } catch (e) {
-                console.error("Failed to initialize OpenAI:", e);
-                setError("Sorry, the AI assistant is currently unavailable. Please try again later.");
-            }
+        if (messages.length === 0) {
+            setMessages([
+                {
+                    sender: 'ai',
+                    text: "Hello! I'm Hemant's AI assistant. How can I help you today? Feel free to ask about his skills, projects, or experience.",
+                },
+            ]);
         }
-    }, [isOpen, openai, messages.length]);
+    }, [isOpen, messages.length]);
 
     const handleSendMessage = async (e: React.FormEvent) => {
         e.preventDefault();
-        if (!input.trim() || isLoading || !openai) return;
+        if (!input.trim() || isLoading) return;
 
         const userMessage: ChatMessage = { sender: 'user', text: input };
         const newMessages = [...messages, userMessage];
@@ -84,38 +69,40 @@ const Chatbot: React.FC = () => {
         setError(null);
 
         try {
-            const portfolioContext = getPortfolioContext();
-              const postData = await getPosts().then((posts) => JSON.stringify(posts?.map((post) => ({
-                title: post.title,
-                content: post.content
-              }))));  
-            const systemPrompt = `You are a helpful, friendly, and professional AI assistant for Hemant's portfolio website. Your purpose is to answer questions about Hemant based on the detailed portfolio information provided in an effective, engaging manner, and present information in a structured way. Be conversational and engaging. If a question is outside the scope of the provided context, politely state that you can only answer questions related to Hemant's professional profile. Do not invent information. Here is the posts data: ${postData} and the portfolio data: ${portfolioContext}.`;
-
-            const apiMessages = newMessages.map(msg => ({
+            const apiMessages = newMessages.map((msg) => ({
                 role: msg.sender === 'user' ? 'user' : 'assistant',
                 content: msg.text,
-            } as const));
+            }));
 
-            const completion = await openai.chat.completions.create({
-                model: 'gpt-4o-mini',
-                messages: [
-                    { role: 'system', content: systemPrompt },
-                    ...apiMessages
-                ],
+            const response = await fetch('/api/ai/chat', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ messages: apiMessages }),
             });
-            
-            const aiResponseText = completion.choices[0]?.message?.content?.trim();
+
+            if (!response.ok) {
+                const errorBody = await response.json().catch(() => ({}));
+                throw new Error(errorBody?.error || 'Failed to get assistant response.');
+            }
+
+            const data = await response.json();
+            const aiResponseText = data?.response?.toString()?.trim();
 
             if (aiResponseText) {
                 const aiMessage: ChatMessage = { sender: 'ai', text: aiResponseText };
-                setMessages(prev => [...prev, aiMessage]);
+                setMessages((prev) => [...prev, aiMessage]);
             } else {
-                 throw new Error("Received an empty response from the API.");
+                throw new Error('Received an empty response from the API.');
             }
         } catch (e) {
-            console.error("Error sending message to OpenAI:", e);
-            const errorMessage: ChatMessage = { sender: 'ai', text: "I'm sorry, I encountered an error. Please try again." };
-            setMessages(prev => [...prev, errorMessage]);
+            console.error('Error sending message to AI route:', e);
+            const errorText = e instanceof Error ? e.message : 'Sorry, the AI assistant is currently unavailable. Please try again later.';
+            setError(errorText);
+            const errorMessage: ChatMessage = {
+                sender: 'ai',
+                text: errorText,
+            };
+            setMessages((prev) => [...prev, errorMessage]);
         } finally {
             setIsLoading(false);
         }
@@ -178,11 +165,11 @@ const Chatbot: React.FC = () => {
                                 value={input}
                                 onChange={(e) => setInput(e.target.value)}
                                 placeholder="Ask about Hemant..."
-                                disabled={isLoading || error !== null || !openai}
+                                disabled={isLoading}
                                 className="w-full bg-gray-700/50 border border-gray-600 rounded-lg py-2 px-3 text-white focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 transition-colors disabled:opacity-50"
                                 aria-label="Chat input"
                             />
-                            <button type="submit" disabled={isLoading || !input.trim() || !openai} className="bg-cyan-500 text-white rounded-lg p-2 transition-colors duration-300 hover:bg-cyan-600 disabled:bg-gray-600 disabled:cursor-not-allowed" aria-label="Send message">
+                            <button type="submit" disabled={isLoading || !input.trim()} className="bg-cyan-500 text-white rounded-lg p-2 transition-colors duration-300 hover:bg-cyan-600 disabled:bg-gray-600 disabled:cursor-not-allowed" aria-label="Send message">
                                 <SendIcon className="w-5 h-5" />
                             </button>
                         </form>

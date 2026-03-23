@@ -1,4 +1,4 @@
-'Use Client';
+'use client';
 import { Button } from "@/app/ui/components/button"
 //import { signIn } from "../../../../../auth.config"
 import { serverSignOut, signInWithProvider } from "../../../../../auth.server"

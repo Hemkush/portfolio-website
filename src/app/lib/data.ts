@@ -26,6 +26,7 @@ export async function getPosts() {
     return data.rows;
     } catch (error) {
         console.error("Error connecting to the database:", error);
+        return [];
     }
 }
 
@@ -38,6 +39,7 @@ export async function deletePosts(id: string) {
     return data.rows;
     } catch (error) {
         console.error("Error connecting to the database:", error);
+        return [];
     }
 }
 
@@ -48,5 +50,6 @@ export async function getCoursework() {
     return data.rows;
     } catch (error) {
         console.error("Error connecting to the database:", error);
+        return [];
     }
 }

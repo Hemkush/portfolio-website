@@ -91,20 +91,19 @@ export default function ContactPage() {
         setStatus('sending');
         setFeedbackMessage('');
 
-        const formData = {
-    id: uuidv4,
-    name: name,
-    email: email,
-    message: message,
+  const formData = {
+    id: uuidv4(),
+    name,
+    email,
+    message,
   };
-  const uuid = uuidv4();
 
-  fetch(`/api/contactApi?id=${uuid}&name=${formData.name}&email=${formData.email}&message=${formData.message}`, {
+  fetch('/api/contactApi', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ ...formData, id: uuid }),
+    body: JSON.stringify(formData),
   })
     .then((response) => response.json())
     .then(() => {
