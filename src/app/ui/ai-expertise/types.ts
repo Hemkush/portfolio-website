@@ -13,6 +13,23 @@ export type SkillCategory = {
   skills: Skill[];
 };
 
+export type AcademicCourseApplied = {
+  project: string;
+  detail: string;
+};
+
+export type AcademicCourse = {
+  code: string;
+  name: string;
+  institution: string;
+  grade: string;
+  color: string;
+  icon: string;
+  summary: string;
+  topics: string[];
+  applied: AcademicCourseApplied[];
+};
+
 export type Project = {
   name: string;
   role: string;

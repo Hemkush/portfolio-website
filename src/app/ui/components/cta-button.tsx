@@ -8,7 +8,7 @@ const ctaButtonVariants = cva(
   {
     variants: {
       variant: {
-        primary: 'bg-sky-400 text-slate-950 hover:bg-sky-300',
+        primary: 'bg-cyan-400 text-slate-950 hover:bg-cyan-300',
         secondary: 'border border-white/30 text-slate-200 hover:border-white/50 hover:text-white',
         tertiary: 'border border-white/15 text-slate-400 hover:border-white/30 hover:text-slate-200',
       },

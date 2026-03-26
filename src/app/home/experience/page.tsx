@@ -1,4 +1,17 @@
+import type { Metadata } from 'next';
 import React from 'react';
+
+export const metadata: Metadata = {
+  title: 'Experience',
+  description:
+    '3.5+ years of software and AI engineering experience across enterprise and startup environments. Work history, leadership roles, and volunteer contributions.',
+  openGraph: {
+    title: 'Experience — Hemant Kushwaha',
+    description:
+      '3.5+ years of software and AI engineering experience. Work history, leadership roles, and volunteer contributions.',
+    url: '/home/experience',
+  },
+};
 import { Section } from '../about/section';
 import { ExperienceCard } from './experienceCard';
 import { RoleCard } from './roleCard';

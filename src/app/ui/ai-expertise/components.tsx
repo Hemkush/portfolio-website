@@ -1,7 +1,7 @@
 ﻿"use client";
 
 import { useState } from 'react';
-import type { Differentiator, Project, ProofPoint, Skill, SkillCategory } from './types';
+import type { AcademicCourse, Differentiator, Project, ProofPoint, Skill, SkillCategory } from './types';
 import { useCountUp, useInView } from './hooks';
 
 export function SkillBar({
@@ -97,6 +97,8 @@ export function StatCard({ stat, label, sub, index }: ProofPoint & { index: numb
 }
 
 export function CategoryPanel({ cat, active, onClick }: { cat: SkillCategory; active: boolean; onClick: () => void }) {
+  const isAcademic = cat.id === 'academic';
+
   return (
     <button
       onClick={onClick}
@@ -121,9 +123,9 @@ export function CategoryPanel({ cat, active, onClick }: { cat: SkillCategory; ac
         boxShadow: active ? `0 0 20px ${cat.glow}` : 'none',
       }}
     >
-      <span style={{ fontSize: '16px' }}>{cat.icon}</span>
+      <span style={{ fontSize: isAcademic ? '13px' : '16px', lineHeight: 1 }}>{cat.icon}</span>
       {cat.label}
-      <span style={{ marginLeft: 'auto', fontSize: '10px', color: active ? cat.color : '#334155' }}>{cat.skills.length}</span>
+      {!isAcademic && <span style={{ marginLeft: 'auto', fontSize: '10px', color: active ? cat.color : '#334155' }}>{cat.skills.length}</span>}
     </button>
   );
 }
@@ -140,7 +142,7 @@ export function EvidenceProjectCard({
   const [ref, inView] = useInView(0.1);
   const [hovered, setHovered] = useState(false);
   const [expanded, setExpanded] = useState(false);
-  const dimmed = activeCategory !== '' && !project.skills.includes(activeCategory);
+  const dimmed = activeCategory !== '' && activeCategory !== 'academic' && !project.skills.includes(activeCategory);
 
   return (
     <div
@@ -254,6 +256,136 @@ export function DifferentiatorCard({ item, index }: { item: Differentiator; inde
       <div style={{ fontSize: '24px', marginBottom: '12px', color: item.color }}>{item.icon}</div>
       <div style={{ fontSize: '13px', fontWeight: 700, color: '#e2e8f0', marginBottom: '10px', letterSpacing: '0.3px' }}>{item.title}</div>
       <div style={{ fontSize: '12px', color: '#94a3b8', lineHeight: 1.8, fontFamily: "'Fraunces', serif", fontStyle: 'italic', fontWeight: 300 }}>{item.body}</div>
+    </div>
+  );
+}
+
+export function AcademicCourseCard({ course, index, visible }: { course: AcademicCourse; index: number; visible: boolean }) {
+  const [expanded, setExpanded] = useState(false);
+
+  return (
+    <div
+      style={{
+        opacity: visible ? 1 : 0,
+        transform: visible ? 'translateY(0)' : 'translateY(16px)',
+        transition: `opacity 0.55s ${index * 0.1}s, transform 0.55s ${index * 0.1}s`,
+        border: `1px solid ${expanded ? course.color + '40' : 'rgba(255,255,255,0.07)'}`,
+        background: expanded ? `${course.color}06` : 'rgba(255,255,255,0.015)',
+        borderRadius: '2px',
+        overflow: 'hidden',
+      }}
+    >
+      <div
+        onClick={() => setExpanded((prev) => !prev)}
+        style={{
+          padding: '18px 22px',
+          cursor: 'pointer',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '14px',
+          userSelect: 'none',
+        }}
+      >
+        <span style={{ fontSize: '20px', color: course.color, flexShrink: 0 }}>{course.icon}</span>
+        <div style={{ flex: 1, minWidth: 0 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '5px', flexWrap: 'wrap' }}>
+            <span style={{ fontFamily: "'DM Mono', monospace", fontSize: '9px', color: course.color, letterSpacing: '1.5px', padding: '2px 7px', border: `1px solid ${course.color}44`, borderRadius: '1px' }}>
+              {course.code}
+            </span>
+            <span style={{ fontFamily: "'DM Mono', monospace", fontSize: '9px', color: '#34d399', letterSpacing: '0.5px' }}>GPA {course.grade}</span>
+          </div>
+          <div style={{ fontSize: '14px', fontWeight: 700, color: '#e2e8f0', lineHeight: 1.3 }}>{course.name}</div>
+          <div style={{ fontSize: '10px', color: '#475569', fontFamily: "'DM Mono', monospace", marginTop: '3px' }}>{course.institution}</div>
+        </div>
+        <span
+          style={{
+            color: expanded ? course.color : '#475569',
+            fontSize: '20px',
+            transition: 'transform 0.3s, color 0.2s',
+            transform: expanded ? 'rotate(180deg)' : 'rotate(0deg)',
+            display: 'inline-block',
+            flexShrink: 0,
+            lineHeight: 1,
+          }}
+        >
+          ⌄
+        </span>
+      </div>
+
+      <div style={{ padding: '0 22px 16px 56px' }}>
+        <p style={{ fontSize: '12px', color: '#64748b', fontFamily: "'Fraunces', serif", fontStyle: 'italic', fontWeight: 300, lineHeight: 1.75, margin: 0 }}>
+          {course.summary}
+        </p>
+      </div>
+
+      {expanded && (
+        <div style={{ borderTop: `1px solid ${course.color}18`, padding: '22px' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '28px' }}>
+            <div>
+              <div style={{ fontSize: '9px', letterSpacing: '2px', color: '#475569', fontFamily: "'DM Mono', monospace", textTransform: 'uppercase', marginBottom: '14px' }}>
+                Topics Mastered
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                {course.topics.map((topic, topicIndex) => (
+                  <div key={topicIndex} style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '12px', color: '#94a3b8', fontFamily: "'DM Mono', monospace" }}>
+                    <div style={{ width: '4px', height: '4px', borderRadius: '50%', background: course.color, opacity: 0.7, flexShrink: 0 }} />
+                    {topic}
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div>
+              <div style={{ fontSize: '9px', letterSpacing: '2px', color: '#475569', fontFamily: "'DM Mono', monospace", textTransform: 'uppercase', marginBottom: '14px' }}>
+                Applied In Production
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                {course.applied.map((item, itemIndex) => (
+                  <div key={itemIndex} style={{ padding: '12px 14px', border: `1px solid ${course.color}22`, background: `${course.color}08`, borderRadius: '2px', borderLeft: `2px solid ${course.color}` }}>
+                    <div style={{ fontSize: '12px', fontWeight: 700, color: '#e2e8f0', marginBottom: '5px' }}>{item.project}</div>
+                    <div style={{ fontSize: '10px', color: '#64748b', fontFamily: "'DM Mono', monospace", lineHeight: 1.6 }}>↳ {item.detail}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+export function AcademicPanel({ courses, visible }: { courses: AcademicCourse[]; visible: boolean }) {
+  const color = '#e879f9';
+
+  return (
+    <div>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '14px', marginBottom: '28px', paddingBottom: '20px', borderBottom: `1px solid ${color}20` }}>
+        <span style={{ fontSize: '28px', animation: 'float 3s ease-in-out infinite' }}>📚</span>
+        <div style={{ flex: 1 }}>
+          <div style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: '26px', letterSpacing: '2px', color }}>Academic Foundation</div>
+          <div style={{ fontSize: '10px', color: '#475569', marginTop: '3px', letterSpacing: '1px', fontFamily: "'DM Mono', monospace" }}>
+            UMD SMITH SCHOOL · MS INFORMATION SYSTEMS · CLICK ANY COURSE TO EXPAND
+          </div>
+        </div>
+        <div style={{ textAlign: 'right', flexShrink: 0 }}>
+          <div style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: '38px', color, lineHeight: 1 }}>3.94</div>
+          <div style={{ fontSize: '9px', color: '#475569', fontFamily: "'DM Mono', monospace", letterSpacing: '1px' }}>CUMULATIVE GPA</div>
+        </div>
+      </div>
+
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+        {courses.map((course, index) => (
+          <AcademicCourseCard key={course.code} course={course} index={index} visible={visible} />
+        ))}
+      </div>
+
+      <div style={{ marginTop: '20px', padding: '14px 18px', border: `1px solid ${color}18`, background: `${color}05`, borderRadius: '2px', display: 'flex', alignItems: 'flex-start', gap: '12px' }}>
+        <span style={{ fontSize: '14px', flexShrink: 0, marginTop: '1px' }}>💡</span>
+        <p style={{ fontSize: '11px', color: '#64748b', fontFamily: "'DM Mono', monospace", lineHeight: 1.7, margin: 0 }}>
+          Every concept above was applied in at least one shipped production project — not studied in isolation. Theory grounded in real engineering equals genuine AI expertise.
+        </p>
+      </div>
     </div>
   );
 }

@@ -1,19 +1,9 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Bebas_Neue, DM_Mono } from "next/font/google";
 import "./globals.css";
 import NavLinks from "@/app/ui/components/nav-link";
 import Chatbot from "@/app/home/aiAssistant/chatbot";
-// import {  Inter, Roboto } from "next/font/google";
 
-// const inter = Inter({ subsets: ["latin"] });
-
-// const roboto = Roboto({
-//   variable: "--font-roboto",
-//   subsets: ["latin"],
-//   weight: ["100", "300", "400", "500", "700", "900"],
-//   display: "swap",
-//   style: ["normal", "italic"],
-// });
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -24,9 +14,64 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const bebasNeue = Bebas_Neue({
+  variable: "--font-bebas-neue",
+  subsets: ["latin"],
+  weight: "400",
+});
+
+const dmMono = DM_Mono({
+  variable: "--font-dm-mono",
+  subsets: ["latin"],
+  weight: ["300", "400", "500"],
+});
+
+const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://hemant-kushwaha.vercel.app';
+
 export const metadata: Metadata = {
-  title: "Hemant Kushwaha",
-  description: "Created by Hemant Kushwaha",
+  metadataBase: new URL(BASE_URL),
+  title: {
+    default: 'Hemant Kushwaha — AI Engineer',
+    template: '%s | Hemant Kushwaha',
+  },
+  description:
+    'AI Engineer with 3.5+ years of experience building production RAG pipelines, LLM orchestration systems, and full-stack AI applications. MS Information Systems at UMD (GPA 3.94). OPT-eligible May 2026.',
+  keywords: [
+    'AI Engineer', 'ML Engineer', 'LLM Engineer', 'RAG', 'LLM Orchestration',
+    'Multi-Agent Systems', 'Full Stack AI', 'Next.js', 'FastAPI', 'PostgreSQL',
+    'Gemini', 'Python', 'Hemant Kushwaha', 'University of Maryland', 'NIT Rourkela',
+  ],
+  authors: [{ name: 'Hemant Kushwaha', url: BASE_URL }],
+  creator: 'Hemant Kushwaha',
+  openGraph: {
+    type: 'website',
+    locale: 'en_US',
+    url: BASE_URL,
+    siteName: 'Hemant Kushwaha — AI Engineer Portfolio',
+    title: 'Hemant Kushwaha — AI Engineer',
+    description:
+      'AI Engineer with 3.5+ years of experience building production RAG pipelines, LLM orchestration systems, and full-stack AI applications. MS at UMD. OPT-eligible May 2026.',
+    images: [
+      {
+        url: '/profile.png',
+        width: 800,
+        height: 800,
+        alt: 'Hemant Kushwaha — AI Engineer',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Hemant Kushwaha — AI Engineer',
+    description:
+      'AI Engineer with 3.5+ years of experience. Building production RAG, LLM orchestration, and full-stack AI systems. MS at UMD. OPT-eligible May 2026.',
+    images: ['/profile.png'],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true },
+  },
 };
 
 export default function RootLayout({
@@ -37,7 +82,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${bebasNeue.variable} ${dmMono.variable} antialiased`}
       >
         <NavLinks />
         <div

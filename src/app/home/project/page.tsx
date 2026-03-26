@@ -1,4 +1,17 @@
-﻿import React from "react";
+﻿import type { Metadata } from 'next';
+import React from "react";
+
+export const metadata: Metadata = {
+  title: 'Projects',
+  description:
+    'Production AI systems and full-stack projects — RAG pipelines, LLM orchestration, multi-agent workflows, and web applications built with FastAPI, Next.js, and PostgreSQL.',
+  openGraph: {
+    title: 'Projects — Hemant Kushwaha',
+    description:
+      'Production AI systems: RAG pipelines, LLM orchestration, multi-agent workflows, and full-stack applications.',
+    url: '/home/project',
+  },
+};
 import { ProjectCard } from './projectCard';
 import { Section } from '../about/section';
 import { PROJECT_DATA } from '../constant';

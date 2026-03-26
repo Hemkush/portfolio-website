@@ -1,4 +1,17 @@
+import type { Metadata } from 'next';
 import React from 'react';
+
+export const metadata: Metadata = {
+  title: 'Coursework',
+  description:
+    'Graduate coursework from the University of Maryland MS Information Systems program — covering AI, machine learning, data analytics, and information systems design.',
+  openGraph: {
+    title: 'Coursework — Hemant Kushwaha',
+    description:
+      'Graduate courses from UMD MS Information Systems: AI, machine learning, data analytics, and information systems.',
+    url: '/home/course',
+  },
+};
 import { Section } from '../about/section';
 import  CourseCard  from './courseCard';
 import { getCoursework } from '@/app/lib/data';

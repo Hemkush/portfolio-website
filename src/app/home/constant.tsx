@@ -27,12 +27,12 @@ export const PROFILE_IMAGE_URL: string = '/profile.png';
 // Text content for the introduction section
 export const INTRODUCTION = {
   greeting: "Hello, I'm Hemant Kushwaha",
-  title: "Creative Developer & Aspiring Product Manager",
-  text: "A passionate developer with 3+ years of professional experience in software and web development, currently pursuing my Master’s in Information Systems at the University of Maryland. I’ve worked across diverse domains like BFSI, Telecom, and Data Analytics, building responsive web applications and AI-driven solutions. As I deepen my knowledge in data, artificial intelligence, and business strategy, I’m driven by a strong ambition to transition into product management—where I can blend technical expertise with user-focused innovation. Whether leading cross-functional teams, analyzing complex systems, or managing live events, I thrive on solving real-world problems with creativity and impact. Explore my work and join me on this journey of turning ideas into meaningful digital products."
+  title: "AI Engineer | Full-Stack AI Systems Builder",
+  text: "AI Engineer with 3+ years of software development experience and currently pursuing an MS in Information Systems at the University of Maryland (GPA 3.94). I design and ship production-ready AI applications across RAG, LLM orchestration, and full-stack platforms using FastAPI, Next.js, PostgreSQL, and cloud-native tooling. My focus is building reliable systems that balance model quality, performance, and business impact through scalable architecture, strong engineering discipline, and user-first product thinking."
 };
 
 // Text content for the objective section
-export const OBJECTIVE: string = "Passionate and versatile developer with experience in software and web development, currently expanding my expertise in data, artificial intelligence, and business strategy. Driven by a strong interest in product innovation and user-centric solutions, I aspire to transition into a product management role, where I can blend technical insight with business acumen to create impactful digital products.";
+export const OBJECTIVE: string = "To contribute as an AI Engineer by building robust, production-grade intelligent systems that combine LLM capabilities, retrieval pipelines, and full-stack engineering excellence. I aim to solve high-value business problems through measurable outcomes, reliable deployment practices, and thoughtful user experience design.";
 
 // Education history data
 export const EDUCATION_DATA: EducationItem[] = [
@@ -45,7 +45,7 @@ export const EDUCATION_DATA: EducationItem[] = [
     skills: ['Problem Solving', 'Business Acumen', 'Empathy', 'Strategic Thinking', 'Data Analysis', 'SQL', 'Leadership', 'Communication', 'Teamwork', 'Python', 'Collaborative Problem Solving']
   },  
   {
-    degree: 'B.Tech in Information Technology',
+    degree: 'B.Tech in Mechanical Engineering',
     institution: 'National Institute of Technology',
     years: '2017 - 2021',
     logo: '/rourkela_logo.ico',
@@ -425,3 +425,6 @@ export const getPortfolioContext = () => {
     `;
     return context.replace(/"/g, "'"); // Use single quotes to avoid issues
 };
+
+
+

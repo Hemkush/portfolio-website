@@ -1,4 +1,17 @@
+import type { Metadata } from 'next';
 import React from 'react';
+
+export const metadata: Metadata = {
+  title: 'About',
+  description:
+    'Learn about Hemant Kushwaha — AI Engineer with an MS in Information Systems from the University of Maryland (GPA 3.94), B.Tech in Mechanical Engineering from NIT Rourkela, and 3.5+ years of software engineering experience.',
+  openGraph: {
+    title: 'About Hemant Kushwaha — AI Engineer',
+    description:
+      'MS in Information Systems at UMD (GPA 3.94), B.Tech from NIT Rourkela. 3.5+ years building production AI systems. OPT-eligible May 2026.',
+    url: '/home/about',
+  },
+};
 import Image from 'next/image';
 import { ProfileImage } from './profileImage';
 import { Section } from './section';
@@ -28,7 +41,7 @@ const AboutPage: React.FC = () => {
         <div className="flex flex-col md:flex-row items-center md:items-center gap-4 md:gap-8">
             <Image
               src={PROFILE_IMAGE_URL}
-              alt="Alex Doe"
+              alt="Hemant Kushwaha"
               width={192}
               height={192}
               className="-mt-14 md:-mt-20 w-40 h-40 md:w-48 md:h-48 rounded-full object-cover border-4 md:border-8 border-gray-900 shadow-2xl transition-transform duration-300 hover:scale-105"

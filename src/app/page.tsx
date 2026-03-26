@@ -3,8 +3,8 @@
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { CtaButton } from '@/app/ui/components/cta-button';
-import { CategoryPanel, DifferentiatorCard, EvidenceProjectCard, SkillBar, StatCard } from '@/app/ui/ai-expertise/components';
-import { DIFFERENTIATORS, PROJECTS, PROOF_POINTS, SKILL_CATEGORIES } from '@/app/ui/ai-expertise/data';
+import { AcademicPanel, CategoryPanel, DifferentiatorCard, EvidenceProjectCard, SkillBar, StatCard } from '@/app/ui/ai-expertise/components';
+import { ACADEMIC_COURSES, DIFFERENTIATORS, PROJECTS, PROOF_POINTS, SKILL_CATEGORIES } from '@/app/ui/ai-expertise/data';
 import { useInView } from '@/app/ui/ai-expertise/hooks';
 
 export default function AISkillsPage() {
@@ -34,16 +34,11 @@ export default function AISkillsPage() {
   }, []);
 
   const activeCat = SKILL_CATEGORIES.find((cat) => cat.id === activeCategory) ?? SKILL_CATEGORIES[0];
+  const isAcademic = activeCategory === 'academic';
 
   return (
     <>
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,700&display=swap');
-        @keyframes gridPulse { 0%, 100% { opacity: 0.03; } 50% { opacity: 0.06; } }
-        @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-8px); } }
-      `}</style>
-
-      <div style={{ minHeight: '100vh', color: '#e2e8f0', fontFamily: "'DM Mono', monospace", position: 'relative', overflowX: 'hidden' }}>
+      <div style={{ minHeight: '100vh', color: '#e2e8f0', fontFamily: "var(--font-dm-mono), monospace", position: 'relative', overflowX: 'hidden' }}>
 
         <div style={{ position: 'relative', zIndex: 1, maxWidth: '1200px', margin: '0 auto', padding: `${TOP_PANEL_OFFSET_PX}px 24px 80px` }}>
           <div style={{ padding: '24px 0 44px', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
@@ -56,10 +51,10 @@ export default function AISkillsPage() {
               }}
             >
               <div>
-                <div style={{ display: 'inline-block', marginBottom: '14px', padding: '5px 10px', border: '1px solid rgba(56,189,248,0.35)', color: '#38bdf8', fontSize: '10px', letterSpacing: '1.5px', textTransform: 'uppercase', borderRadius: '2px', fontFamily: "'DM Mono', monospace" }}>
+                <div style={{ display: 'inline-block', marginBottom: '14px', padding: '5px 10px', border: '1px solid rgba(56,189,248,0.35)', color: '#38bdf8', fontSize: '10px', letterSpacing: '1.5px', textTransform: 'uppercase', borderRadius: '2px', fontFamily: "var(--font-dm-mono), monospace" }}>
                   Open to Work
                 </div>
-                <h1 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 'clamp(40px, 7vw, 72px)', letterSpacing: '2px', lineHeight: 0.95, background: 'linear-gradient(135deg, #e2e8f0 0%, #38bdf8 70%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
+                <h1 style={{ fontFamily: "var(--font-bebas-neue), sans-serif", fontSize: 'clamp(40px, 7vw, 72px)', letterSpacing: '2px', lineHeight: 0.95, background: 'linear-gradient(135deg, #e2e8f0 0%, #38bdf8 70%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
                   Hemant Kushwaha
                 </h1>
                 <p style={{ marginTop: '14px', fontSize: '13px', color: '#cbd5e1', letterSpacing: '0.2px' }}>
@@ -99,7 +94,7 @@ export default function AISkillsPage() {
                   minHeight: '184px',
                 }}
               >
-                <div style={{ fontSize: '10px', letterSpacing: '2px', textTransform: 'uppercase', color: '#7dd3fc', marginBottom: '10px', fontFamily: "'DM Mono', monospace" }}>
+                <div style={{ fontSize: '10px', letterSpacing: '2px', textTransform: 'uppercase', color: '#7dd3fc', marginBottom: '10px', fontFamily: "var(--font-dm-mono), monospace" }}>
                   Professional Summary
                 </div>
                 <p style={{ fontSize: '12px', color: '#cbd5e1', lineHeight: 1.75, marginBottom: '8px' }}>
@@ -126,13 +121,13 @@ export default function AISkillsPage() {
           <div ref={skillsRef} style={{ padding: '56px 0' }}>
             <div style={{ marginBottom: '36px' }}>
               <div style={{ fontSize: '10px', letterSpacing: '3px', color: '#64748b', marginBottom: '10px', textTransform: 'uppercase' }}>Core Competencies</div>
-              <h2 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 'clamp(36px, 7vw, 70px)', letterSpacing: '2px', background: 'linear-gradient(90deg, #e2e8f0, #64748b)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
+              <h2 style={{ fontFamily: "var(--font-bebas-neue), sans-serif", fontSize: 'clamp(36px, 7vw, 70px)', letterSpacing: '2px', background: 'linear-gradient(90deg, #e2e8f0, #64748b)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
                 AI SKILLS & EXPERTISE
               </h2>
               <p style={{ marginTop: '10px', maxWidth: '720px', fontSize: '13px', color: '#94a3b8', lineHeight: 1.8 }}>
                 Every skill below is backed by shipped projects, real stakeholders, and production systems — not tutorial notebooks.
               </p>
-              <h3 style={{ marginTop: '16px', fontFamily: "'Bebas Neue', sans-serif", fontSize: '34px', letterSpacing: '2px', color: '#e2e8f0' }}>
+              <h3 style={{ marginTop: '16px', fontFamily: "var(--font-bebas-neue), sans-serif", fontSize: '34px', letterSpacing: '2px', color: '#e2e8f0' }}>
                 TECHNICAL SKILLS
               </h3>
             </div>
@@ -145,19 +140,25 @@ export default function AISkillsPage() {
               </div>
 
               <div style={{ border: `1px solid ${activeCat.color}22`, background: `${activeCat.color}04`, borderRadius: '2px', padding: '32px', backdropFilter: 'blur(12px)', boxShadow: `0 0 60px ${activeCat.glow}`, minHeight: '480px' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '14px', marginBottom: '32px', paddingBottom: '20px', borderBottom: `1px solid ${activeCat.color}20` }}>
-                  <span style={{ fontSize: '28px', color: activeCat.color, animation: 'float 3s ease-in-out infinite' }}>{activeCat.icon}</span>
-                  <div>
-                    <div style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: '26px', letterSpacing: '2px', color: activeCat.color }}>{activeCat.label}</div>
-                    <div style={{ fontSize: '10px', color: '#64748b', marginTop: '2px', letterSpacing: '1px' }}>HOVER SKILLS FOR PROJECT EVIDENCE</div>
-                  </div>
-                </div>
+                {isAcademic ? (
+                  <AcademicPanel courses={ACADEMIC_COURSES} visible={skillsInView} />
+                ) : (
+                  <>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '14px', marginBottom: '32px', paddingBottom: '20px', borderBottom: `1px solid ${activeCat.color}20` }}>
+                      <span style={{ fontSize: '28px', color: activeCat.color, animation: 'float 3s ease-in-out infinite' }}>{activeCat.icon}</span>
+                      <div>
+                        <div style={{ fontFamily: "var(--font-bebas-neue), sans-serif", fontSize: '26px', letterSpacing: '2px', color: activeCat.color }}>{activeCat.label}</div>
+                        <div style={{ fontSize: '10px', color: '#64748b', marginTop: '2px', letterSpacing: '1px' }}>HOVER SKILLS FOR PROJECT EVIDENCE</div>
+                      </div>
+                    </div>
 
-                <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: isMobile ? '0' : '0 40px' }}>
-                  {activeCat.skills.map((skill, idx) => (
-                    <SkillBar key={skill.name} skill={skill} color={activeCat.color} index={idx} visible={skillsInView} />
-                  ))}
-                </div>
+                    <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: isMobile ? '0' : '0 40px' }}>
+                      {activeCat.skills.map((skill, idx) => (
+                        <SkillBar key={skill.name} skill={skill} color={activeCat.color} index={idx} visible={skillsInView} />
+                      ))}
+                    </div>
+                  </>
+                )}
               </div>
             </div>
           </div>
@@ -166,11 +167,13 @@ export default function AISkillsPage() {
             <div style={{ marginBottom: '36px', display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', flexWrap: 'wrap', gap: '16px' }}>
               <div>
                 <div style={{ fontSize: '10px', letterSpacing: '3px', color: '#64748b', marginBottom: '10px', textTransform: 'uppercase' }}>Shipped Systems</div>
-                <h2 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: '36px', letterSpacing: '2px', background: 'linear-gradient(90deg, #e2e8f0, #64748b)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
+                <h2 style={{ fontFamily: "var(--font-bebas-neue), sans-serif", fontSize: '36px', letterSpacing: '2px', background: 'linear-gradient(90deg, #e2e8f0, #64748b)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
                   PROJECTS & EVIDENCE
                 </h2>
               </div>
-              <div style={{ fontSize: '11px', color: '#64748b', letterSpacing: '1px' }}>FILTER BY CATEGORY ↑ — CLICK A SKILL AREA ABOVE</div>
+              <div style={{ fontSize: '11px', color: '#64748b', letterSpacing: '1px' }}>
+                {isAcademic ? 'ALL PROJECTS SHOWN — ACADEMIC TAB REVEALS FULL COURSEWORK CONTEXT' : 'FILTER BY CATEGORY ↑ — CLICK A SKILL AREA ABOVE'}
+              </div>
             </div>
 
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(340px, 1fr))', gap: '2px' }}>
@@ -183,7 +186,7 @@ export default function AISkillsPage() {
           <div style={{ borderTop: '1px solid rgba(255,255,255,0.06)', paddingTop: '56px' }}>
             <div style={{ marginBottom: '32px' }}>
               <div style={{ fontSize: '10px', letterSpacing: '3px', color: '#475569', marginBottom: '10px', textTransform: 'uppercase' }}>Differentiators</div>
-              <h2 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: '36px', letterSpacing: '2px', background: 'linear-gradient(90deg, #e2e8f0, #64748b)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
+              <h2 style={{ fontFamily: "var(--font-bebas-neue), sans-serif", fontSize: '36px', letterSpacing: '2px', background: 'linear-gradient(90deg, #e2e8f0, #64748b)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
                 WHAT I BRING
               </h2>
             </div>
@@ -197,7 +200,7 @@ export default function AISkillsPage() {
 
           <div style={{ textAlign: 'center', padding: '64px 0 0', borderTop: '1px solid rgba(255,255,255,0.06)', marginTop: '56px' }}>
             <div style={{ fontSize: '10px', letterSpacing: '4px', color: '#38bdf8', marginBottom: '16px', textTransform: 'uppercase' }}>Open to AI Engineering Roles</div>
-            <h3 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 'clamp(32px, 6vw, 64px)', letterSpacing: '2px', background: 'linear-gradient(135deg, #e2e8f0, #38bdf8)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text', marginBottom: '24px' }}>
+            <h3 style={{ fontFamily: "var(--font-bebas-neue), sans-serif", fontSize: 'clamp(32px, 6vw, 64px)', letterSpacing: '2px', background: 'linear-gradient(135deg, #e2e8f0, #38bdf8)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text', marginBottom: '24px' }}>
               LET&apos;S BUILD SOMETHING REAL
             </h3>
             <div style={{ display: 'flex', justifyContent: 'center', gap: '12px', flexWrap: 'wrap' }}>
