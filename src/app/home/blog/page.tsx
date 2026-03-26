@@ -3,6 +3,7 @@ import { GoogleGenerativeAI } from '@google/generative-ai';
 import NewsClient from './NewsClient';
 
 export const revalidate = 3600;
+export const maxDuration = 10;
 
 export const metadata: Metadata = {
   title: 'AI Landscape',

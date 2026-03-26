@@ -6,11 +6,12 @@ import AIInsights from './AIInsights';
 
 const CATEGORIES = ['All', 'Models', 'Research', 'Tools', 'Industry', 'Open Source', 'General'];
 
+const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 function formatDate(pubDate: string): string {
   if (!pubDate) return '';
   const d = new Date(pubDate);
   if (Number.isNaN(d.getTime())) return '';
-  return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+  return `${MONTHS[d.getMonth()]} ${d.getDate()}, ${d.getFullYear()}`;
 }
 
 function NewsCard({ article }: { article: NewsItem }) {
