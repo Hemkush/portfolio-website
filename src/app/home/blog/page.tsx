@@ -54,13 +54,10 @@ const RSS_SOURCES = [
   { name: 'Anthropic', url: 'https://www.anthropic.com/blog.rss', color: '#d97757' },
   { name: 'OpenAI', url: 'https://openai.com/blog/rss.xml', color: '#10a37f' },
   { name: 'Google AI', url: 'https://blog.google/technology/ai/rss/', color: '#4285f4' },
-  { name: 'Simon Willison', url: 'https://simonwillison.net/atom/everything/', color: '#a78bfa' },
   // General AI news
   { name: 'Hugging Face', url: 'https://huggingface.co/blog/feed.xml', color: '#fbbf24' },
-  { name: 'The Verge AI', url: 'https://www.theverge.com/ai-artificial-intelligence/rss/index.xml', color: '#f87171' },
   { name: 'VentureBeat AI', url: 'https://venturebeat.com/category/ai/feed/', color: '#34d399' },
   { name: 'MIT Tech Review', url: 'https://www.technologyreview.com/feed/', color: '#60a5fa' },
-  { name: 'ArXiv AI', url: 'https://arxiv.org/rss/cs.AI', color: '#e879f9' },
 ];
 
 function extractTag(chunk: string, tag: string): string {
@@ -83,12 +80,15 @@ function extractLink(chunk: string): string {
 
 function cleanText(text: string): string {
   return text
-    .replace(/<[^>]+>/g, '')
-    .replace(/&amp;/g, '&')
+    // Decode entities first — Atom feeds often store HTML as &lt;p&gt;...&lt;/p&gt;
     .replace(/&lt;/g, '<')
     .replace(/&gt;/g, '>')
+    .replace(/&amp;/g, '&')
     .replace(/&quot;/g, '"')
-    .replace(/&#\d+;/g, '')
+    .replace(/&#(\d+);/g, (_, n) => String.fromCharCode(Number(n)))
+    // Now strip any HTML tags (both original and freshly decoded)
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/\s+/g, ' ')
     .trim();
 }
 
@@ -116,8 +116,11 @@ function parseRSS(xml: string, source: string, color: string): Omit<NewsItem, 'c
 }
 
 async function fetchFeed(url: string, source: string, color: string): Promise<Omit<NewsItem, 'category' | 'insight'>[]> {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), 4500);
   try {
     const res = await fetch(url, {
+      signal: controller.signal,
       next: { revalidate: 3600 },
       headers: { 'User-Agent': 'Mozilla/5.0 (compatible; portfolio-news-bot/1.0)' },
     });
@@ -126,6 +129,8 @@ async function fetchFeed(url: string, source: string, color: string): Promise<Om
     return parseRSS(xml, source, color);
   } catch {
     return [];
+  } finally {
+    clearTimeout(timer);
   }
 }
 
@@ -196,9 +201,12 @@ ${articleList}`
       typeof parsed.digest === 'string' &&
       Array.isArray(parsed.modelReleases) &&
       Array.isArray(parsed.protocolUpdates) &&
-      Array.isArray(parsed.articles) &&
-      parsed.articles.length === articles.length
+      Array.isArray(parsed.articles)
     ) {
+      // Pad articles if Gemini returned fewer than expected (length mismatch is common)
+      while (parsed.articles.length < articles.length) {
+        parsed.articles.push({ category: 'General', insight: '' });
+      }
       return parsed;
     }
   } catch {
@@ -220,7 +228,7 @@ export default async function AILandscapePage() {
       const db = new Date(b.pubDate).getTime();
       return (Number.isNaN(db) ? 0 : db) - (Number.isNaN(da) ? 0 : da);
     })
-    .slice(0, 40);
+    .slice(0, 21);
 
   const analysis = await analyzeWithGemini(rawArticles);
 
