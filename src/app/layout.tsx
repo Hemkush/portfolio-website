@@ -3,6 +3,7 @@ import { Geist, Geist_Mono, Bebas_Neue, DM_Mono } from "next/font/google";
 import "./globals.css";
 import NavLinks from "@/app/ui/components/nav-link";
 import Chatbot from "@/app/home/aiAssistant/chatbot";
+import { Analytics } from "@vercel/analytics/next";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -106,6 +107,7 @@ export default function RootLayout({
         />
         <main className="relative z-10 pt-16">{children}</main>
         <Chatbot />
+        <Analytics />
       </body>
     </html>
   );
