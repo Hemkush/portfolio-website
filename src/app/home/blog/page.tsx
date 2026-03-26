@@ -150,7 +150,7 @@ async function analyzeWithGemini(
   try {
     const ai = new GoogleGenerativeAI(key);
     const model = ai.getGenerativeModel({
-      model: process.env.GEMINI_MODEL ?? 'gemini-2.0-flash',
+      model: process.env.GEMINI_MODEL ?? 'gemini-2.5-flash',
     });
 
     const articleList = articles
