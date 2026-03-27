@@ -29,6 +29,9 @@ export interface Project {
   ongoing: boolean;
   description: string;
   skills: string[];
+  githubUrl?: string;
+  liveUrl?: string;
+  category?: 'ai' | 'fullstack' | 'data' | 'consulting';
 }
 
 export interface Recommendation {

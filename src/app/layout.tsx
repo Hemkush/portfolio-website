@@ -37,12 +37,15 @@ export const metadata: Metadata = {
   description:
     'AI Engineer with 3.5+ years of experience building production RAG pipelines, LLM orchestration systems, and full-stack AI applications. MS Information Systems at UMD (GPA 3.94). OPT-eligible May 2026.',
   keywords: [
-    'AI Engineer', 'ML Engineer', 'LLM Engineer', 'RAG', 'LLM Orchestration',
-    'Multi-Agent Systems', 'Full Stack AI', 'Next.js', 'FastAPI', 'PostgreSQL',
-    'Gemini', 'Python', 'Hemant Kushwaha', 'University of Maryland', 'NIT Rourkela',
+    'AI Engineer', 'ML Engineer', 'LLM Engineer', 'Machine Learning Engineer',
+    'RAG', 'LLM Orchestration', 'Multi-Agent Systems', 'vector search', 'pgvector',
+    'Full Stack AI', 'Next.js', 'FastAPI', 'PostgreSQL', 'Gemini', 'Python', 'TypeScript',
+    'Hemant Kushwaha', 'University of Maryland', 'UMD', 'NIT Rourkela',
+    'OPT eligible', 'hire AI engineer', 'AI engineer portfolio',
   ],
   authors: [{ name: 'Hemant Kushwaha', url: BASE_URL }],
   creator: 'Hemant Kushwaha',
+  alternates: { canonical: BASE_URL },
   openGraph: {
     type: 'website',
     locale: 'en_US',
@@ -53,7 +56,7 @@ export const metadata: Metadata = {
       'AI Engineer with 3.5+ years of experience building production RAG pipelines, LLM orchestration systems, and full-stack AI applications. MS at UMD. OPT-eligible May 2026.',
     images: [
       {
-        url: '/profile.png',
+        url: `${BASE_URL}/profile.png`,
         width: 800,
         height: 800,
         alt: 'Hemant Kushwaha — AI Engineer',
@@ -65,12 +68,12 @@ export const metadata: Metadata = {
     title: 'Hemant Kushwaha — AI Engineer',
     description:
       'AI Engineer with 3.5+ years of experience. Building production RAG, LLM orchestration, and full-stack AI systems. MS at UMD. OPT-eligible May 2026.',
-    images: ['/profile.png'],
+    images: [`${BASE_URL}/profile.png`],
   },
   robots: {
     index: true,
     follow: true,
-    googleBot: { index: true, follow: true },
+    googleBot: { index: true, follow: true, 'max-snippet': -1, 'max-image-preview': 'large' },
   },
 };
 

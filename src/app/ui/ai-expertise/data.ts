@@ -255,6 +255,18 @@ export const PROJECTS: Project[] = [
     tradeoffs: 'Chose higher latency from deeper orchestration to improve answer quality and traceability.',
   },
   {
+    name: 'AI-Powered Portfolio Website',
+    role: 'Solo Builder',
+    tags: ['Next.js 15', 'Gemini', 'RAG', 'PostgreSQL', 'TypeScript', 'Vercel'],
+    color: '#e879f9',
+    highlight: 'RAG chatbot · live AI news digest · ISR edge caching · <24 Gemini calls/day',
+    skills: ['llm', 'genai', 'fullstack'],
+    impactMetrics: ['RAG chatbot', 'Hourly AI digest', '<30ms edge response'],
+    problem: 'A static resume page cannot demonstrate production AI engineering — needed a live system that proves end-to-end AI delivery.',
+    architecture: 'Next.js 15 App Router server components + Gemini embeddings + pgvector RAG + ISR hourly revalidation for AI news feed.',
+    tradeoffs: 'Chose ISR over on-demand rendering to cap Gemini costs at ≤24 calls/day while still serving fresh content to all visitors.',
+  },
+  {
     name: 'AI Chatbot System — UMD Smith School',
     role: 'AI Chatbot System Developer',
     tags: ['RAG', 'Flask', 'React', 'OpenAI', 'Anthropic', 'sentence-transformers'],
@@ -308,7 +320,7 @@ export const PROOF_POINTS: ProofPoint[] = [
   { stat: '8', label: 'AI Agents Built', sub: 'modular service pipeline' },
   { stat: '40%', label: 'Token Reduction', sub: 'via memory optimization' },
   { stat: '85%', label: 'ML Accuracy', sub: 'Sparks Foundation models' },
-  { stat: '6+', label: 'AI Projects', sub: 'shipped to production' },
+  { stat: '7+', label: 'AI Projects', sub: 'shipped to production' },
   { stat: '3', label: 'RAG Systems', sub: 'with vector retrieval' },
   { stat: '7+', label: 'Team Members', sub: 'led as technical lead' },
 ];

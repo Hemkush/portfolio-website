@@ -4,12 +4,27 @@ import React from 'react';
 export const metadata: Metadata = {
   title: 'Coursework',
   description:
-    'Graduate coursework from the University of Maryland MS Information Systems program — covering AI, machine learning, data analytics, and information systems design.',
+    'Graduate and online coursework by Hemant Kushwaha — MS Information Systems at UMD covering AI, machine learning, data analytics, and database management, plus industry certifications in deep learning, NLP, and cloud engineering.',
+  keywords: [
+    'UMD coursework', 'MS Information Systems courses', 'University of Maryland AI courses',
+    'machine learning coursework', 'data analytics graduate', 'AI certification',
+    'deep learning course', 'NLP certification', 'database management', 'Hemant Kushwaha education',
+    'AI engineer education', 'graduate courses AI', 'Smith School of Business',
+    'online AI courses', 'Coursera machine learning',
+  ],
+  alternates: { canonical: 'https://hemant-kushwaha.vercel.app/home/course' },
   openGraph: {
     title: 'Coursework — Hemant Kushwaha',
     description:
-      'Graduate courses from UMD MS Information Systems: AI, machine learning, data analytics, and information systems.',
-    url: '/home/course',
+      'UMD MS Information Systems graduate courses + online certifications: AI, machine learning, NLP, data analytics, and cloud engineering.',
+    url: 'https://hemant-kushwaha.vercel.app/home/course',
+    images: [{ url: '/profile.png', width: 800, height: 800, alt: 'Hemant Kushwaha — Coursework' }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Coursework — Hemant Kushwaha',
+    description: 'UMD MS Information Systems · AI, ML, data analytics grad courses + industry certifications.',
+    images: ['/profile.png'],
   },
 };
 import { Section } from '../about/section';

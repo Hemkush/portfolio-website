@@ -8,12 +8,26 @@ export const maxDuration = 10;
 export const metadata: Metadata = {
   title: 'AI Landscape',
   description:
-    'Latest AI model releases, protocol updates (MCP, A2A), and daily news from across the AI ecosystem — aggregated hourly from Anthropic, OpenAI, Google AI, Hugging Face, and more.',
+    'Live AI news feed updated hourly — model releases, MCP & A2A protocol updates, and daily digest from Anthropic, OpenAI, Google AI, Hugging Face, VentureBeat, and MIT Tech Review. Analyzed by Gemini.',
+  keywords: [
+    'AI news', 'AI landscape', 'LLM model releases', 'AI model updates', 'MCP protocol',
+    'A2A agent protocol', 'Anthropic news', 'OpenAI news', 'Google AI news', 'Hugging Face',
+    'AI weekly digest', 'AI engineering news', 'machine learning news', 'AI tools update',
+    'Gemini analysis', 'AI industry news 2026', 'AI agent frameworks', 'VentureBeat AI',
+  ],
+  alternates: { canonical: 'https://hemant-kushwaha.vercel.app/home/blog' },
   openGraph: {
     title: 'AI Landscape — Hemant Kushwaha',
     description:
-      'AI model releases, protocol updates, and daily news from Anthropic, OpenAI, Google AI, and more. Updated hourly.',
-    url: '/home/blog',
+      'Hourly AI news: model releases, MCP/A2A protocol updates, and Gemini-powered daily digest from Anthropic, OpenAI, Google AI, and more.',
+    url: 'https://hemant-kushwaha.vercel.app/home/blog',
+    images: [{ url: '/profile.png', width: 800, height: 800, alt: 'AI Landscape — Live AI News Feed' }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'AI Landscape — Live AI News',
+    description: 'Hourly: model releases, MCP/A2A updates, daily digest. Anthropic · OpenAI · Google AI · Hugging Face.',
+    images: ['/profile.png'],
   },
 }; // Refresh everything every hour
 

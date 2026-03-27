@@ -64,10 +64,10 @@ export const EDUCATION_DATA: EducationItem[] = [
 // Hobbies and interests data
 export const HOBBIES_DATA: Hobby[] = [
   {
-    name: 'Photography',
-    description: 'Capturing moments, from landscapes to city life.',
+    name: 'Sports',
+    description: 'Playing cricket, badminton, and staying active outdoors.',
     icon: (
-      <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-teal-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-teal-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
     )
   },
   {
@@ -117,8 +117,25 @@ export const ACHIEVEMENTS_DATA: Achievement[] = [
 
 // List of core skills
 export const SKILLS_DATA: string[] = [
-  'Python', 'Java', 'SQL', 'TypeScript', 'JavaScript', 'Next.js', 'SpringBoot', 'Node.js', 'Tailwind CSS', 'Git & GitHub', 'Data Analytics', 'RAG', 'Data Visualization', 'Web Scraping',
-  'Natural Language Processing', 'Machine Learning', 'Deep Learning', 'Web Development', 'Agile Scrum', 'LangChain', 'LangGraph', 'FastAPI', 'AI Integration', 'Statistics'
+  // AI & LLM Engineering
+  'RAG Pipelines', 'LLM Orchestration', 'Multi-Agent Systems', 'Prompt Engineering', 'ReACT Agents',
+  'LangChain', 'LangGraph', 'Google Gemini API', 'OpenAI API', 'Agentic AI',
+  'Fine-Tuning LLMs', 'Conversational AI', 'AI Content Generation', 'Token Optimization',
+  'Structured Output Extraction', 'MCP (Model Context Protocol)', 'System Design',
+  // Vector & Search
+  'Vector Databases', 'Embeddings & Semantic Search', 'pgvector', 'ChromaDB', 'Qdrant',
+  // ML & Data Science
+  'Machine Learning', 'Deep Learning', 'Natural Language Processing',
+  'Scikit-Learn', 'PyTorch', 'Keras', 'XGBoost', 'LightGBM', 'Feature Engineering',
+  'Pandas', 'NumPy', 'R (Statistical Modeling)', 'Data Analytics', 'Data Visualization', 'Statistics',
+  // Databases
+  'PostgreSQL', 'MongoDB', 'Neo4j', 'MySQL', 'SQL',
+  // Full-Stack & Backend
+  'Python', 'TypeScript', 'JavaScript', 'Java',
+  'FastAPI', 'Flask', 'Next.js', 'React', 'Node.js', 'SpringBoot',
+  'REST APIs', 'Docker', 'CI/CD Pipelines', 'AWS', 'Vercel',
+  // Dev Practices
+  'Tailwind CSS', 'Git & GitHub', 'Agile Scrum', 'Web Scraping', 'Web Development',
 ];
 
 // List of soft skills
@@ -128,51 +145,168 @@ export const SKILLS_SOFT: string[] = [
 
 export const PROJECT_DATA: Project[] = [
   {
-      name: 'Document Analysis RAG-Chatbot',
+      name: 'Document Analysis Multiagent RAG-Chatbot',
       timeline: 'July 2025 - Present',
       ongoing: true,
-      description: 'Engineered an end-to-end FastAPI RAG chatbot using LangChain & LangGraph to process user queries from uploaded documents. Developed multi-agent capability and full-stack integration (frontend + backend) for enhanced accuracy and contextual depth. Tested and scaled the solution across 10+ documents with high accuracy, focusing on user-oriented interaction and documentation insight.',
-      skills: ['React', 'FastAPI', 'RAG', 'LangChain', 'LandGraph', 'Multi-Agent Systems', 'Full-Stack Development', 'Document Analysis', 'Python', 'AI Integration']
+      category: 'ai',
+      description: 'Developed a multiagent RAG chatbot system using LangGraph and Gemini LLM with ReACT agents to intelligently process documents from PDFs, websites, and databases. Implemented an end-to-end pipeline with VLM embeddings and Chroma vector store for enhanced retrieval accuracy. Built a full-stack web application with React/Next.js frontend and FastAPI backend featuring secure user authentication, document upload/analysis interface, and persistent memory system enabling users to save, manage, and retrieve analyzed documents with personalized responses based on user background.',
+      skills: ['LangGraph', 'Gemini API', 'ReACT Agents', 'ChromaDB', 'FastAPI', 'Next.js', 'React', 'RAG', 'Vector Embeddings', 'Multi-Agent Systems', 'Python'],
+      githubUrl: 'https://github.com/Hemkush',
   },
   {
-      name: 'Interactive Portfolio Website',
-      timeline: 'June 2025 - Present',
-      ongoing: true,
-      description: 'A dynamic and responsive personal portfolio built with React, Next.js, and Tailwind CSS. Features an OpenAI API integration to generate dynamic content, and showcases my skills and projects in an interactive format. The project focuses heavily on clean UI/UX, performance, artificial intelligence(AI) and accessibility. The backend is handled via Next.js API routes, ensuring a seamless full-stack experience.',
-      skills: ['React', 'Next.js', 'TypeScript', 'Tailwind CSS', 'OpenAI API', 'Vercel']
+      name: 'Event Scheduler AI — Intelligent University Scheduling Platform',
+      timeline: 'Nov 2025 - Dec 2025',
+      ongoing: false,
+      category: 'ai',
+      description: 'Built an AI scheduling platform designed to streamline event management for educational institutions. Developed an AI Scheduling Assistant that provides context-aware time suggestions with reasoning, a Smart Availability Calculator that computes real-time availability percentages (e.g., "85% of MBA students available") to prevent conflicts, and bidirectional sync with Google Calendar via MCP server. Features automated attendance tracking via QR codes and an interactive dashboard to visualize attendance trends by program. Deployed on AWS (Elastic Beanstalk, EC2, RDS, S3).',
+      skills: ['LangChain', 'Gemini API', 'MCP (Google Calendar)', 'Flask', 'React', 'MySQL', 'AWS', 'LangChain Agents', 'Vector DB', 'Python', 'Full-Stack Development'],
+      githubUrl: 'https://github.com/Hemkush',
+  },
+  {
+      name: 'AI-Driven Marketing Intelligence Platform',
+      timeline: 'Jan 2025 - May 2025',
+      ongoing: false,
+      category: 'ai',
+      description: 'Built and shipped an end-to-end AI marketing tool with a FastAPI + React + PostgreSQL stack, solving a real SMB problem: turning raw business discovery conversations into strategy-grade outputs. Architected an 8-service modular AI agent pipeline (discovery → segmentation → positioning → strategy → content) with deterministic fallbacks and structured output normalization. Built a vector-backed interview memory system with response chunking, embedding generation, and top-k retrieval injection — reducing prompt token usage ~40%. Implemented reliability layer: fallback logic for model timeouts, defensive JSON/non-JSON parsing, and guardrails preventing duplicate question generation. Shipped AI UX transparency feature (live conversation analysis panel) improving user trust.',
+      skills: ['FastAPI', 'OpenAI API', 'LangChain', 'PostgreSQL', 'React', 'Docker', 'Alembic', 'Redis', 'Prometheus', 'Multi-Agent Systems', 'RAG', 'CI/CD'],
+      githubUrl: 'https://github.com/Hemkush',
+  },
+  {
+      name: 'AI Chatbot System — UMD Smith School',
+      timeline: 'Feb 2025 - May 2025',
+      ongoing: false,
+      category: 'ai',
+      description: 'Designed and developed a RAG-powered AI chatbot for UMD Smith School faculty and administrative staff. Conducted stakeholder discovery sessions to define requirements: policy summarization with source attribution, admin document management panel, and guided chat interface. Implemented RAG architecture with sentence-transformers/OpenAI embeddings and Flask backend. Applied Agile methodology with weekly stakeholder syncs. Stack: React + Tailwind (frontend), Flask (backend), OpenAI/Anthropic (LLM), sentence-transformers (embeddings).',
+      skills: ['RAG', 'Flask', 'React', 'Tailwind CSS', 'OpenAI API', 'Anthropic API', 'sentence-transformers', 'System Design', 'Figma', 'Python'],
+      githubUrl: 'https://github.com/Hemkush',
+  },
+  {
+      name: 'AI-Powered Portfolio Website',
+      timeline: 'June 2025 - Mar 2026',
+      ongoing: false,
+      category: 'ai',
+      description: 'Built a production-grade AI portfolio from scratch using Next.js 15 App Router, TypeScript, and Tailwind CSS. Implemented a RAG-powered AI chatbot using Google Gemini embeddings and PostgreSQL vector search — answers recruiter questions about my background, projects, and skills in real time. Built a live AI Landscape news feed that aggregates 6 RSS sources hourly, then uses Gemini to categorize articles, extract model releases, surface protocol updates (MCP, A2A), and generate a daily digest with per-article insights. Applied ISR edge caching to keep Gemini API calls under 24/day while serving all visitors in under 30ms. Includes Google OAuth (NextAuth v5), contact form, resume delivery, and full mobile-responsive navigation.',
+      skills: ['Next.js 15', 'TypeScript', 'React', 'Tailwind CSS', 'Google Gemini API', 'RAG', 'pgvector', 'ISR / Edge Caching', 'NextAuth', 'Vercel', 'Full-Stack Development'],
+      githubUrl: 'https://github.com/Hemkush/portfolio-website',
+      liveUrl: 'https://hemant-kushwaha.vercel.app',
   },
   {
       name: 'AI-Powered Social Media Automation Bot',
-      timeline: 'June 2025 - Present',
-      ongoing: true,
-      description: 'To tackle the repetitive and time-consuming nature of social media management, I developed a sophisticated AI-Powered Social Media Automation Bot. This Python-based solution seamlessly integrates with the Twitter (X) and Reddit REST APIs to fully automate content pipelines. The bot is engineered to generate over 30 unique content variations per campaign and features dynamic scheduling logic for real-time, customized publishing. A key feature is its ability to perform real-time web scraping for the latest AI news, which is then structured and made available to the user through interactive dropdowns for on-demand content generation. The project successfully reduced manual posting efforts by 90% and was meticulously documented, covering everything from API endpoints to error-handling workflows and demonstrating sound judgment in managing complex automation tasks.',
-      skills: ['Python', 'Gemini / NLP API Usage', 'Prompt Engineering', 'Scripting', 'Task Automation']
+      timeline: 'June 2025 - Aug 2025',
+      ongoing: false,
+      category: 'ai',
+      description: 'Developed an intelligent social media automation bot using Python and Google Gemini LLM that streamlines content creation and distribution across multiple platforms (X/Twitter, Reddit). Features AI-powered content generation with platform-specific optimization, automated scheduling engine for 30+ content variations, and intuitive GUI built with CustomTkinter. Integrates TechCrunch API for article sourcing and implements smart scheduling using Cron and APScheduler for consistent posting. Reduced manual posting efforts by 90%. User can edit drafts, add instructions, preview with platform-specific formatting, and see real-time character counts.',
+      skills: ['Python', 'Google Gemini API', 'Prompt Engineering', 'APScheduler', 'Twitter API', 'Reddit API', 'CustomTkinter', 'Web Scraping', 'Task Automation', 'Cron Jobs'],
+      githubUrl: 'https://github.com/Hemkush',
   },
   {
       name: 'AI-Driven Analytical Dashboard for E-Livestock Global System',
-      timeline: 'Feb 2025 - Present',
-      ongoing: true,
-      description: 'Associated with University of Maryland - Robert H. Smith School of Business, to develop and implement an AI-driven analytical tool that helps E-Livestock Global transform its operations by empowering farmers to track livestock health and productivity through predictive disease management and optimized feeding; optimize the supply chain for efficiency and transparency through fraud reduction; and enable data-driven market responsiveness by providing deep consumer insights and market trend forecasting. Ultimately, this tool will facilitate stakeholders by providing easily digestible reports and dashboards for data-driven decision-making.',
-      skills: ['Project Management', 'Software Development Life Cycle (SDLC)', 'Data Modeling', 'Process Modeling', 'Systems Analysis', 'Documentation']
+      timeline: 'Feb 2025 - May 2025',
+      ongoing: false,
+      category: 'data',
+      description: 'Led a 5-member team to build an AI-driven analytical dashboard for E-Livestock Global, directly interfacing with the CEO for requirements gathering. Created an ELT data pipeline to make farm data analytics-ready for a React dashboard (Chart.js). Built ML predictive models (XGBoost and LightGBM) for disease management and optimized feeding. Delivered formal documentation including Statement of Work (SOW), System Analysis Report, Design Analysis Report, and Final Report. Dashboard enables trend analysis, forecasting, and automated insight summaries for non-technical stakeholders.',
+      skills: ['XGBoost', 'LightGBM', 'ELT Pipeline', 'React', 'Chart.js', 'Python', 'Pandas', 'Data Modeling', 'Stakeholder Management', 'System Design', 'SQL'],
+      githubUrl: 'https://github.com/Hemkush',
+  },
+  {
+      name: 'Data Mining & Predictive Analytics — YouTube Success Prediction',
+      timeline: '2025',
+      ongoing: false,
+      category: 'data',
+      description: 'Analyzed a dataset of ~100K YouTube videos to train and evaluate classification models predicting video "success." Applied data preprocessing, feature engineering, and cross-validation across multiple model architectures. Built predictive models in R (Logistic Regression, Nonlinear Modeling), achieving 77% accuracy. Applied evaluation metrics to assess performance, optimize complexity control, and improve generalization. Topics covered: Introduction to ML, Classification, Logistic Regression, Nonlinear Modeling, Evaluation Metrics, Cross Validation, Complexity Control.',
+      skills: ['R Programming', 'Logistic Regression', 'Machine Learning', 'Feature Engineering', 'Cross Validation', 'Data Preprocessing', 'Predictive Modeling', 'Statistical Analysis'],
+  },
+  {
+      name: 'Analyzing User Preferences and Hotel Feedback',
+      timeline: '2025',
+      ongoing: false,
+      category: 'data',
+      description: 'Data-driven analysis project to identify active reviewers, determine frequent traveler patterns, pinpoint service gaps, discover popular destinations, highlight top-rated regions, study seasonal travel trends, and recommend investment locations. Designed the Entity-Relationship Diagram (ERD) and defined the relational schema, business rules, and referential integrity actions. Used Python to clean and format data. Wrote SQL queries to create tables and perform analytical queries.',
+      skills: ['SQL', 'PostgreSQL', 'ERD Design', 'Python', 'Pandas', 'Data Analysis', 'Database Design', 'Data Wrangling'],
+  },
+  {
+      name: 'Blockchain-Based Real Estate Start-Up',
+      timeline: '2025',
+      ongoing: false,
+      category: 'consulting',
+      description: 'Led a team in developing a real estate start-up concept using blockchain technology as a UMD coursework project. Applied comprehensive business development frameworks including market analysis, competitor benchmarking, Porter\'s Five Forces, cost-benefit modeling, and growth forecasting. Designed and implemented a prototype application using blockchain and React with publicly available data to support secure, transparent, and efficient property transactions. Conducted business sustainability and societal impact analysis. Synthesized research findings and presented actionable recommendations for market entry, adoption strategies, and long-term scalability.',
+      skills: ['Blockchain', 'React', 'Market Analysis', 'Business Strategy', 'Financial Modeling', 'Team Leadership', 'Porter\'s Five Forces'],
   },
   {
       name: 'COVID-19 Data Analysis using Python',
       timeline: '2020',
       ongoing: false,
-      description: 'Utilized Python (Pandas, NumPy, Matplotlib) to clean and analyze 100K+ global COVID-19 records, identifying trends in infection, recovery, and mortality rates; applied data wrangling and visualization skills to derive actionable insights. Created interactive visualizations and summarized findings into a report that scored 95%+ on evaluation, demonstrating proficiency in data storytelling, statistical analysis, and real-world problem solving.',
-      skills: ['Python', 'Pandas', 'NumPy', 'Matplotlib', 'Data Analysis', 'Data Visualization', 'Data Wrangling']
+      category: 'data',
+      description: 'Utilized Python (Pandas, NumPy, Matplotlib) to clean and analyze 100K+ global COVID-19 records, identifying trends in infection, recovery, and mortality rates. Applied data wrangling and visualization skills to derive actionable insights. Created interactive visualizations and summarized findings into a report that scored 95%+ on evaluation, demonstrating proficiency in data storytelling, statistical analysis, and real-world problem solving.',
+      skills: ['Python', 'Pandas', 'NumPy', 'Matplotlib', 'Data Analysis', 'Data Visualization', 'Data Wrangling'],
   },
   {
       name: 'Analyzing Big Data with SQL',
       timeline: '2020',
       ongoing: false,
-      description: 'Successfully applied advanced SQL queries using Microsoft SQL Server to analyze and extract insights from large-scale datasets, demonstrating strong skills in data querying, aggregation, and trend analysis.',
-      skills: ['SQL', 'Data Analysis', 'Data Wrangling']
+      category: 'data',
+      description: 'Applied advanced SQL queries using Microsoft SQL Server to analyze and extract insights from large-scale datasets, demonstrating strong skills in data querying, aggregation, and trend analysis across real-world business scenarios.',
+      skills: ['SQL', 'Microsoft SQL Server', 'Data Analysis', 'Data Wrangling', 'Query Optimization'],
   },
 ];
 
 // Work Experience Data
 export const WORK_EXPERIENCE_DATA: WorkExperience[] = [
+    {
+        company: 'University of Maryland — Robert H. Smith School of Business',
+        role: 'Graduate Research Assistant — AI Engineering',
+        timeline: 'Jan 2025 - Present',
+        description: [
+            'Built and shipped an AI-Driven Marketing Intelligence Platform end-to-end using FastAPI + React + PostgreSQL, solving a real SMB problem: turning raw business answers into actionable marketing strategy.',
+            'Architected an 8-service modular AI agent pipeline (discovery → segmentation → positioning → strategy → content) with deterministic fallbacks and structured output normalization across variable LLM response shapes.',
+            'Built a vector-backed interview memory system with response chunking, embedding generation, and top-k retrieval injection — reducing prompt token usage ~40% while preserving full conversation context.',
+            'Implemented reliability layer: fallback logic for model timeouts, defensive JSON/non-JSON parsing, and guardrails preventing duplicate question generation.',
+            'Shipped AI UX transparency feature (live conversation analysis panel) improving user trust — applied explainability principle aligned with responsible AI.',
+            'Deployed via Docker Compose with Alembic migration-first schema discipline and GitHub Actions CI/CD pipeline.',
+            'Developed three-module teaching support tool (Learn, Think, Do) leveraging LLMs and GenAI with lead qualification agents, content generation agents, and AI-powered A/B testing agents.',
+        ],
+        skills: ['FastAPI', 'React', 'PostgreSQL', 'OpenAI API', 'LangChain', 'Docker', 'Alembic', 'Multi-Agent Systems', 'RAG', 'Prompt Engineering', 'Vector Memory', 'CI/CD', 'Python'],
+    },
+    {
+        company: 'University of Maryland — Robert H. Smith School of Business',
+        role: 'AI Chatbot System Developer (Administrative Assistant)',
+        timeline: 'Feb 2025 - May 2025',
+        description: [
+            'Designed and developed a RAG-powered AI chatbot system for UMD Smith School administrative staff and faculty, enabling policy summarization with source-aware reporting.',
+            'Led Discovery & Scoping phase — initiated stakeholder meetings with project sponsor (Professor) and primary end-users to identify pain points, define requirements, and establish success metrics.',
+            'Proposed and implemented a high-level system design based on Retrieval-Augmented Generation (RAG) architecture, approved by stakeholders after evaluation against performance and maintainability criteria.',
+            'Built admin document management panel enabling staff to add, view, and remove documents and website links fed to the chatbot.',
+            'Applied Agile methodology with weekly stakeholder syncs to demonstrate progress, gather feedback, and adapt requirements iteratively.',
+            'Tech stack: React + Tailwind (frontend), Flask (backend), sentence-transformers/OpenAI embeddings, Figma for UI design.',
+        ],
+        skills: ['RAG', 'Flask', 'React', 'Tailwind CSS', 'OpenAI API', 'Anthropic API', 'sentence-transformers', 'Figma', 'Agile', 'System Design', 'Stakeholder Management'],
+    },
+    {
+        company: 'University of Maryland — Robert H. Smith School of Business',
+        role: 'Impact Consulting Fellow — Team Lead (TechnBloom)',
+        timeline: 'May 2025 - Aug 2025',
+        description: [
+            'Led a 7-member interdisciplinary consulting team to evaluate TechnBloom\'s USDA-certified beef processing initiative, coordinating weekly meetings, task alignment, and cross-functional research collaboration.',
+            'Conducted comprehensive market, operational, supply chain, and financial analyses, developing data-driven models that informed business sustainability planning, startup feasibility, and long-term farm-to-market growth strategy.',
+            'Designed an integrated farm-to-DMV distribution and data pipeline, mapping stakeholders, transportation routes, processing flows, and interoperability requirements.',
+            'Developed a scalable business model and commercialization strategy for a rural-to-urban food system, emphasizing food security, sustainability, and economic development.',
+            'Produced strategic roadmap enabling TechnBloom to position for partnerships with universities, grocers, and institutional buyers along the East Coast.',
+        ],
+        skills: ['Team Leadership', 'Strategic Consulting', 'Market Analysis', 'Financial Modeling', 'Supply Chain', 'Data Pipeline Design', 'Stakeholder Management', 'Business Strategy'],
+    },
+    {
+        company: 'University of Maryland — Robert H. Smith School of Business',
+        role: 'Impact Consulting Fellow — Website Manager (Best for DMV)',
+        timeline: 'Jun 2025 - Aug 2025',
+        description: [
+            'Served as website manager for the Best for DMV Digital Content & Insights Visualization Project, mapping the social and environmental impact landscape across Maryland, Virginia, and D.C.',
+            'Integrated Google Maps with the Best for DMV website to create an interactive ecosystem mapping interface for regional organizations.',
+            'Developed a real-time data integration system enabling seamless addition of new organizations through Excel database updates.',
+            'Conducted comprehensive research on regional organizations to identify and fill missing data gaps.',
+            'Connected existing GoDaddy domain (bestfordmv.com) to Wix-hosted website infrastructure and successfully launched the live website serving the DMV impact community.',
+        ],
+        skills: ['Google Maps API', 'Web Development', 'Data Integration', 'Research', 'Content Management', 'Cross-functional Collaboration'],
+    },
     {
         company: 'Tata Consultancy Services (TCS)',
         role: 'Software Developer',
@@ -225,12 +359,6 @@ export const LEADERSHIP_ROLES_DATA: LeadershipRole[] = [
         role: 'Program Representative (Master’s in Information Systems)',
         timeline: 'Aug 2025 - Present',
         description: 'I was recently elected as a Program Representative, where my role involves actively representing my department in Assembly meetings. As part of my responsibilities, I am expected to stay informed about issues on the agenda in advance and engage in regular communication with students and faculty within my program. This includes gathering input, addressing concerns, and caucusing with members of the department prior to meetings to ensure that our collective perspectives are accurately represented. This position allows me to contribute to academic governance and strengthen collaboration between students and administration.'
-    },
-    {
-        organization: 'National Institute of Technology Rourkela',
-        role: 'Placement Coordinator',
-        timeline: 'May 2020 - May 2021',
-        description: 'Coordinated end-to-end campus recruitment activities for over 800 students, managing logistics, hospitality, and communication with corporate partners to ensure a seamless placement process.Built strong industry-institute relationships and collaborated with stakeholders to improve student placement outcomes and align company needs with student goals. Designed and led professional development workshops—such as resume building, mock interviews, and group discussions—to enhance students’ job readiness and engagement with placement services.'
     },
     {
         organization: 'NITRUTSAV NIT ROURKELA',

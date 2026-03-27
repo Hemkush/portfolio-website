@@ -4,12 +4,26 @@ import React from 'react';
 export const metadata: Metadata = {
   title: 'About',
   description:
-    'Learn about Hemant Kushwaha — AI Engineer with an MS in Information Systems from the University of Maryland (GPA 3.94), B.Tech in Mechanical Engineering from NIT Rourkela, and 3.5+ years of software engineering experience.',
+    'Hemant Kushwaha — AI Engineer with an MS in Information Systems from the University of Maryland (GPA 3.94), B.Tech from NIT Rourkela, and 3.5+ years of software engineering experience building production AI systems.',
+  keywords: [
+    'Hemant Kushwaha', 'AI Engineer', 'about', 'University of Maryland', 'UMD',
+    'MS Information Systems', 'NIT Rourkela', 'GPA 3.94', 'software engineer background',
+    'AI engineer profile', 'machine learning engineer', 'OPT eligible 2026',
+    'full-stack AI engineer', 'AI engineer biography',
+  ],
+  alternates: { canonical: 'https://hemant-kushwaha.vercel.app/home/about' },
   openGraph: {
     title: 'About Hemant Kushwaha — AI Engineer',
     description:
-      'MS in Information Systems at UMD (GPA 3.94), B.Tech from NIT Rourkela. 3.5+ years building production AI systems. OPT-eligible May 2026.',
-    url: '/home/about',
+      'MS Information Systems at UMD (GPA 3.94), B.Tech from NIT Rourkela. 3.5+ years building production AI systems. OPT-eligible May 2026.',
+    url: 'https://hemant-kushwaha.vercel.app/home/about',
+    images: [{ url: '/profile.png', width: 800, height: 800, alt: 'Hemant Kushwaha — AI Engineer' }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'About Hemant Kushwaha — AI Engineer',
+    description: 'MS UMD GPA 3.94 · NIT Rourkela · 3.5+ yrs production AI engineering · OPT-eligible May 2026.',
+    images: ['/profile.png'],
   },
 };
 import Image from 'next/image';
