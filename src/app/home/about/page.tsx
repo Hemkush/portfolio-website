@@ -72,8 +72,8 @@ const AboutPage: React.FC = () => {
         </div>
 
         {/* Intro text section */}
-        <div className="mt-8 bg-gray-800/80 backdrop-blur-sm border border-gray-700/50 rounded-xl p-6 shadow-lg">
-          <p className="text-gray-300 leading-relaxed text-lg">
+        <div className="card mt-8 rounded-xl p-6">
+          <p className="text-base leading-relaxed" style={{ color: 'var(--muted)' }}>
             {INTRODUCTION.text}
           </p>
         </div>
@@ -88,18 +88,14 @@ const AboutPage: React.FC = () => {
             <Section title="Technical Skills">
               <div className="flex flex-wrap gap-2">
                 {SKILLS_DATA.map((skill) => (
-                  <span key={skill} className="bg-gray-700 text-cyan-300 text-sm font-medium px-3 py-1 rounded-full cursor-default transition-colors hover:bg-cyan-900/50 hover:text-cyan-200">
-                    {skill}
-                  </span>
+                  <span key={skill} className="skill-tag text-sm px-3 py-1">{skill}</span>
                 ))}
               </div>
             </Section>
             <Section title="Soft Skills">
               <div className="flex flex-wrap gap-2">
                 {SKILLS_SOFT.map((skill) => (
-                  <span key={skill} className="bg-gray-700 text-cyan-300 text-sm font-medium px-3 py-1 rounded-full cursor-default transition-colors hover:bg-cyan-900/50 hover:text-cyan-200">
-                    {skill}
-                  </span>
+                  <span key={skill} className="skill-tag text-sm px-3 py-1">{skill}</span>
                 ))}
               </div>
             </Section>
@@ -111,7 +107,7 @@ const AboutPage: React.FC = () => {
               <ul className="space-y-8">
                 {EDUCATION_DATA.map((item, index) => (
                   <li key={index} className="flex items-start gap-5">
-                    <div className="flex-shrink-0 mt-1 bg-white/90 rounded-md p-1">
+                    <div className="flex-shrink-0 mt-1 rounded-md p-1" style={{ background: 'rgba(255,255,255,0.9)' }}>
                       {typeof item.logo === 'string' && (
                         <Image
                           src={item.logo}
@@ -130,14 +126,10 @@ const AboutPage: React.FC = () => {
                         {item.gpa && <span className="font-semibold">GPA: {item.gpa}</span>}
                       </div>
                       {item.skills && item.skills.length > 0 && (
-                        <div className="mt-3">
-                          <div className="flex flex-wrap gap-2">
-                            {item.skills.map(skill => (
-                              <span key={skill} className="bg-gray-700 text-cyan-300 text-xs font-medium px-2.5 py-1 rounded-full">
-                                {skill}
-                              </span>
-                            ))}
-                          </div>
+                        <div className="mt-3 flex flex-wrap gap-1.5">
+                          {item.skills.map(skill => (
+                            <span key={skill} className="skill-tag">{skill}</span>
+                          ))}
                         </div>
                       )}
                     </div>
@@ -163,11 +155,11 @@ const AboutPage: React.FC = () => {
             <Section title="Hobbies & Interests">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 {HOBBIES_DATA.map((hobby, index) => (
-                   <div key={index} className="flex items-start gap-4 p-4 bg-gray-900/50 rounded-lg transition-colors hover:bg-gray-700/50">
+                   <div key={index} className="card-flat flex items-start gap-4 p-4 rounded-xl transition-all hover:-translate-y-0.5">
                       <div className="flex-shrink-0 mt-1">{hobby.icon}</div>
                       <div>
-                        <h3 className="font-bold text-white">{hobby.name}</h3>
-                        <p className="text-gray-400 text-sm">{hobby.description}</p>
+                        <h3 className="font-bold text-sm" style={{ color: 'var(--foreground)' }}>{hobby.name}</h3>
+                        <p className="text-sm mt-0.5" style={{ color: 'var(--muted)' }}>{hobby.description}</p>
                       </div>
                    </div>
                 ))}
@@ -177,7 +169,7 @@ const AboutPage: React.FC = () => {
         </div>
       </main>
 
-      <footer className="container mx-auto text-center mt-16 mb-8 text-gray-500 border-t border-gray-800 pt-8">
+      <footer className="container mx-auto text-center mt-16 mb-8 pt-8" style={{ color: 'var(--muted-strong)', borderTop: '1px solid var(--card-border)' }}>
         <p>Portfolio of Hemant Kushwaha &copy; {new Date().getFullYear()}</p>
       </footer>
     </>

@@ -103,7 +103,7 @@ export default function ContactForm() {
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label htmlFor="name" className="mb-1 block text-sm font-medium text-slate-200">
+              <label htmlFor="name" className="mb-1 block text-sm font-medium" style={{ color: 'var(--foreground)' }}>
                 Name
               </label>
               <input
@@ -114,12 +114,12 @@ export default function ContactForm() {
                 onChange={(e) => setName(e.target.value)}
                 required
                 disabled={status === 'sending'}
-                className="w-full rounded-md border border-slate-600 bg-slate-800/70 py-2 px-3 text-white focus:border-cyan-500 focus:outline-none focus:ring-2 focus:ring-cyan-500 disabled:opacity-50"
+                className="form-input"
               />
             </div>
 
             <div>
-              <label htmlFor="email" className="mb-1 block text-sm font-medium text-slate-200">
+              <label htmlFor="email" className="mb-1 block text-sm font-medium" style={{ color: 'var(--foreground)' }}>
                 Email
               </label>
               <input
@@ -130,15 +130,13 @@ export default function ContactForm() {
                 onChange={(e) => setEmail(e.target.value)}
                 required
                 disabled={status === 'sending'}
-                className={`w-full rounded-md border bg-slate-800/70 py-2 px-3 text-white focus:border-cyan-500 focus:outline-none focus:ring-2 focus:ring-cyan-500 disabled:opacity-50 ${
-                  email.length > 0 && !emailIsValid ? 'border-red-500' : 'border-slate-600'
-                }`}
+                className={`form-input ${email.length > 0 && !emailIsValid ? 'form-input-error' : ''}`}
               />
               {email.length > 0 && !emailIsValid && <p className="mt-1 text-xs text-red-400">Please enter a valid email address.</p>}
             </div>
 
             <div>
-              <label htmlFor="message" className="mb-1 block text-sm font-medium text-slate-200">
+              <label htmlFor="message" className="mb-1 block text-sm font-medium" style={{ color: 'var(--foreground)' }}>
                 Message
               </label>
               <textarea
@@ -149,9 +147,7 @@ export default function ContactForm() {
                 onChange={(e) => setMessage(e.target.value)}
                 required
                 disabled={status === 'sending'}
-                className={`w-full rounded-md border bg-slate-800/70 py-2 px-3 text-white focus:border-cyan-500 focus:outline-none focus:ring-2 focus:ring-cyan-500 disabled:opacity-50 ${
-                  messageTooShort || messageTooLong ? 'border-red-500' : 'border-slate-600'
-                }`}
+                className={`form-input resize-none ${messageTooShort || messageTooLong ? 'form-input-error' : ''}`}
               />
               <div className="mt-1 flex items-center justify-between">
                 <p className={`text-xs ${messageTooShort || messageTooLong ? 'text-red-400' : 'text-slate-400'}`}>
@@ -199,7 +195,7 @@ export default function ContactForm() {
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                 </svg>
-                <a href={`mailto:${CONTACT_DETAILS.email}`} className="text-slate-200 transition-colors hover:text-cyan-300">
+                <a href={`mailto:${CONTACT_DETAILS.email}`} className="transition-colors hover:text-cyan-300" style={{ color: 'var(--foreground)' }}>
                   {CONTACT_DETAILS.email}
                 </a>
               </div>
@@ -208,7 +204,7 @@ export default function ContactForm() {
                   <path strokeLinecap="round" strokeLinejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                   <path strokeLinecap="round" strokeLinejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                 </svg>
-                <span className="text-slate-200">{CONTACT_DETAILS.location}</span>
+                <span style={{ color: 'var(--foreground)' }}>{CONTACT_DETAILS.location}</span>
               </div>
             </div>
           </Section>
@@ -233,7 +229,7 @@ export default function ContactForm() {
                   className="group flex items-center gap-3 rounded-lg border border-slate-700/70 bg-slate-900/50 p-3 transition-all duration-300 hover:border-cyan-400/50 hover:bg-slate-800/60"
                 >
                   <div className="text-cyan-500 transition-colors group-hover:text-cyan-300">{link.icon}</div>
-                  <span className="font-semibold text-slate-100">{link.name}</span>
+                  <span className="font-semibold" style={{ color: 'var(--foreground)' }}>{link.name}</span>
                 </a>
               ))}
             </div>

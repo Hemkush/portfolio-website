@@ -1,94 +1,318 @@
 @import "tailwindcss";
 
+/* ═══════════════════════════════════════════════════════════
+   DESIGN TOKENS — Dark mode (default)
+═══════════════════════════════════════════════════════════ */
 :root {
-  --background: #050810;
-  --foreground: #e2e8f0;
-}
+  --background:      #050810;
+  --foreground:      #e2e8f0;
+  --muted:           #94a3b8;
+  --muted-strong:    #64748b;
 
-:root {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  /* Card / surface */
+  --card-bg:           rgba(15, 23, 42, 0.65);
+  --card-border:       rgba(51, 65, 85, 0.6);
+  --card-border-hover: rgba(71, 85, 105, 0.85);
+  --card-shadow:       0 4px 8px rgba(0,0,0,0.4), 0 1px 3px rgba(0,0,0,0.25);
+  --card-shadow-hover: 0 20px 30px rgba(0,0,0,0.55), 0 8px 12px rgba(0,0,0,0.3);
+
+  /* Navigation */
+  --nav-bg:     rgba(5, 8, 16, 0.9);
+  --nav-border: rgba(51, 65, 85, 0.75);
+
+  /* Form inputs */
+  --input-bg:     rgba(9, 14, 28, 0.8);
+  --input-border: rgba(71, 85, 105, 0.55);
+
+  /* Accent */
+  --accent:       #22d3ee;
+  --accent-dim:   #0891b2;
+  --accent-glow:  rgba(34, 211, 238, 0.14);
+
+  /* Skill tags */
+  --tag-bg:       rgba(30, 41, 59, 0.8);
+  --tag-border:   rgba(51, 65, 85, 0.7);
+  --tag-text:     #cbd5e1;
+
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #050810;
-    --foreground: #ededed;
-  }
+/* ═══════════════════════════════════════════════════════════
+   DESIGN TOKENS — Light mode
+═══════════════════════════════════════════════════════════ */
+html.light {
+  --background:      #f4f7fb;
+  --foreground:      #0f172a;
+  --muted:           #64748b;
+  --muted-strong:    #94a3b8;
+
+  /* Card / surface — white glass with real shadow for depth */
+  --card-bg:           rgba(255, 255, 255, 0.85);
+  --card-border:       rgba(203, 213, 225, 0.75);
+  --card-border-hover: rgba(148, 163, 184, 0.9);
+  --card-shadow:       0 1px 4px rgba(15,23,42,0.07), 0 4px 18px rgba(15,23,42,0.05);
+  --card-shadow-hover: 0 8px 32px rgba(15,23,42,0.12), 0 4px 12px rgba(15,23,42,0.07);
+
+  /* Navigation */
+  --nav-bg:     rgba(244, 247, 251, 0.92);
+  --nav-border: rgba(203, 213, 225, 0.9);
+
+  /* Form inputs */
+  --input-bg:     rgba(255, 255, 255, 0.95);
+  --input-border: rgba(148, 163, 184, 0.55);
+
+  /* Accent — deeper cyan for light bg readability */
+  --accent:       #0891b2;
+  --accent-dim:   #0e7490;
+  --accent-glow:  rgba(8, 145, 178, 0.12);
+
+  /* Skill tags */
+  --tag-bg:     rgba(226, 232, 240, 0.7);
+  --tag-border: rgba(148, 163, 184, 0.5);
+  --tag-text:   #334155;
+
+  /* ── Remap Tailwind gray scale (lightest at 900, darkest at 50) ── */
+  --color-gray-950: #f8fafc;
+  --color-gray-900: #f1f5f9;
+  --color-gray-800: #e8edf3;
+  --color-gray-700: #cbd5e1;
+  --color-gray-600: #94a3b8;
+  --color-gray-500: #64748b;
+  --color-gray-400: #475569;
+  --color-gray-300: #334155;
+  --color-gray-200: #1e293b;
+  --color-gray-100: #0f172a;
+  --color-gray-50:  #020617;
+
+  /* ── Remap Tailwind slate scale ── */
+  --color-slate-950: #f8fafc;
+  --color-slate-900: #f4f7fb;
+  --color-slate-800: #e8edf3;
+  --color-slate-700: #cbd5e1;
+  --color-slate-600: #94a3b8;
+  --color-slate-500: #64748b;
+  --color-slate-400: #475569;
+  --color-slate-300: #334155;
+  --color-slate-200: #1e293b;
+  --color-slate-100: #0f172a;
+  --color-slate-50:  #020617;
+
+  /* White → dark slate so text-white headings are readable on light bg */
+  --color-white: #0f172a;
+  --color-black: #f8fafc;
+
+  /* Cyan — deeper tones for light bg contrast */
+  --color-cyan-300: #0891b2;
+  --color-cyan-400: #0891b2;
+  --color-cyan-500: #0e7490;
+  --color-cyan-600: #155e75;
+  --color-cyan-700: #164e63;
 }
 
+/* ═══════════════════════════════════════════════════════════
+   BASE
+═══════════════════════════════════════════════════════════ */
 body {
   background: var(--background);
   color: var(--foreground);
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
+/* ═══════════════════════════════════════════════════════════
+   SEMANTIC COMPONENT UTILITIES
+═══════════════════════════════════════════════════════════ */
+
+/* ── Card / Panel ── */
+.card {
+  background:         var(--card-bg);
+  border:             1px solid var(--card-border);
+  box-shadow:         var(--card-shadow);
+  backdrop-filter:    blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+}
+.card:hover {
+  border-color: var(--card-border-hover);
+  box-shadow:   var(--card-shadow-hover);
+}
+.card-flat {
+  background: var(--card-bg);
+  border:     1px solid var(--card-border);
+  box-shadow: var(--card-shadow);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+/* ── Navigation ── */
+.nav-header {
+  background:         var(--nav-bg);
+  backdrop-filter:    blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom:      1px solid var(--nav-border);
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
+
+/* ── Form inputs ── */
+.form-input {
+  width:      100%;
+  background: var(--input-bg);
+  border:     1px solid var(--input-border);
+  color:      var(--foreground);
+  border-radius: 0.5rem;
+  padding: 0.6rem 0.85rem;
+  font-size: 0.875rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.form-input::placeholder { color: var(--muted); }
+.form-input:focus {
+  outline:      none;
+  border-color: var(--accent);
+  box-shadow:   0 0 0 3px var(--accent-glow);
+}
+.form-input:disabled { opacity: 0.5; }
+.form-input-error { border-color: #f87171 !important; }
+
+/* ── Skill / Tech tags ── */
+.skill-tag {
+  display: inline-flex;
+  align-items: center;
+  background:    var(--tag-bg);
+  border:        1px solid var(--tag-border);
+  color:         var(--tag-text);
+  font-size:     0.7rem;
+  font-weight:   500;
+  padding:       0.2rem 0.65rem;
+  border-radius: 999px;
+  cursor: default;
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+.skill-tag:hover {
+  border-color: var(--accent-dim);
+  color:        var(--accent);
+}
+
+/* ── Section heading divider ── */
+.section-title {
+  font-size: clamp(1.25rem, 2vw, 1.5rem);
+  font-weight: 700;
+  color: var(--accent);
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid color-mix(in srgb, var(--accent) 25%, transparent);
+  margin-bottom: 1rem;
+  letter-spacing: -0.01em;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   PAGE LAYOUT
+═══════════════════════════════════════════════════════════ */
 .page-shell {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 1rem 4rem;
 }
-
 @media (min-width: 768px) {
-  .page-shell {
-    padding: 0 2rem 4rem;
-  }
+  .page-shell { padding: 0 2rem 4rem; }
 }
 
 .page-header {
   text-align: center;
-  padding: 2rem 0 1.25rem;
+  padding: 2.5rem 0 1.5rem;
 }
 
 .page-title {
-  font-size: clamp(2rem, 3.5vw, 2.6rem);
+  font-size: clamp(2rem, 3.5vw, 2.75rem);
   line-height: 1.1;
   font-weight: 800;
-  color: #e2e8f0;
-  letter-spacing: 0.01em;
+  letter-spacing: -0.02em;
+  background: linear-gradient(135deg, var(--foreground) 30%, var(--accent) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .page-subtitle {
-  margin-top: 0.6rem;
-  font-size: 1.05rem;
-  color: #94a3b8;
+  margin-top: 0.65rem;
+  font-size: 1rem;
+  color: var(--muted);
+  max-width: 54ch;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.65;
 }
 
-.input-dark {
-  width: 100%;
-  border: 1px solid rgba(148, 163, 184, 0.45);
-  background: rgba(15, 23, 42, 0.65);
-  color: #e2e8f0;
-  border-radius: 0.5rem;
-  padding: 0.55rem 0.75rem;
-}
+/* ═══════════════════════════════════════════════════════════
+   LEGACY ALIASES
+═══════════════════════════════════════════════════════════ */
+.input-dark  { width: 100%; background: var(--input-bg); border: 1px solid var(--input-border); color: var(--foreground); border-radius: 0.5rem; padding: 0.55rem 0.75rem; transition: border-color 0.2s ease; }
+.input-dark:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-glow); }
+.btn-secondary-dark { background: var(--card-bg); color: var(--foreground); border: 1px solid var(--card-border); border-radius: 0.5rem; padding: 0.5rem 1rem; transition: all 0.2s ease; }
+.btn-secondary-dark:hover { border-color: var(--card-border-hover); }
 
-.input-dark:focus {
-  outline: none;
-  border-color: rgba(34, 211, 238, 0.8);
-  box-shadow: 0 0 0 2px rgba(34, 211, 238, 0.2);
-}
+/* ═══════════════════════════════════════════════════════════
+   LIGHT MODE SAFETY NET
+   Explicit overrides for Tailwind classes that may be inlined
+   rather than using CSS variables in Tailwind v4.
+═══════════════════════════════════════════════════════════ */
 
-.btn-secondary-dark {
-  background: rgba(51, 65, 85, 0.9);
-  color: #e2e8f0;
-  border: 1px solid rgba(148, 163, 184, 0.35);
-  border-radius: 0.5rem;
-  padding: 0.5rem 1rem;
-  transition: all 0.2s ease;
-}
+/* text-white → dark text in light mode (headings, labels, etc.) */
+html.light .text-white  { color: var(--foreground) !important; }
+html.light .text-gray-100 { color: var(--foreground) !important; }
+html.light .text-gray-200 { color: #1e293b !important; }
+html.light .text-gray-300 { color: #334155 !important; }
+html.light .text-gray-400 { color: #475569 !important; }
+html.light .text-gray-500 { color: #64748b !important; }
+html.light .text-slate-100 { color: var(--foreground) !important; }
+html.light .text-slate-200 { color: #1e293b !important; }
+html.light .text-slate-300 { color: #334155 !important; }
+html.light .text-slate-400 { color: #475569 !important; }
+html.light .text-slate-500 { color: #64748b !important; }
 
-.btn-secondary-dark:hover {
-  background: rgba(71, 85, 105, 0.95);
-}
+/* Cyan text — deeper tones for light bg */
+html.light .text-cyan-200 { color: #22d3ee !important; }
+html.light .text-cyan-300 { color: #0891b2 !important; }
+html.light .text-cyan-400 { color: #0891b2 !important; }
+html.light .text-cyan-500 { color: #0e7490 !important; }
 
-@keyframes gridPulse {
-  0%, 100% { opacity: 0.03; }
-  50% { opacity: 0.06; }
-}
+/* Backgrounds — keep white surfaces actually white */
+html.light .bg-white,
+html.light .bg-white\/90,
+html.light .bg-white\/80 { background-color: rgba(255,255,255,0.9) !important; }
 
+/* Card backgrounds */
+html.light .bg-gray-900\/60,
+html.light .bg-gray-900\/50,
+html.light .bg-gray-900\/40 { background-color: rgba(255,255,255,0.7) !important; }
+html.light .bg-gray-800\/60,
+html.light .bg-gray-800\/70,
+html.light .bg-gray-800\/80 { background-color: rgba(255,255,255,0.75) !important; }
+
+/* Borders */
+html.light .border-gray-700\/50,
+html.light .border-gray-700\/60,
+html.light .border-gray-700\/40 { border-color: rgba(203,213,225,0.7) !important; }
+html.light .border-gray-700 { border-color: #cbd5e1 !important; }
+html.light .border-gray-800 { border-color: #e2e8f0 !important; }
+html.light .border-slate-700\/70 { border-color: rgba(203,213,225,0.7) !important; }
+
+/* Skill tag backgrounds */
+html.light .bg-gray-700 { background-color: #e2e8f0 !important; }
+html.light .bg-gray-800 { background-color: #eef2f7 !important; }
+html.light .bg-slate-800\/70 { background-color: rgba(255,255,255,0.85) !important; }
+html.light .bg-slate-900\/40,
+html.light .bg-slate-900\/50 { background-color: rgba(248,250,252,0.5) !important; }
+
+/* Mono timeline badges */
+html.light .bg-gray-800\/80 { background-color: rgba(241,245,249,0.9) !important; }
+
+/* ═══════════════════════════════════════════════════════════
+   ANIMATIONS
+═══════════════════════════════════════════════════════════ */
 @keyframes float {
   0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-8px); }
+  50%       { transform: translateY(-8px); }
+}
+@keyframes pulse-slow {
+  0%, 100% { opacity: 0.6; }
+  50%       { opacity: 1; }
 }

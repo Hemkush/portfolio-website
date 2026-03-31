@@ -22,7 +22,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
 
   return (
     <div
-      className="group relative bg-gray-900/60 backdrop-blur-sm border border-gray-700/50 rounded-2xl overflow-hidden flex flex-col shadow-lg transition-all duration-300 hover:border-gray-600/70 hover:shadow-xl hover:-translate-y-0.5"
+      className="card group relative rounded-2xl overflow-hidden flex flex-col hover:-translate-y-0.5"
       style={{ '--accent': cat.accent } as React.CSSProperties}
     >
       {/* Category accent bar */}
@@ -69,16 +69,11 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
         </div>
 
         {/* Footer */}
-        <div className="mt-auto space-y-3 pt-4 border-t border-gray-700/40">
+        <div className="mt-auto space-y-3 pt-4" style={{ borderTop: '1px solid var(--card-border)' }}>
           {/* Skills */}
           <div className="flex flex-wrap gap-1.5">
             {project.skills.map((skill) => (
-              <span
-                key={skill}
-                className="bg-gray-800 text-gray-300 text-xs font-medium px-2.5 py-0.5 rounded-full border border-gray-700/60 hover:border-gray-500/60 transition-colors cursor-default"
-              >
-                {skill}
-              </span>
+              <span key={skill} className="skill-tag">{skill}</span>
             ))}
           </div>
 

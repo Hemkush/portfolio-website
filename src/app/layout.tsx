@@ -3,6 +3,7 @@ import { Geist, Geist_Mono, Bebas_Neue, DM_Mono } from "next/font/google";
 import "./globals.css";
 import NavLinks from "@/app/ui/components/nav-link";
 import Chatbot from "@/app/home/aiAssistant/chatbot";
+import { ThemeProvider } from "@/app/ui/components/ThemeProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -83,32 +84,43 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        {/* Anti-flash: apply saved theme before React hydrates */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `try{var t=localStorage.getItem('theme');if(t!=='dark')document.documentElement.classList.add('light')}catch(e){document.documentElement.classList.add('light')}`,
+          }}
+        />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${bebasNeue.variable} ${dmMono.variable} antialiased`}
       >
-        <NavLinks />
-        <div
-          aria-hidden
-          className="pointer-events-none fixed inset-0 z-0"
-          style={{
-            backgroundImage:
-              'linear-gradient(rgba(56,189,248,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(56,189,248,0.04) 1px, transparent 1px)',
-            backgroundSize: '48px 48px',
-          }}
-        />
-        <div
-          aria-hidden
-          className="pointer-events-none fixed left-[-200px] top-[-200px] z-0 h-[600px] w-[600px]"
-          style={{ background: 'radial-gradient(circle, rgba(56,189,248,0.05) 0%, transparent 70%)' }}
-        />
-        <div
-          aria-hidden
-          className="pointer-events-none fixed bottom-[-200px] right-[-200px] z-0 h-[600px] w-[600px]"
-          style={{ background: 'radial-gradient(circle, rgba(167,139,250,0.05) 0%, transparent 70%)' }}
-        />
-        <main className="relative z-10 pt-16">{children}</main>
-        <Chatbot />
+        <ThemeProvider>
+          <NavLinks />
+          <div
+            aria-hidden
+            className="pointer-events-none fixed inset-0 z-0"
+            style={{
+              backgroundImage:
+                'linear-gradient(var(--grid-line) 1px, transparent 1px), linear-gradient(90deg, var(--grid-line) 1px, transparent 1px)',
+              backgroundSize: '52px 52px',
+              ['--grid-line' as string]: 'rgba(148,163,184,0.06)',
+            }}
+          />
+          <div
+            aria-hidden
+            className="pointer-events-none fixed left-[-200px] top-[-200px] z-0 h-[700px] w-[700px]"
+            style={{ background: 'radial-gradient(circle, var(--accent-glow) 0%, transparent 68%)' }}
+          />
+          <div
+            aria-hidden
+            className="pointer-events-none fixed bottom-[-200px] right-[-200px] z-0 h-[700px] w-[700px]"
+            style={{ background: 'radial-gradient(circle, rgba(139,92,246,0.06) 0%, transparent 68%)' }}
+          />
+          <main className="relative z-10 pt-16">{children}</main>
+          <Chatbot />
+        </ThemeProvider>
       </body>
     </html>
   );

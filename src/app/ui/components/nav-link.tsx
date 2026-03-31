@@ -12,8 +12,11 @@ import {
   BookOpenIcon,
   Bars3Icon,
   XMarkIcon,
+  SunIcon,
+  MoonIcon,
 } from '@heroicons/react/24/outline';
 import { usePathname } from 'next/navigation';
+import { useTheme } from './ThemeProvider';
 
 const links = [
   { name: 'AI Expertise', href: '/', icon: CpuChipIcon },
@@ -28,6 +31,7 @@ const links = [
 export default function NavLinks() {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
+  const { theme, toggle } = useTheme();
 
   // Close menu on route change
   useEffect(() => {
@@ -44,7 +48,7 @@ export default function NavLinks() {
   }, []);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 font-sans bg-slate-900 border-b border-slate-700 shadow-lg">
+    <header className="fixed top-0 left-0 right-0 z-50 font-sans nav-header">
       <nav className="mx-auto w-full max-w-[1200px] px-4 md:px-8">
         <div className="flex items-center justify-between h-16">
 
@@ -76,19 +80,33 @@ export default function NavLinks() {
             })}
           </div>
 
-          {/* Mobile hamburger button */}
-          <button
-            className="md:hidden flex items-center justify-center w-10 h-10 rounded-md text-slate-200 hover:bg-slate-700/60 hover:text-white transition-colors"
-            onClick={() => setMenuOpen((prev) => !prev)}
-            aria-label={menuOpen ? 'Close menu' : 'Open menu'}
-            aria-expanded={menuOpen}
-          >
-            {menuOpen ? (
-              <XMarkIcon className="h-6 w-6" />
-            ) : (
-              <Bars3Icon className="h-6 w-6" />
-            )}
-          </button>
+          {/* Theme toggle + mobile hamburger */}
+          <div className="flex items-center gap-1">
+            <button
+              onClick={toggle}
+              className="flex items-center justify-center w-9 h-9 rounded-md text-slate-200 hover:bg-slate-700/60 hover:text-white transition-colors"
+              aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+              title={theme === 'dark' ? 'Light mode' : 'Dark mode'}
+            >
+              {theme === 'dark' ? (
+                <SunIcon className="h-5 w-5" />
+              ) : (
+                <MoonIcon className="h-5 w-5" />
+              )}
+            </button>
+            <button
+              className="md:hidden flex items-center justify-center w-10 h-10 rounded-md text-slate-200 hover:bg-slate-700/60 hover:text-white transition-colors"
+              onClick={() => setMenuOpen((prev) => !prev)}
+              aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+              aria-expanded={menuOpen}
+            >
+              {menuOpen ? (
+                <XMarkIcon className="h-6 w-6" />
+              ) : (
+                <Bars3Icon className="h-6 w-6" />
+              )}
+            </button>
+          </div>
         </div>
       </nav>
 
