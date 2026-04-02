@@ -63,6 +63,39 @@ export const ExperienceCard: React.FC<ExperienceCardProps> = ({ experience, inde
               </div>
             </div>
 
+            {/* Links */}
+            {(experience.caseStudyUrl || experience.liveUrl) && (
+              <div className="mt-4 pt-4 flex flex-wrap gap-2.5" style={{ borderTop: '1px solid var(--card-border)' }}>
+                {experience.caseStudyUrl && (
+                  <a
+                    href={experience.caseStudyUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-1.5 text-xs font-semibold rounded-lg px-3 py-1.5 transition-all duration-200"
+                    style={{ color: accent, borderColor: `${accent}50`, background: `${accent}12`, border: `1px solid ${accent}50` }}
+                  >
+                    <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </svg>
+                    Project Deep Dive
+                  </a>
+                )}
+                {experience.liveUrl && (
+                  <a
+                    href={experience.liveUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-1.5 text-xs font-semibold text-gray-300 hover:text-white border border-gray-600 hover:border-gray-400 rounded-lg px-3 py-1.5 transition-all duration-200 hover:bg-gray-800/60"
+                  >
+                    <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                    </svg>
+                    Live Site
+                  </a>
+                )}
+              </div>
+            )}
+
             {/* Recommendation */}
             {experience.recommendation && (
               <div className="mt-4 pt-4" style={{ borderTop: '1px solid var(--card-border)' }}>

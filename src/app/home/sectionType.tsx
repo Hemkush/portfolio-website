@@ -31,6 +31,7 @@ export interface Project {
   skills: string[];
   githubUrl?: string;
   liveUrl?: string;
+  caseStudyUrl?: string;
   category?: 'ai' | 'fullstack' | 'data' | 'consulting';
 }
 
@@ -47,6 +48,8 @@ export interface WorkExperience {
     description: string[];
     skills: string[];
     recommendation?: Recommendation;
+    caseStudyUrl?: string;
+    liveUrl?: string;
 }
 
 export interface VolunteerExperience {

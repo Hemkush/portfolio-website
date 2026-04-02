@@ -33,6 +33,7 @@ export const SKILL_CATEGORIES: SkillCategory[] = [
       { name: 'AI UX Design', level: 88, proof: 'Live conversation analysis panel · explainability UI' },
       { name: 'A/B Testing Agents', level: 78, proof: 'Graduate Research — AI-powered A/B optimization' },
       { name: 'Token Optimization', level: 85, proof: 'Marketing Tool — 40% prompt token reduction' },
+      { name: 'DALL-E 3 / Image Generation', level: 82, proof: 'MarketPilot — two-stage LLM→DALL-E content studio' },
     ],
   },
   {
@@ -50,6 +51,8 @@ export const SKILL_CATEGORIES: SkillCategory[] = [
       { name: 'RESTful API Design', level: 90, proof: 'TCS — Spring Boot · FastAPI · Node.js' },
       { name: 'Agile / Scrum', level: 90, proof: 'TCS (3.5 yrs) · UMD weekly stakeholder syncs' },
       { name: 'System Design', level: 85, proof: 'RAG chatbot architecture docs · SOW · Design Reports' },
+      { name: 'LLM Observability', level: 84, proof: 'MarketPilot — cost tracking, quality scoring, pipeline tracing, Prometheus + Sentry' },
+      { name: 'pgvector', level: 86, proof: 'MarketPilot — 1536-dim vectors, cosine similarity, psycopg v3 integration' },
     ],
   },
   {

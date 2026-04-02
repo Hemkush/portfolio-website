@@ -145,6 +145,17 @@ export const SKILLS_SOFT: string[] = [
 
 export const PROJECT_DATA: Project[] = [
   {
+      name: 'AI-Driven Marketing Intelligence Platform',
+      timeline: 'Jan 2025 - May 2025',
+      ongoing: false,
+      category: 'ai',
+      description: 'Production SaaS that converts a 10-minute business interview into a complete 90-day go-to-market strategy — deployed live on Google Cloud Run + Firebase Hosting. Engineered a 10-agent AI pipeline (adaptive interview → embedding-ranked competitive scan via Google Places → TAM/SAM/SOM market analysis → brand positioning → psychographic buyer personas → channel strategy → 90-day roadmap → DALL-E 3 content studio) with Pydantic-validated JSON outputs and deterministic fallbacks ensuring zero downtime. Built pgvector RAG memory (1536-dim embeddings, cosine similarity retrieval) that reduced prompt token usage 40%. Shipped a full MLOps observability stack: 7 Prometheus metrics, Sentry APM, per-agent LLM cost tracking, output quality scoring (0.0–1.0), pipeline step tracing, and SHA-256 DB-backed response cache with 24h TTL.',
+      skills: ['FastAPI', 'OpenAI API', 'pgvector', 'PostgreSQL', 'React', 'Docker', 'Prometheus', 'Sentry', 'DALL-E 3', 'Multi-Agent Systems', 'RAG', 'Google Places API', 'Cloud Run'],
+      githubUrl: 'https://github.com/Hemkush',
+      liveUrl: 'https://ai-marketing-prod.web.app/',
+      caseStudyUrl: '/marketpilot-showcase.html',
+  },
+  {
       name: 'Document Analysis Multiagent RAG-Chatbot',
       timeline: 'July 2025 - Present',
       ongoing: true,
@@ -160,15 +171,6 @@ export const PROJECT_DATA: Project[] = [
       category: 'ai',
       description: 'Built an AI scheduling platform designed to streamline event management for educational institutions. Developed an AI Scheduling Assistant that provides context-aware time suggestions with reasoning, a Smart Availability Calculator that computes real-time availability percentages (e.g., "85% of MBA students available") to prevent conflicts, and bidirectional sync with Google Calendar via MCP server. Features automated attendance tracking via QR codes and an interactive dashboard to visualize attendance trends by program. Deployed on AWS (Elastic Beanstalk, EC2, RDS, S3).',
       skills: ['LangChain', 'Gemini API', 'MCP (Google Calendar)', 'Flask', 'React', 'MySQL', 'AWS', 'LangChain Agents', 'Vector DB', 'Python', 'Full-Stack Development'],
-      githubUrl: 'https://github.com/Hemkush',
-  },
-  {
-      name: 'AI-Driven Marketing Intelligence Platform',
-      timeline: 'Jan 2025 - May 2025',
-      ongoing: false,
-      category: 'ai',
-      description: 'Built and shipped an end-to-end AI marketing tool with a FastAPI + React + PostgreSQL stack, solving a real SMB problem: turning raw business discovery conversations into strategy-grade outputs. Architected an 8-service modular AI agent pipeline (discovery → segmentation → positioning → strategy → content) with deterministic fallbacks and structured output normalization. Built a vector-backed interview memory system with response chunking, embedding generation, and top-k retrieval injection — reducing prompt token usage ~40%. Implemented reliability layer: fallback logic for model timeouts, defensive JSON/non-JSON parsing, and guardrails preventing duplicate question generation. Shipped AI UX transparency feature (live conversation analysis panel) improving user trust.',
-      skills: ['FastAPI', 'OpenAI API', 'LangChain', 'PostgreSQL', 'React', 'Docker', 'Alembic', 'Redis', 'Prometheus', 'Multi-Agent Systems', 'RAG', 'CI/CD'],
       githubUrl: 'https://github.com/Hemkush',
   },
   {
@@ -257,15 +259,17 @@ export const WORK_EXPERIENCE_DATA: WorkExperience[] = [
         role: 'Graduate Research Assistant — AI Engineering',
         timeline: 'Jan 2025 - Present',
         description: [
-            'Built and shipped an AI-Driven Marketing Intelligence Platform end-to-end using FastAPI + React + PostgreSQL, solving a real SMB problem: turning raw business answers into actionable marketing strategy.',
-            'Architected an 8-service modular AI agent pipeline (discovery → segmentation → positioning → strategy → content) with deterministic fallbacks and structured output normalization across variable LLM response shapes.',
-            'Built a vector-backed interview memory system with response chunking, embedding generation, and top-k retrieval injection — reducing prompt token usage ~40% while preserving full conversation context.',
-            'Implemented reliability layer: fallback logic for model timeouts, defensive JSON/non-JSON parsing, and guardrails preventing duplicate question generation.',
-            'Shipped AI UX transparency feature (live conversation analysis panel) improving user trust — applied explainability principle aligned with responsible AI.',
-            'Deployed via Docker Compose with Alembic migration-first schema discipline and GitHub Actions CI/CD pipeline.',
-            'Developed three-module teaching support tool (Learn, Think, Do) leveraging LLMs and GenAI with lead qualification agents, content generation agents, and AI-powered A/B testing agents.',
+            'Designed and shipped MarketPilot AI — a production SaaS converting a 10-minute business interview into a full 90-day go-to-market strategy, live on Google Cloud Run + Firebase with real user traffic.',
+            'Architected a 10-agent AI pipeline (adaptive interview → embedding-ranked competitive scan → TAM/SAM market analysis → brand positioning → psychographic personas → channel strategy → 90-day roadmap → DALL-E 3 content studio) with Pydantic-validated JSON outputs and deterministic fallbacks for 100% API uptime.',
+            'Built embedding-based competitor pre-filtering using OpenAI text-embedding-3-small + cosine similarity to rank 20 discovered competitors before LLM enrichment — cutting token usage 4× and eliminating request timeouts.',
+            'Engineered a full MLOps observability layer: 7 Prometheus metrics (LLM cost, latency, quality scores, cache hit rate), Sentry APM, per-agent output quality scoring (0.0–1.0 schema completeness), and pipeline step tracing with duration_ms logging.',
+            'Implemented pgvector RAG memory (1536-dim embeddings, top-k cosine retrieval) and a DB-backed SHA-256 response cache (24h TTL) — reducing redundant LLM API calls by ~60% in production.',
+            'Built a two-stage DALL-E 3 content studio: GPT-4o-mini generates design brief + image prompt, DALL-E 3 renders outputs (logos, banners, social visuals, ad copy) in 5 tone variants stored as permanent base64.',
+            'Developed a three-module AI teaching support tool (Learn, Think, Do) with LLM-powered lead qualification agents, content generation agents, and AI-driven A/B testing as a parallel research deliverable.',
         ],
         skills: ['FastAPI', 'React', 'PostgreSQL', 'OpenAI API', 'LangChain', 'Docker', 'Alembic', 'Multi-Agent Systems', 'RAG', 'Prompt Engineering', 'Vector Memory', 'CI/CD', 'Python'],
+        caseStudyUrl: '/marketpilot-showcase.html',
+        liveUrl: 'https://ai-marketing-prod.web.app/',
     },
     {
         company: 'University of Maryland — Robert H. Smith School of Business',
