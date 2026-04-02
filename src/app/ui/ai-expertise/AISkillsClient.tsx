@@ -60,13 +60,48 @@ export default function AISkillsClient() {
                 <p style={{ marginTop: '6px', fontSize: '12px', color: 'var(--muted-strong)', letterSpacing: '0.2px' }}>
                   OPT-eligible May 2026 · Open to AI Engineer / ML Engineer roles
                 </p>
-                <div style={{ marginTop: '20px', display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
+                <div style={{ marginTop: '20px', display: 'flex', gap: '10px', flexWrap: 'wrap', alignItems: 'center' }}>
                   <CtaButton asChild variant="primary" size="md">
                     <Link href="/home/contact">Contact Me</Link>
                   </CtaButton>
                   <CtaButton asChild variant="secondary" size="md">
                     <Link href="/home/project">View Projects</Link>
                   </CtaButton>
+                  <a
+                    href="https://ai-marketing-prod.web.app/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '6px',
+                      fontSize: '12px',
+                      fontWeight: 700,
+                      fontFamily: 'var(--font-dm-mono), monospace',
+                      letterSpacing: '0.5px',
+                      padding: '8px 14px',
+                      borderRadius: '2px',
+                      border: '1px solid rgba(52,211,153,0.45)',
+                      color: '#34d399',
+                      background: 'rgba(52,211,153,0.08)',
+                      textDecoration: 'none',
+                      transition: 'all 0.2s',
+                    }}
+                    onMouseEnter={e => {
+                      (e.currentTarget as HTMLAnchorElement).style.background = 'rgba(52,211,153,0.16)';
+                      (e.currentTarget as HTMLAnchorElement).style.borderColor = 'rgba(52,211,153,0.7)';
+                    }}
+                    onMouseLeave={e => {
+                      (e.currentTarget as HTMLAnchorElement).style.background = 'rgba(52,211,153,0.08)';
+                      (e.currentTarget as HTMLAnchorElement).style.borderColor = 'rgba(52,211,153,0.45)';
+                    }}
+                  >
+                    <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#34d399', animation: 'pulse 2s infinite' }} />
+                    MarketPilot AI — Live
+                    <svg width="11" height="11" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                    </svg>
+                  </a>
                 </div>
                 <div style={{ marginTop: '10px', fontSize: '11px', color: 'var(--muted-strong)' }}>
                   {hasResume ? (
