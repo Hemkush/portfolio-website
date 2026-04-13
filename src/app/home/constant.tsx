@@ -156,6 +156,15 @@ export const PROJECT_DATA: Project[] = [
       caseStudyUrl: '/marketpilot-showcase.html',
   },
   {
+      name: 'AlphaDesk - Agentic Portfolio Intelligence',
+      timeline: '2026',
+      ongoing: false,
+      category: 'ai',
+      description: 'Built an AI-powered portfolio manager workstation that compresses the pre-market workflow into one operating layer. AlphaDesk combines deterministic portfolio analytics, signal monitoring, single-name research, risk review, and PM-ready reporting through a LangGraph-style multi-agent architecture. The system is designed for public equity portfolio managers, using specialized agents for metrics, research, risk, correlation, and report generation, with human approval gates for risk-sensitive flows and source-aware outputs for reviewability.',
+      skills: ['FastAPI', 'LangGraph', 'LangChain', 'React', 'Tailwind CSS', 'PostgreSQL', 'Redis', 'Celery', 'Chart.js', 'Multi-Agent Systems', 'Risk Analytics', 'Portfolio Intelligence'],
+      caseStudyUrl: '/projects/alphadesk',
+  },
+  {
       name: 'Document Analysis Multiagent RAG-Chatbot',
       timeline: 'July 2025 - Present',
       ongoing: true,

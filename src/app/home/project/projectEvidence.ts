@@ -21,6 +21,18 @@ export const PROJECT_EVIDENCE: ProjectEvidence[] = [
     tradeoffs: 'Accepted added orchestration complexity to gain observability and safer production behavior.',
   },
   {
+    name: 'AlphaDesk - Agentic Portfolio Intelligence',
+    role: 'Solo Builder',
+    problem: 'Portfolio managers needed a faster, more structured pre-market workflow that connected signals, research, risk, and reporting without jumping across disconnected tools.',
+    architecture: 'FastAPI backend + agent orchestrator + deterministic analytics nodes + Redis caching + PostgreSQL persistence + PM-facing dashboard and reporting surfaces.',
+    impact: [
+      'Compressed the PM morning workflow into a single source-aware operating layer.',
+      'Separated deterministic portfolio math from LLM synthesis to improve trust and reproducibility.',
+      'Added human review checkpoints for risk-sensitive flows instead of relying on a one-shot assistant.',
+    ],
+    tradeoffs: 'Accepted higher orchestration and product complexity to gain auditability, finance-specific routing, and safer decision-support behavior.',
+  },
+  {
     name: 'Document Analysis Multiagent RAG-Chatbot',
     role: 'Solo Builder',
     problem: 'Users needed accurate answers over uploaded documents with less hallucination and stronger context tracking.',
