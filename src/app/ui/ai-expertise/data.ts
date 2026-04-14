@@ -323,7 +323,7 @@ export const PROOF_POINTS: ProofPoint[] = [
   { stat: '8', label: 'AI Agents Built', sub: 'modular service pipeline' },
   { stat: '40%', label: 'Token Reduction', sub: 'via memory optimization' },
   { stat: '85%', label: 'ML Accuracy', sub: 'Sparks Foundation models' },
-  { stat: '7+', label: 'AI Projects', sub: 'shipped to production' },
+  { stat: '7+', label: 'AI Projects', sub: 'two shipped to production' },
   { stat: '3', label: 'RAG Systems', sub: 'with vector retrieval' },
   { stat: '7+', label: 'Team Members', sub: 'led as technical lead' },
 ];

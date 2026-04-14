@@ -1,0 +1,1723 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AlphaDesk — AI Portfolio Intelligence Platform</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<style>
+:root {
+  --bg:        #07090f;
+  --bg2:       #0d1117;
+  --bg3:       #131a24;
+  --gold:      #c9a84c;
+  --gold-lt:   #e8c97a;
+  --teal:      #38c9c0;
+  --red:       #e85d5d;
+  --text:      #ede8dc;
+  --muted:     #7a7a7a;
+  --border:    rgba(201,168,76,0.15);
+  --border2:   rgba(255,255,255,0.06);
+  --glow:      rgba(201,168,76,0.12);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;font-size:16px}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;line-height:1.65;overflow-x:hidden}
+::selection{background:var(--gold);color:#000}
+
+/* ── Scrollbar ─────────────────────────────────────────── */
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--gold);border-radius:2px}
+
+/* ── Nav ───────────────────────────────────────────────── */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1rem 2.5rem;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border2);backdrop-filter:blur(16px);background:rgba(7,9,15,0.8)}
+.nav-logo{font-family:'Playfair Display',serif;font-size:1.25rem;font-weight:700;color:var(--gold);letter-spacing:.02em}
+.nav-logo span{color:var(--text);font-weight:400}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{color:var(--muted);font-size:.8rem;text-decoration:none;letter-spacing:.08em;text-transform:uppercase;transition:color .2s}
+.nav-links a:hover{color:var(--gold)}
+.nav-badge{background:var(--gold);color:#000;font-size:.7rem;font-weight:600;padding:.25rem .7rem;border-radius:2px;letter-spacing:.05em}
+
+/* ── Progress bar ──────────────────────────────────────── */
+#progress-bar{position:fixed;top:0;left:0;height:2px;background:linear-gradient(90deg,var(--gold),var(--teal));z-index:200;transition:width .1s linear}
+
+/* ── Hero ──────────────────────────────────────────────── */
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden;padding:8rem 2.5rem 4rem}
+.hero-grid{position:absolute;inset:0;opacity:.06;background-image:linear-gradient(var(--gold) 1px,transparent 1px),linear-gradient(90deg,var(--gold) 1px,transparent 1px);background-size:60px 60px}
+.hero-glow{position:absolute;top:-20%;right:-10%;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(201,168,76,.12) 0%,transparent 70%);pointer-events:none}
+.hero-glow2{position:absolute;bottom:-10%;left:-5%;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(56,201,192,.08) 0%,transparent 70%);pointer-events:none}
+.hero-inner{max-width:1100px;margin:0 auto;width:100%;position:relative}
+.hero-tag{display:inline-flex;align-items:center;gap:.5rem;border:1px solid var(--border);padding:.4rem 1rem;border-radius:2px;font-family:'DM Mono',monospace;font-size:.72rem;color:var(--gold);letter-spacing:.1em;text-transform:uppercase;margin-bottom:2rem;opacity:0;animation:fadeUp .8s .2s forwards}
+.hero-tag::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--teal);animation:pulse 2s infinite}
+.hero-title{font-family:'Playfair Display',serif;font-size:clamp(3rem,7vw,6rem);font-weight:900;line-height:1.05;letter-spacing:-.02em;margin-bottom:1.5rem;opacity:0;animation:fadeUp .8s .4s forwards}
+.hero-title em{font-style:normal;color:var(--gold)}
+.hero-sub{font-size:1.15rem;color:var(--muted);max-width:600px;line-height:1.75;margin-bottom:3rem;opacity:0;animation:fadeUp .8s .6s forwards}
+.hero-metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border2);border:1px solid var(--border2);max-width:640px;opacity:0;animation:fadeUp .8s .8s forwards}
+.hero-metric{background:var(--bg2);padding:1.5rem;text-align:center}
+.hero-metric-val{font-family:'Playfair Display',serif;font-size:2.5rem;font-weight:700;color:var(--gold);display:block;line-height:1}
+.hero-metric-label{font-size:.75rem;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;margin-top:.4rem;display:block}
+.hero-scroll{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:.5rem;color:var(--muted);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;opacity:0;animation:fadeUp .8s 1.2s forwards}
+.scroll-line{width:1px;height:40px;background:linear-gradient(to bottom,var(--gold),transparent);animation:scrollAnim 2s infinite}
+
+/* ── Canvas particles ─────────────────────────────── */
+#particles{position:absolute;inset:0;pointer-events:none}
+
+/* ── Section base ──────────────────────────────────── */
+section{padding:6rem 2.5rem;position:relative}
+.section-inner{max-width:1100px;margin:0 auto}
+.section-tag{font-family:'DM Mono',monospace;font-size:.7rem;color:var(--gold);letter-spacing:.15em;text-transform:uppercase;margin-bottom:1rem;display:flex;align-items:center;gap:.75rem}
+.section-tag::before{content:'';flex:none;width:24px;height:1px;background:var(--gold)}
+.section-title{font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3rem);font-weight:700;line-height:1.15;margin-bottom:1.25rem}
+.section-lead{font-size:1.05rem;color:var(--muted);max-width:680px;line-height:1.8;margin-bottom:3rem}
+.divider{width:100%;height:1px;background:var(--border2);margin:0}
+
+/* ── Problem section ───────────────────────────────── */
+.problem-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border2);border:1px solid var(--border2)}
+.problem-cell{background:var(--bg2);padding:2rem}
+.problem-cell.accent{background:linear-gradient(135deg,rgba(201,168,76,.08),var(--bg2))}
+.problem-label{font-family:'DM Mono',monospace;font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:.75rem}
+.problem-val{font-family:'Playfair Display',serif;font-size:2rem;font-weight:700;color:var(--gold)}
+.problem-desc{font-size:.875rem;color:var(--muted);margin-top:.5rem;line-height:1.7}
+.workflow-old{margin-top:3rem;border:1px solid var(--border2);padding:2rem;background:var(--bg2)}
+.workflow-title{font-size:.75rem;font-family:'DM Mono',monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--red);margin-bottom:1.25rem}
+.workflow-steps{display:flex;flex-wrap:wrap;gap:.75rem;align-items:center}
+.wf-step{background:var(--bg3);border:1px solid var(--border2);padding:.6rem 1rem;font-size:.8rem;color:var(--muted);border-radius:2px;display:flex;align-items:center;gap:.5rem}
+.wf-step .mins{font-family:'DM Mono',monospace;color:var(--red);font-size:.75rem}
+.wf-arrow{color:var(--muted);font-size:.8rem}
+.total-time{margin-top:1rem;font-family:'DM Mono',monospace;font-size:.85rem;color:var(--red);border-top:1px solid var(--border2);padding-top:1rem}
+
+/* ── Architecture diagram ──────────────────────────── */
+.arch-wrap{position:relative;margin-top:2rem}
+.arch-diagram{display:grid;grid-template-rows:auto auto auto;gap:2px;background:var(--border2);border:1px solid var(--border2)}
+.arch-row{display:flex;gap:2px;background:var(--border2)}
+.arch-cell{flex:1;background:var(--bg2);padding:1.25rem;text-align:center;position:relative;transition:background .3s}
+.arch-cell:hover{background:var(--bg3)}
+.arch-cell.highlight{background:linear-gradient(135deg,rgba(201,168,76,.1),var(--bg2));border:1px solid var(--gold)}
+.arch-cell-icon{font-size:1.5rem;margin-bottom:.5rem;display:block}
+.arch-cell-label{font-size:.8rem;font-weight:600;color:var(--text);display:block}
+.arch-cell-sub{font-size:.7rem;color:var(--muted);margin-top:.25rem;display:block;font-family:'DM Mono',monospace}
+.arch-section-label{background:var(--bg3);border:1px solid var(--border2);padding:.5rem 1rem;font-family:'DM Mono',monospace;font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);text-align:center;margin-bottom:1rem}
+.flow-connector{display:flex;justify-content:center;padding:.5rem 0;color:var(--gold);font-size:1.2rem}
+
+/* ── Agents grid ───────────────────────────────────── */
+.agents-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border2);border:1px solid var(--border2)}
+.agent-card{background:var(--bg2);padding:1.5rem;transition:background .2s;position:relative;overflow:hidden}
+.agent-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:0;transition:opacity .3s}
+.agent-card:hover{background:var(--bg3)}
+.agent-card:hover::before{opacity:1}
+.agent-num{font-family:'DM Mono',monospace;font-size:.65rem;color:var(--gold);letter-spacing:.1em;margin-bottom:.75rem;display:block}
+.agent-name{font-size:.95rem;font-weight:600;color:var(--text);margin-bottom:.5rem}
+.agent-role{font-size:.78rem;color:var(--muted);line-height:1.6;margin-bottom:1rem}
+.agent-tools{display:flex;flex-wrap:wrap;gap:.35rem;margin-top:auto}
+.tool-tag{font-family:'DM Mono',monospace;font-size:.62rem;padding:.2rem .5rem;border:1px solid var(--border);color:var(--gold);border-radius:1px}
+.agent-model{font-family:'DM Mono',monospace;font-size:.62rem;color:var(--teal);margin-top:.75rem;display:block}
+
+/* ── Flow diagram (LangGraph) ──────────────────────── */
+.flow-svg-wrap{background:var(--bg2);border:1px solid var(--border2);padding:2rem;overflow-x:auto;margin-top:2rem}
+.langgraph-flow{display:flex;align-items:center;gap:0;flex-wrap:nowrap;overflow-x:auto;padding:1rem 0}
+.lg-node{flex:none;display:flex;flex-direction:column;align-items:center;gap:.4rem}
+.lg-box{background:var(--bg3);border:1px solid var(--border2);padding:.75rem 1rem;border-radius:3px;font-size:.75rem;font-family:'DM Mono',monospace;color:var(--text);text-align:center;min-width:100px;transition:all .2s;white-space:nowrap}
+.lg-box.orchestrator{border-color:var(--gold);color:var(--gold);background:rgba(201,168,76,.08)}
+.lg-box.checker{border-color:var(--teal);color:var(--teal);background:rgba(56,201,192,.08)}
+.lg-box.hitl{border-color:var(--red);color:var(--red);background:rgba(232,93,93,.08)}
+.lg-box.end{border-color:var(--muted);color:var(--muted)}
+.lg-arrow{font-size:1rem;color:var(--border);flex:none;padding:0 .25rem}
+.lg-label{font-size:.6rem;color:var(--muted);letter-spacing:.05em}
+
+/* ── HITL section ──────────────────────────────────── */
+.hitl-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-top:2rem}
+.hitl-panel{border:1px solid var(--border2);background:var(--bg2);padding:2rem}
+.hitl-panel.warn{border-color:rgba(232,93,93,.3);background:rgba(232,93,93,.04)}
+.hitl-panel-title{font-size:.8rem;font-family:'DM Mono',monospace;letter-spacing:.1em;text-transform:uppercase;margin-bottom:1rem}
+.hitl-panel-title.red{color:var(--red)}
+.hitl-panel-title.gold{color:var(--gold)}
+.hitl-step{display:flex;gap:1rem;align-items:flex-start;margin-bottom:1rem}
+.hitl-step-num{flex:none;width:24px;height:24px;border-radius:50%;background:var(--gold);color:#000;font-size:.7rem;font-weight:700;display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace}
+.hitl-step-num.red{background:var(--red)}
+.hitl-step-text{font-size:.85rem;color:var(--muted);line-height:1.6}
+
+/* ── Tech stack ────────────────────────────────────── */
+.tech-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border2);border:1px solid var(--border2);margin-top:2rem}
+.tech-group{background:var(--bg2);padding:1.75rem}
+.tech-group-label{font-family:'DM Mono',monospace;font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:1.25rem;display:block}
+.tech-item{display:flex;align-items:center;gap:.75rem;padding:.6rem 0;border-bottom:1px solid var(--border2)}
+.tech-item:last-child{border-bottom:none}
+.tech-dot{width:6px;height:6px;border-radius:50%;background:var(--teal);flex:none}
+.tech-name{font-size:.85rem;color:var(--text);font-weight:500}
+.tech-note{font-size:.72rem;color:var(--muted);margin-left:auto;font-family:'DM Mono',monospace}
+
+/* ── Security / guardrails ─────────────────────────── */
+.security-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border2);border:1px solid var(--border2);margin-top:2rem}
+.sec-card{background:var(--bg2);padding:2rem;position:relative}
+.sec-card::after{content:attr(data-icon);position:absolute;right:1.5rem;top:1.5rem;font-size:2rem;opacity:.15}
+.sec-card-title{font-size:.95rem;font-weight:600;margin-bottom:.75rem;color:var(--text)}
+.sec-card-body{font-size:.82rem;color:var(--muted);line-height:1.75}
+.sec-tag{display:inline-block;font-family:'DM Mono',monospace;font-size:.62rem;padding:.2rem .5rem;border:1px solid rgba(56,201,192,.3);color:var(--teal);margin:.2rem .1rem}
+
+/* ── Metrics / evidence ────────────────────────────── */
+.evidence-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border2);border:1px solid var(--border2);margin-top:2rem}
+.ev-card{background:var(--bg2);padding:1.75rem;text-align:center}
+.ev-val{font-family:'Playfair Display',serif;font-size:2.25rem;font-weight:700;color:var(--gold);display:block;line-height:1}
+.ev-label{font-size:.75rem;color:var(--muted);margin-top:.4rem;display:block;line-height:1.5}
+.ev-sub{font-family:'DM Mono',monospace;font-size:.65rem;color:var(--teal);margin-top:.3rem;display:block}
+
+/* ── Cost table ────────────────────────────────────── */
+.cost-table{width:100%;border-collapse:collapse;margin-top:2rem;font-size:.85rem}
+.cost-table th{text-align:left;font-family:'DM Mono',monospace;font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);padding:.75rem 1rem;border-bottom:1px solid var(--border);background:var(--bg2)}
+.cost-table td{padding:.85rem 1rem;border-bottom:1px solid var(--border2);color:var(--muted)}
+.cost-table td:first-child{color:var(--text);font-weight:500}
+.cost-table tr:hover td{background:var(--bg2)}
+.cost-highlight{color:var(--teal)!important;font-family:'DM Mono',monospace}
+
+/* ── Timeline / roadmap ────────────────────────────── */
+.timeline{position:relative;padding-left:2rem;margin-top:2rem}
+.timeline::before{content:'';position:absolute;left:0;top:0;bottom:0;width:1px;background:linear-gradient(to bottom,var(--gold),var(--teal),transparent)}
+.tl-item{position:relative;padding-bottom:2.5rem}
+.tl-dot{position:absolute;left:-2.4rem;top:.25rem;width:10px;height:10px;border-radius:50%;border:2px solid var(--gold);background:var(--bg)}
+.tl-dot.done{background:var(--gold)}
+.tl-dot.next{border-color:var(--teal);animation:pulse 2s infinite}
+.tl-phase{font-family:'DM Mono',monospace;font-size:.65rem;color:var(--gold);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.35rem}
+.tl-title{font-size:1rem;font-weight:600;color:var(--text);margin-bottom:.5rem}
+.tl-desc{font-size:.83rem;color:var(--muted);line-height:1.7}
+
+/* ── Criteria cards ────────────────────────────────── */
+.criteria-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border2);border:1px solid var(--border2);margin-top:2rem}
+.crit-card{background:var(--bg2);padding:2rem;border-top:3px solid transparent;transition:border-color .2s}
+.crit-card:hover{border-top-color:var(--gold)}
+.crit-icon{font-size:2rem;margin-bottom:1rem;display:block}
+.crit-title{font-size:.95rem;font-weight:600;color:var(--text);margin-bottom:.75rem}
+.crit-body{font-size:.82rem;color:var(--muted);line-height:1.75}
+.crit-check{display:flex;align-items:flex-start;gap:.5rem;margin-top:.5rem;font-size:.8rem;color:var(--muted)}
+.crit-check::before{content:'✓';color:var(--teal);flex:none;font-family:'DM Mono',monospace;font-size:.75rem;margin-top:.05rem}
+
+/* ── Signal tiers ──────────────────────────────────── */
+.tier-table{margin-top:2rem;border:1px solid var(--border2)}
+.tier-row{display:grid;grid-template-columns:.5fr 2fr 1fr 1fr;gap:0;border-bottom:1px solid var(--border2)}
+.tier-row:last-child{border-bottom:none}
+.tier-row.header{background:var(--bg2)}
+.tier-cell{padding:1rem;font-size:.82rem}
+.tier-cell.head{font-family:'DM Mono',monospace;font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold)}
+.tier-badge{display:inline-block;font-family:'DM Mono',monospace;font-size:.65rem;padding:.2rem .6rem;border-radius:1px}
+.tier-1{background:rgba(201,168,76,.15);color:var(--gold)}
+.tier-2{background:rgba(56,201,192,.1);color:var(--teal)}
+.tier-3{background:rgba(122,122,122,.1);color:var(--muted)}
+
+/* ── Footer ────────────────────────────────────────── */
+footer{background:var(--bg2);border-top:1px solid var(--border2);padding:3rem 2.5rem;text-align:center}
+.footer-logo{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;color:var(--gold);margin-bottom:.75rem}
+.footer-sub{font-size:.82rem;color:var(--muted)}
+.footer-links{display:flex;justify-content:center;gap:2rem;margin-top:1.5rem;flex-wrap:wrap}
+.footer-links a{font-size:.78rem;color:var(--muted);text-decoration:none;letter-spacing:.06em;text-transform:uppercase;transition:color .2s}
+.footer-links a:hover{color:var(--gold)}
+
+/* ── Utility ───────────────────────────────────────── */
+.gold{color:var(--gold)}
+.teal{color:var(--teal)}
+.red{color:var(--red)}
+.mono{font-family:'DM Mono',monospace}
+.label{font-family:'DM Mono',monospace;font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold)}
+.bg2{background:var(--bg2)}
+.border-card{border:1px solid var(--border2);padding:1.5rem;background:var(--bg2)}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:2rem;align-items:start}
+.three-col{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+.mt1{margin-top:1rem}.mt2{margin-top:2rem}.mt3{margin-top:3rem}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .7s,transform .7s}
+.reveal.visible{opacity:1;transform:none}
+
+/* ── Animations ────────────────────────────────────── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+@keyframes scrollAnim{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform:scaleY(1);transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+@keyframes nodeGlow{0%,100%{box-shadow:0 0 0 0 rgba(201,168,76,0)}50%{box-shadow:0 0 16px 4px rgba(201,168,76,.25)}}
+
+/* ── Screenshot Gallery ────────────────────────────── */
+.gallery-tabs{display:flex;gap:2px;background:var(--border2);border:1px solid var(--border2);border-bottom:none;overflow-x:auto}
+.tab-btn{flex:1;min-width:130px;padding:.85rem 1rem;background:var(--bg2);border:none;color:var(--muted);font-family:'DM Mono',monospace;font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:all .2s;white-space:nowrap}
+.tab-btn:hover{background:var(--bg3);color:var(--text)}
+.tab-btn.active{background:var(--bg3);color:var(--gold);border-bottom:2px solid var(--gold)}
+.gallery-frame{border:1px solid var(--border2);background:var(--bg2)}
+.browser-bar{background:var(--bg3);border-bottom:1px solid var(--border2);padding:.6rem 1rem;display:flex;align-items:center;gap:.75rem}
+.browser-dots{display:flex;gap:.35rem}
+.browser-dot{width:10px;height:10px;border-radius:50%}
+.browser-dot:nth-child(1){background:#e85d5d}
+.browser-dot:nth-child(2){background:#c9a84c}
+.browser-dot:nth-child(3){background:#38c9c0}
+.browser-url{flex:1;background:var(--bg);border:1px solid var(--border2);border-radius:3px;padding:.25rem .75rem;font-family:'DM Mono',monospace;font-size:.68rem;color:var(--muted)}
+.tab-panel{display:none}
+.tab-panel.active{display:block}
+.tab-panel img{width:100%;display:block}
+.tab-caption{padding:1.5rem 2rem;border-top:1px solid var(--border2);display:grid;grid-template-columns:1fr auto;align-items:start;gap:2rem;background:var(--bg2)}
+.tab-caption-text{font-size:.88rem;color:var(--muted);line-height:1.8}
+.tab-caption-title{font-size:1rem;font-weight:600;color:var(--text);margin-bottom:.4rem}
+.tab-caption-tags{display:flex;flex-wrap:wrap;gap:.35rem;margin-top:.75rem}
+.tab-caption-badge{font-family:'DM Mono',monospace;font-size:.62rem;padding:.2rem .6rem;border:1px solid var(--border);color:var(--gold)}
+.tab-caption-num{font-family:'Playfair Display',serif;font-size:3.5rem;font-weight:700;color:var(--gold);opacity:.12;line-height:1;white-space:nowrap;align-self:center}
+
+/* ── Workflow Diagram ──────────────────────────────── */
+.wf-timeline{position:relative;padding-left:110px;margin-top:2rem}
+.wf-spine{position:absolute;left:87px;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,var(--gold),var(--teal) 70%,transparent)}
+.wf-item{position:relative;margin-bottom:8px;padding-left:0}
+.wf-time-col{position:absolute;left:-110px;width:90px;display:flex;justify-content:flex-end;padding-right:.75rem;padding-top:.9rem}
+.wf-time{font-family:'DM Mono',monospace;font-size:.65rem;color:var(--gold);white-space:nowrap}
+.wf-time.red{color:var(--red)}
+.wf-time.teal{color:var(--teal)}
+.wf-dot{position:absolute;left:-23px;width:10px;height:10px;border-radius:50%;background:var(--gold);border:2px solid var(--bg);top:.9rem}
+.wf-dot.red{background:var(--red);animation:pulse 1.5s infinite}
+.wf-dot.teal{background:var(--teal)}
+.wf-card{background:var(--bg2);border:1px solid var(--border2);padding:.85rem 1.1rem;transition:border-color .2s}
+.wf-card:hover{border-color:rgba(201,168,76,.35)}
+.wf-card.alert{border-color:rgba(232,93,93,.4);background:rgba(232,93,93,.03)}
+.wf-card.delivery{border-color:rgba(56,201,192,.3);background:rgba(56,201,192,.03)}
+.wf-card.trigger{border-color:rgba(201,168,76,.35);background:rgba(201,168,76,.04)}
+.wf-card-header{display:flex;align-items:center;gap:.65rem;margin-bottom:.3rem}
+.wf-badge{font-family:'DM Mono',monospace;font-size:.58rem;padding:.15rem .5rem;background:rgba(201,168,76,.1);color:var(--gold);border:1px solid var(--border)}
+.wf-badge.red{background:rgba(232,93,93,.1);color:var(--red);border-color:rgba(232,93,93,.3)}
+.wf-badge.teal{background:rgba(56,201,192,.1);color:var(--teal);border-color:rgba(56,201,192,.3)}
+.wf-card-title{font-size:.88rem;font-weight:600;color:var(--text)}
+.wf-card-desc{font-size:.77rem;color:var(--muted);line-height:1.65}
+.wf-spacer{height:6px}
+
+/* ── Responsive ────────────────────────────────────── */
+@media(max-width:900px){
+  .agents-grid{grid-template-columns:repeat(2,1fr)}
+  .tech-grid{grid-template-columns:1fr}
+  .two-col,.hitl-grid,.security-grid{grid-template-columns:1fr}
+  .criteria-grid{grid-template-columns:1fr}
+  .evidence-grid{grid-template-columns:repeat(2,1fr)}
+  .nav-links{display:none}
+  .hero-metrics{grid-template-columns:1fr}
+  .tier-row{grid-template-columns:1fr 2fr}
+}
+@media(max-width:600px){
+  section{padding:4rem 1.25rem}
+  .agents-grid{grid-template-columns:1fr}
+  .criteria-grid{grid-template-columns:1fr}
+  nav{padding:1rem 1.25rem}
+  .hero{padding:7rem 1.25rem 4rem}
+}
+</style>
+</head>
+<body>
+
+<div id="progress-bar"></div>
+
+<!-- ── NAV ───────────────────────────────────────────────────────────── -->
+<nav>
+  <div class="nav-logo">Alpha<span>Desk</span></div>
+  <ul class="nav-links">
+    <li><a href="#problem">Problem</a></li>
+    <li><a href="#platform">Platform</a></li>
+    <li><a href="#workflow">Workflow</a></li>
+    <li><a href="#agents">Agents</a></li>
+    <li><a href="#security">Security</a></li>
+    <li><a href="#evidence">Evidence</a></li>
+    <li><a href="#roadmap">Roadmap</a></li>
+  </ul>
+  <div class="nav-badge">UMD Smith 2026</div>
+</nav>
+
+<!-- ── HERO ──────────────────────────────────────────────────────────── -->
+<section class="hero" id="top">
+  <canvas id="particles"></canvas>
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-glow2"></div>
+  <div class="hero-inner">
+    <div class="hero-tag">● Live System &nbsp;·&nbsp; Multi-Agent AI &nbsp;·&nbsp; Portfolio Intelligence</div>
+    <h1 class="hero-title">The AI that runs your<br/><em>morning brief</em><br/>before you arrive.</h1>
+    <p class="hero-sub">AlphaDesk is a LangGraph-orchestrated multi-agent platform that automates the 2.5-hour discretionary PM morning workflow — autonomously, at 5 AM, for $0.23 per run.</p>
+    <div class="hero-metrics">
+      <div class="hero-metric">
+        <span class="hero-metric-val" data-count="150" data-suffix="min">0</span>
+        <span class="hero-metric-label">Manual workflow → 15 min</span>
+      </div>
+      <div class="hero-metric">
+        <span class="hero-metric-val" data-count="8" data-suffix=" agents">0</span>
+        <span class="hero-metric-label">Autonomous AI agents</span>
+      </div>
+      <div class="hero-metric">
+        <span class="hero-metric-val" data-prefix="$" data-count-decimal="0.23">$0</span>
+        <span class="hero-metric-label">Cost per full run</span>
+      </div>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ── PROBLEM ───────────────────────────────────────────────────────── -->
+<section id="problem">
+  <div class="section-inner">
+    <div class="section-tag reveal">01 — The Problem</div>
+    <h2 class="section-title reveal">A PM's morning costs<br/>2.5 hours of manual work.</h2>
+    <p class="section-lead reveal">Discretionary portfolio managers at hedge funds and family offices spend their first hours doing repetitive, high-stakes analysis before they can make a single investment decision.</p>
+
+    <div class="problem-grid reveal">
+      <div class="problem-cell accent">
+        <div class="problem-label">Daily time lost</div>
+        <div class="problem-val">2.5 hrs</div>
+        <div class="problem-desc">Per PM, every trading day. That's 630+ hours per year of senior analyst time spent on data aggregation, not alpha generation.</div>
+      </div>
+      <div class="problem-cell">
+        <div class="problem-label">Opportunity cost</div>
+        <div class="problem-val">$180K+</div>
+        <div class="problem-desc">Annual cost of manual PM morning workflow per analyst at average hedge fund compensation levels. Bloomberg Terminal alone costs $24K/yr.</div>
+      </div>
+      <div class="problem-cell">
+        <div class="problem-label">Data sources to check</div>
+        <div class="problem-val">8–12</div>
+        <div class="problem-desc">SEC filings, news wires, price data, risk metrics, fundamental screens, sentiment feeds — all checked manually, sequentially.</div>
+      </div>
+      <div class="problem-cell accent">
+        <div class="problem-label">Decision delay</div>
+        <div class="problem-val">60–90 min</div>
+        <div class="problem-desc">Average time before the PM can act on market-moving news. In fast markets, this delay directly translates to missed alpha or excess drawdown.</div>
+      </div>
+    </div>
+
+    <div class="workflow-old reveal mt2">
+      <div class="workflow-title">▸ MANUAL MORNING WORKFLOW — BEFORE ALPHADESK</div>
+      <div class="workflow-steps">
+        <div class="wf-step">Check Bloomberg <span class="mins">20 min</span></div>
+        <div class="wf-arrow">→</div>
+        <div class="wf-step">Read SEC filings <span class="mins">25 min</span></div>
+        <div class="wf-arrow">→</div>
+        <div class="wf-step">Pull price data <span class="mins">15 min</span></div>
+        <div class="wf-arrow">→</div>
+        <div class="wf-step">Compute risk metrics <span class="mins">30 min</span></div>
+        <div class="wf-arrow">→</div>
+        <div class="wf-step">Research earnings <span class="mins">20 min</span></div>
+        <div class="wf-arrow">→</div>
+        <div class="wf-step">Check social signals <span class="mins">10 min</span></div>
+        <div class="wf-arrow">→</div>
+        <div class="wf-step">Write brief <span class="mins">30 min</span></div>
+      </div>
+      <div class="total-time">TOTAL: ~150 min &nbsp;|&nbsp; Every trading day &nbsp;|&nbsp; All manual &nbsp;|&nbsp; All before first decision</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ── BUSINESS OBJECTIVE ─────────────────────────────────────────────── -->
+<section id="objective" style="background:var(--bg2)">
+  <div class="section-inner">
+    <div class="section-tag reveal">02 — Business Objective</div>
+    <h2 class="section-title reveal">Replace the morning workflow.<br/>Not assist it — <em>replace</em> it.</h2>
+    <div class="two-col mt2">
+      <div class="reveal">
+        <p style="color:var(--muted);line-height:1.85;font-size:.95rem">AlphaDesk is built around one core thesis: the analytical grind of a PM's morning is structurally automatable. Not with a chatbot that answers questions — but with an autonomous multi-agent system that proactively runs every morning at 5 AM, before the PM arrives.</p>
+        <p style="color:var(--muted);line-height:1.85;font-size:.95rem;margin-top:1rem">The platform targets discretionary PMs at hedge funds, family offices, and boutique asset managers who manage concentrated portfolios and need high-signal, sourced intelligence — not a Bloomberg summary.</p>
+        <p style="color:var(--muted);line-height:1.85;font-size:.95rem;margin-top:1rem">The human remains in the loop for risk decisions. The machine does everything else.</p>
+      </div>
+      <div class="reveal">
+        <div class="border-card">
+          <div class="label" style="margin-bottom:1.25rem">Target Outcomes</div>
+          <div style="display:flex;flex-direction:column;gap:1rem">
+            <div class="crit-check" style="font-size:.85rem;color:var(--text)">2.5-hour morning workflow → 15 minutes of PM review time</div>
+            <div class="crit-check" style="font-size:.85rem;color:var(--text)">Live risk breach detection with human-in-the-loop approval</div>
+            <div class="crit-check" style="font-size:.85rem;color:var(--text)">Sourced, auditable AI analysis — every claim traceable to a source</div>
+            <div class="crit-check" style="font-size:.85rem;color:var(--text)">Full run cost under $0.30 using cost-optimised LLM routing</div>
+            <div class="crit-check" style="font-size:.85rem;color:var(--text)">WhatsApp morning brief delivered before market open</div>
+            <div class="crit-check" style="font-size:.85rem;color:var(--text)">Offline demo mode — zero API dependency during live presentations</div>
+          </div>
+        </div>
+        <div class="border-card mt2">
+          <div class="label" style="margin-bottom:1rem">Competitive Moat vs Bloomberg Terminal</div>
+          <div style="font-size:.82rem;color:var(--muted);line-height:1.8">Bloomberg Terminal: $24,000/yr &nbsp;·&nbsp; Static dashboards &nbsp;·&nbsp; PM reads data<br/>
+          <span style="color:var(--gold)">AlphaDesk: ~$85/yr &nbsp;·&nbsp; Agentic synthesis &nbsp;·&nbsp; System reads data for PM</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ── PLATFORM SCREENSHOTS ──────────────────────────────────────────── -->
+<section id="platform">
+  <div class="section-inner">
+    <div class="section-tag reveal">03 — Platform Interface</div>
+    <h2 class="section-title reveal">Five screens.<br/>One complete morning workflow.</h2>
+    <p class="section-lead reveal">A fully working React frontend with live data, real-time risk alerts, streaming AI research chat, and PDF tearsheet generation — all connected to the LangGraph multi-agent backend.</p>
+
+    <div class="reveal">
+      <div class="gallery-tabs" id="gallery-tabs">
+        <button class="tab-btn active" data-tab="dashboard">01 · Dashboard</button>
+        <button class="tab-btn" data-tab="signals">02 · Signal Monitor</button>
+        <button class="tab-btn" data-tab="chat">03 · Research Chat</button>
+        <button class="tab-btn" data-tab="risk">04 · Risk Monitor</button>
+        <button class="tab-btn" data-tab="tearsheet">05 · PM Tearsheet</button>
+      </div>
+
+      <div class="gallery-frame">
+        <div class="browser-bar">
+          <div class="browser-dots">
+            <div class="browser-dot"></div>
+            <div class="browser-dot"></div>
+            <div class="browser-dot"></div>
+          </div>
+          <div class="browser-url" id="browser-url">localhost:5173 · AlphaDesk — Dashboard</div>
+        </div>
+
+        <div class="tab-panel active" id="tab-dashboard">
+          <img src="/alphadesk/dashboard.png" alt="AlphaDesk Dashboard" loading="lazy" />
+          <div class="tab-caption">
+            <div>
+              <div class="tab-caption-title">Portfolio Dashboard</div>
+              <div class="tab-caption-text">Real-time portfolio performance at a glance. P&amp;L hero cards, interactive drawdown chart with period selector (1W / 1M / 3M / YTD / 1Y / All), per-position attribution table, agent timeline showing each autonomous step, and macro overlay. All data sourced from yfinance + FRED and computed by the Metrics agent in under 52 seconds.</div>
+              <div class="tab-caption-tags">
+                <span class="tab-caption-badge">14 Metrics</span>
+                <span class="tab-caption-badge">Drawdown Chart</span>
+                <span class="tab-caption-badge">Attribution Table</span>
+                <span class="tab-caption-badge">Agent Timeline</span>
+                <span class="tab-caption-badge">Run Cost Badge</span>
+              </div>
+            </div>
+            <div class="tab-caption-num">01</div>
+          </div>
+        </div>
+
+        <div class="tab-panel" id="tab-signals">
+          <img src="/alphadesk/signal-monitor.png" alt="AlphaDesk Signal Monitor" loading="lazy" />
+          <div class="tab-caption">
+            <div>
+              <div class="tab-caption-title">Signal Monitor</div>
+              <div class="tab-caption-text">Live signal feed aggregated from 5 sources across a 3-tier credibility hierarchy. SEC 8-K filings and Finnhub professional news (Tier 1) surface first. Each signal displays its source, credibility tier, combined score, and the GPT-4o-mini reasoning. Signals above threshold automatically trigger deep fundamental research on the affected ticker.</div>
+              <div class="tab-caption-tags">
+                <span class="tab-caption-badge">3-Tier Credibility</span>
+                <span class="tab-caption-badge">SEC EDGAR</span>
+                <span class="tab-caption-badge">Finnhub</span>
+                <span class="tab-caption-badge">Reddit Sentiment</span>
+                <span class="tab-caption-badge">Auto-Trigger Research</span>
+              </div>
+            </div>
+            <div class="tab-caption-num">02</div>
+          </div>
+        </div>
+
+        <div class="tab-panel" id="tab-chat">
+          <img src="/alphadesk/research-chat.png" alt="AlphaDesk Research Chat" loading="lazy" />
+          <div class="tab-caption">
+            <div>
+              <div class="tab-caption-title">Research Chat</div>
+              <div class="tab-caption-text">A streaming conversational interface to the Fundamental Research ReAct agent. The PM asks natural-language questions — the agent uses LangChain tool calls to fetch FMP fundamentals, SEC filings, and price data, synthesising a sourced narrative. Every response passes through the 3-stage content filter. A standard disclaimer labels all AI-generated content.</div>
+              <div class="tab-caption-tags">
+                <span class="tab-caption-badge">GPT-4o ReAct</span>
+                <span class="tab-caption-badge">Streaming SSE</span>
+                <span class="tab-caption-badge">FMP Tools</span>
+                <span class="tab-caption-badge">Content Filter</span>
+                <span class="tab-caption-badge">Source Citations</span>
+              </div>
+            </div>
+            <div class="tab-caption-num">03</div>
+          </div>
+        </div>
+
+        <div class="tab-panel" id="tab-risk">
+          <img src="/alphadesk/risk-monitor.png" alt="AlphaDesk Risk Monitor" loading="lazy" />
+          <div class="tab-caption">
+            <div>
+              <div class="tab-caption-title">Risk Monitor</div>
+              <div class="tab-caption-text">Real-time risk surveillance with four structured PM decision cards: What breached? What position caused it? What changed since yesterday? What happens if unchanged? HITL banner pauses all workflow when a limit is breached. Configurable thresholds (Max DD, Volatility, VaR, Beta, Correlation) via the threshold editor. Full approval history for audit trail.</div>
+              <div class="tab-caption-tags">
+                <span class="tab-caption-badge">HITL Interrupt</span>
+                <span class="tab-caption-badge">5 Thresholds</span>
+                <span class="tab-caption-badge">Delta vs Yesterday</span>
+                <span class="tab-caption-badge">Primary Driver</span>
+                <span class="tab-caption-badge">Drawdown Trajectory</span>
+              </div>
+            </div>
+            <div class="tab-caption-num">04</div>
+          </div>
+        </div>
+
+        <div class="tab-panel" id="tab-tearsheet">
+          <img src="/alphadesk/tearsheet.png" alt="AlphaDesk PM Tearsheet" loading="lazy" />
+          <div class="tab-caption">
+            <div>
+              <div class="tab-caption-title">PM Tearsheet</div>
+              <div class="tab-caption-text">AI-generated performance report synthesised by the Report Generator agent from all pipeline outputs. Includes executive summary, full metrics table, backtesting comparison (equal-weight vs momentum vs benchmark), correlation heatmap analysis, and a client-facing letter. Exportable as a PDF via WeasyPrint + Jinja2. Every figure is sourced and auditable.</div>
+              <div class="tab-caption-tags">
+                <span class="tab-caption-badge">GPT-4o Synthesis</span>
+                <span class="tab-caption-badge">PDF Export</span>
+                <span class="tab-caption-badge">Backtest Comparison</span>
+                <span class="tab-caption-badge">Client Letter</span>
+                <span class="tab-caption-badge">Correlation Heatmap</span>
+              </div>
+            </div>
+            <div class="tab-caption-num">05</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ── WORKFLOW DIAGRAM ───────────────────────────────────────────────── -->
+<section id="workflow" style="background:var(--bg2)">
+  <div class="section-inner">
+    <div class="section-tag reveal">04 — End-to-End Workflow</div>
+    <h2 class="section-title reveal">5:00 AM to 9:00 AM.<br/>The autonomous morning run.</h2>
+    <p class="section-lead reveal">Every trading day, Celery Beat fires the scheduled task before market open. The PM arrives at 9 AM to a completed brief — no manual work required.</p>
+
+    <div class="wf-timeline reveal" style="position:relative">
+      <div class="wf-spine"></div>
+
+      <div class="wf-item">
+        <div class="wf-time-col"><span class="wf-time">5:00 AM</span></div>
+        <div class="wf-dot" style="background:var(--gold)"></div>
+        <div class="wf-card trigger">
+          <div class="wf-card-header"><span class="wf-badge">SCHEDULER</span><span class="wf-card-title">Celery Beat fires morning_brief task</span></div>
+          <div class="wf-card-desc">Celery Beat cron runs <span class="mono">tasks.scheduled_run.morning_brief</span> daily at 5:00 AM. Redis broker queues the task. Celery worker picks it up and calls <span class="mono">run_graph()</span> with the semiconductor portfolio tickers.</div>
+        </div>
+      </div>
+
+      <div class="wf-item">
+        <div class="wf-time-col"><span class="wf-time">5:01</span></div>
+        <div class="wf-dot"></div>
+        <div class="wf-card">
+          <div class="wf-card-header"><span class="wf-badge">AGENT 0 · GPT-4o</span><span class="wf-card-title">Orchestrator builds execution plan</span></div>
+          <div class="wf-card-desc">Orchestrator calls GPT-4o with the query and portfolio state. Returns JSON: <span class="mono gold">{"plan": ["data_ingestion", "metrics", "signals", "fundamental", "risk_monitor", "report_generator"], "reasoning": "..."}</span>. Plan stored in <span class="mono">state.agent_plan</span>.</div>
+        </div>
+      </div>
+
+      <div class="wf-item">
+        <div class="wf-time-col"><span class="wf-time">5:02</span></div>
+        <div class="wf-dot"></div>
+        <div class="wf-card">
+          <div class="wf-card-header"><span class="wf-badge">AGENT 1</span><span class="wf-card-title">Data Ingestion — yfinance + FRED</span></div>
+          <div class="wf-card-desc">Fetches 3 years of EOD price data for NVDA, TSM, ASML, AMD, INTC, TLT + SPY benchmark. Pulls live risk-free rate from FRED DTB3. DataFrames stored in <span class="mono">DATAFRAME_CACHE[session_id]</span>. JSON-only dicts written to state.</div>
+        </div>
+      </div>
+
+      <div class="wf-item">
+        <div class="wf-time-col"><span class="wf-time">5:04</span></div>
+        <div class="wf-dot"></div>
+        <div class="wf-card">
+          <div class="wf-card-header"><span class="wf-badge">AGENT 2</span><span class="wf-card-title">Portfolio Metrics — 14 computations</span></div>
+          <div class="wf-card-desc">Computes annualised return, volatility, Sharpe, Sortino, Calmar, VaR 95%, CVaR, Max Drawdown, Beta, Alpha, Information Ratio, Success Ratio + per-ticker attribution and drawdown series. Pure numpy/pandas — no LLM call.</div>
+        </div>
+      </div>
+
+      <div class="wf-item">
+        <div class="wf-time-col"><span class="wf-time">5:06</span></div>
+        <div class="wf-dot"></div>
+        <div class="wf-card">
+          <div class="wf-card-header"><span class="wf-badge teal">AGENT 4 · GPT-4o-mini</span><span class="wf-card-title">Signal Monitor — 5 sources, 3 tiers</span></div>
+          <div class="wf-card-desc">Fetches signals from SEC EDGAR RSS, Finnhub News, Reuters RSS, Reddit PRAW, and Stocktwits. GPT-4o-mini scores each signal. If a Tier-1 signal scores ≥ 14 on a portfolio ticker, sets <span class="mono gold">trigger_fundamental_research = true</span>.</div>
+        </div>
+      </div>
+
+      <div class="wf-item">
+        <div class="wf-time-col"><span class="wf-time">5:09</span></div>
+        <div class="wf-dot"></div>
+        <div class="wf-card trigger">
+          <div class="wf-card-header"><span class="wf-badge">AGENT 3 · GPT-4o</span><span class="wf-card-title">Fundamental Research triggered — NVDA tariff exposure</span></div>
+          <div class="wf-card-desc">SEC 8-K filing detected: "NVIDIA Corp — tariff restrictions on H100 GPU exports." Score: 16 ≥ 14 threshold. Orchestrator injects "fundamental" into plan. ReAct agent calls FMP tools: <span class="mono">get_pe_ratio</span>, <span class="mono">get_revenue_growth</span>, <span class="mono">get_sec_filing</span>. Synthesises sourced narrative. Content filter applied.</div>
+        </div>
+      </div>
+
+      <div class="wf-item">
+        <div class="wf-time-col"><span class="wf-time red">5:14</span></div>
+        <div class="wf-dot red"></div>
+        <div class="wf-card alert">
+          <div class="wf-card-header"><span class="wf-badge red">⚠ HITL INTERRUPT</span><span class="wf-card-title">Risk Monitor — drawdown limit breached</span></div>
+          <div class="wf-card-desc">Risk Monitor checks metrics: <span class="mono red">max_drawdown = −16.2%</span> exceeds limit of −15%. LangGraph fires <span class="mono">interrupt_before=["risk_monitor"]</span>. Graph frozen. <span class="mono">thread_id</span> stored in Redis <span class="mono">HITL_PENDING_KEY</span>. WhatsApp alert sent to PM via Twilio: <em>"⚠ AlphaDesk: Risk breach detected — review required."</em></div>
+        </div>
+      </div>
+
+      <div class="wf-item">
+        <div class="wf-time-col"><span class="wf-time">8:47 AM</span></div>
+        <div class="wf-dot" style="background:var(--teal)"></div>
+        <div class="wf-card delivery">
+          <div class="wf-card-header"><span class="wf-badge teal">PM ACTION</span><span class="wf-card-title">PM approves risk alert — graph resumes</span></div>
+          <div class="wf-card-desc">PM opens Risk Monitor page, reviews the breach command center, and clicks Approve. POST <span class="mono">/api/risk/acknowledge</span>. LangGraph restores state from MemorySaver checkpoint and resumes. Decision stored in approval history.</div>
+        </div>
+      </div>
+
+      <div class="wf-item">
+        <div class="wf-time-col"><span class="wf-time">8:48 AM</span></div>
+        <div class="wf-dot"></div>
+        <div class="wf-card">
+          <div class="wf-card-header"><span class="wf-badge">AGENT 8 · GPT-4o</span><span class="wf-card-title">Report Generator — tearsheet + client letter</span></div>
+          <div class="wf-card-desc">GPT-4o synthesises full PM tearsheet narrative from all agent state: metrics, signals, research narrative, risk outcome, backtest comparison. Generates client letter. WeasyPrint renders to PDF via Jinja2 template. All content filtered.</div>
+        </div>
+      </div>
+
+      <div class="wf-item">
+        <div class="wf-time-col"><span class="wf-time teal">8:50 AM</span></div>
+        <div class="wf-dot teal"></div>
+        <div class="wf-card delivery">
+          <div class="wf-card-header"><span class="wf-badge teal">✓ COMPLETE</span><span class="wf-card-title">Morning brief ready — PM arrives at 9 AM</span></div>
+          <div class="wf-card-desc">Run metadata stored in Redis: <span class="mono teal">run_cost_usd = $0.23</span>, duration = 52s. WhatsApp brief delivered. Dashboard, Signal Monitor, Risk Monitor, and Tearsheet all populated with fresh data. PM reviews in 15 minutes instead of 2.5 hours.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ── SYSTEM ARCHITECTURE ────────────────────────────────────────────── -->
+<section id="architecture">
+  <div class="section-inner">
+    <div class="section-tag reveal">03 — System Architecture</div>
+    <h2 class="section-title reveal">Eight agents. One graph.<br/>Autonomous every morning.</h2>
+    <p class="section-lead reveal">LangGraph StateGraph orchestrates 8 specialist agents through a planning-then-execution loop. The orchestrator calls GPT-4o to produce a JSON execution plan; a plan_checker node routes after each agent, accumulating state until END.</p>
+
+    <!-- Architecture diagram -->
+    <div class="reveal mt2">
+      <div class="arch-section-label">External Data Sources</div>
+      <div class="arch-diagram">
+        <div class="arch-row">
+          <div class="arch-cell"><span class="arch-cell-icon">📈</span><span class="arch-cell-label">yfinance</span><span class="arch-cell-sub">EOD prices · free</span></div>
+          <div class="arch-cell"><span class="arch-cell-icon">📋</span><span class="arch-cell-label">SEC EDGAR</span><span class="arch-cell-sub">8-K · 10-K filings</span></div>
+          <div class="arch-cell"><span class="arch-cell-icon">📰</span><span class="arch-cell-label">Finnhub News</span><span class="arch-cell-sub">Real-time + sentiment</span></div>
+          <div class="arch-cell"><span class="arch-cell-icon">📡</span><span class="arch-cell-label">Reddit PRAW</span><span class="arch-cell-sub">r/investing · r/wsb</span></div>
+          <div class="arch-cell"><span class="arch-cell-icon">🏦</span><span class="arch-cell-label">FRED API</span><span class="arch-cell-sub">Risk-free rate DTB3</span></div>
+          <div class="arch-cell"><span class="arch-cell-icon">📊</span><span class="arch-cell-label">FMP API</span><span class="arch-cell-sub">Fundamentals · free tier</span></div>
+        </div>
+      </div>
+      <div class="flow-connector">↓</div>
+      <div class="arch-section-label">LangGraph Multi-Agent Graph (StateGraph + MemorySaver)</div>
+      <div class="arch-diagram">
+        <div class="arch-row">
+          <div class="arch-cell highlight" style="flex:1.5">
+            <span class="arch-cell-icon">🧠</span>
+            <span class="arch-cell-label">Orchestrator Agent</span>
+            <span class="arch-cell-sub">GPT-4o · plans agent sequence</span>
+          </div>
+          <div class="arch-cell">
+            <span class="arch-cell-icon">📥</span>
+            <span class="arch-cell-label">Data Ingestion</span>
+            <span class="arch-cell-sub">Agent 1</span>
+          </div>
+          <div class="arch-cell">
+            <span class="arch-cell-icon">📐</span>
+            <span class="arch-cell-label">Metrics</span>
+            <span class="arch-cell-sub">Agent 2 · 14 metrics</span>
+          </div>
+          <div class="arch-cell">
+            <span class="arch-cell-icon">🔬</span>
+            <span class="arch-cell-label">Fundamental Research</span>
+            <span class="arch-cell-sub">Agent 3 · ReAct</span>
+          </div>
+          <div class="arch-cell">
+            <span class="arch-cell-icon">📡</span>
+            <span class="arch-cell-label">Signal Monitor</span>
+            <span class="arch-cell-sub">Agent 4 · 3-tier</span>
+          </div>
+        </div>
+        <div class="arch-row" style="margin-top:2px">
+          <div class="arch-cell" style="border-top:1px solid var(--border2)">
+            <span class="arch-cell-icon">⚠️</span>
+            <span class="arch-cell-label">Risk Monitor</span>
+            <span class="arch-cell-sub">Agent 5 · HITL interrupt</span>
+          </div>
+          <div class="arch-cell">
+            <span class="arch-cell-icon">📈</span>
+            <span class="arch-cell-label">Backtest</span>
+            <span class="arch-cell-sub">Agent 6 · vectorbt</span>
+          </div>
+          <div class="arch-cell">
+            <span class="arch-cell-icon">🔗</span>
+            <span class="arch-cell-label">Correlation</span>
+            <span class="arch-cell-sub">Agent 7 · beta / heatmap</span>
+          </div>
+          <div class="arch-cell">
+            <span class="arch-cell-icon">📄</span>
+            <span class="arch-cell-label">Report Generator</span>
+            <span class="arch-cell-sub">Agent 8 · PDF tearsheet</span>
+          </div>
+          <div class="arch-cell" style="background:rgba(201,168,76,.06);border-color:var(--gold)">
+            <span class="arch-cell-icon">🔄</span>
+            <span class="arch-cell-label">Plan Checker</span>
+            <span class="arch-cell-sub">Routes between agents</span>
+          </div>
+        </div>
+      </div>
+      <div class="flow-connector">↓</div>
+      <div class="arch-section-label">Infrastructure Layer</div>
+      <div class="arch-diagram">
+        <div class="arch-row">
+          <div class="arch-cell"><span class="arch-cell-icon">🗄️</span><span class="arch-cell-label">PostgreSQL 16</span><span class="arch-cell-sub">Positions · signals · runs</span></div>
+          <div class="arch-cell"><span class="arch-cell-icon">⚡</span><span class="arch-cell-label">Redis 7</span><span class="arch-cell-sub">DF cache · HITL state</span></div>
+          <div class="arch-cell"><span class="arch-cell-icon">⏰</span><span class="arch-cell-label">Celery Beat</span><span class="arch-cell-sub">5 AM scheduled runs</span></div>
+          <div class="arch-cell"><span class="arch-cell-icon">🔍</span><span class="arch-cell-label">LangSmith</span><span class="arch-cell-sub">Tracing · cost tracking</span></div>
+          <div class="arch-cell"><span class="arch-cell-icon">📱</span><span class="arch-cell-label">Twilio WhatsApp</span><span class="arch-cell-sub">Morning brief delivery</span></div>
+          <div class="arch-cell"><span class="arch-cell-icon">🌐</span><span class="arch-cell-label">FastAPI + React</span><span class="arch-cell-sub">REST API · Vite frontend</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ── AGENTS ─────────────────────────────────────────────────────────── -->
+<section id="agents" style="background:var(--bg2)">
+  <div class="section-inner">
+    <div class="section-tag reveal">04 — Multi-Agent Design</div>
+    <h2 class="section-title reveal">Eight specialists.<br/>Each with a clear mission.</h2>
+    <p class="section-lead reveal">Every agent follows the Goal → Observe → Decide → Act pattern. Each appends to <span class="mono gold">agent_timeline</span> and accumulates cost in <span class="mono gold">run_cost_usd</span>. No agent is aware of another — state is the contract.</p>
+
+    <div class="agents-grid reveal">
+      <div class="agent-card">
+        <span class="agent-num">AGENT 01</span>
+        <div class="agent-name">Data Ingestion</div>
+        <div class="agent-role">Fetches 3 years of EOD prices for all portfolio tickers + SPY benchmark via yfinance. Pulls live risk-free rate from FRED DTB3 series. Stores DataFrames in DATAFRAME_CACHE (never in state).</div>
+        <div class="agent-tools">
+          <span class="tool-tag">yfinance</span>
+          <span class="tool-tag">FRED API</span>
+          <span class="tool-tag">pandas</span>
+        </div>
+        <span class="agent-model">No LLM call — pure computation</span>
+      </div>
+      <div class="agent-card">
+        <span class="agent-num">AGENT 02</span>
+        <div class="agent-name">Portfolio Metrics</div>
+        <div class="agent-role">Computes 14 financial metrics including Sharpe, Sortino, Calmar, VaR 95%, CVaR, Beta, Information Ratio, Max Drawdown. Builds per-ticker attribution, drawdown series, and rolling Sharpe chart data.</div>
+        <div class="agent-tools">
+          <span class="tool-tag">numpy</span>
+          <span class="tool-tag">pandas</span>
+          <span class="tool-tag">scipy</span>
+        </div>
+        <span class="agent-model">No LLM call — pure computation</span>
+      </div>
+      <div class="agent-card">
+        <span class="agent-num">AGENT 03</span>
+        <div class="agent-name">Fundamental Research</div>
+        <div class="agent-role">ReAct agent that calls FMP API tools to pull P/E ratios, revenue growth, EPS estimates, and 10-K excerpts. LLM synthesises a sourced research narrative. Content filter applied before output.</div>
+        <div class="agent-tools">
+          <span class="tool-tag">FMP API</span>
+          <span class="tool-tag">ReAct</span>
+          <span class="tool-tag">LangChain</span>
+        </div>
+        <span class="agent-model" style="color:var(--gold)">GPT-4o · full reasoning</span>
+      </div>
+      <div class="agent-card">
+        <span class="agent-num">AGENT 04</span>
+        <div class="agent-name">Signal Monitor</div>
+        <div class="agent-role">Aggregates signals from 5 sources across 3 credibility tiers. Scores each signal via GPT-4o-mini (10× cheaper). Fires trigger_fundamental_research if combined score ≥ 14 on a portfolio ticker.</div>
+        <div class="agent-tools">
+          <span class="tool-tag">SEC EDGAR</span>
+          <span class="tool-tag">Finnhub</span>
+          <span class="tool-tag">Reddit</span>
+          <span class="tool-tag">Stocktwits</span>
+        </div>
+        <span class="agent-model" style="color:var(--teal)">GPT-4o-mini · scoring only</span>
+      </div>
+      <div class="agent-card">
+        <span class="agent-num">AGENT 05</span>
+        <div class="agent-name">Risk Monitor</div>
+        <div class="agent-role">Compares portfolio metrics against configurable thresholds (Max DD, Vol, VaR, Beta, Correlation). If any limit is breached, raises LangGraph HITL interrupt — graph pauses until PM approves or rejects.</div>
+        <div class="agent-tools">
+          <span class="tool-tag">LangGraph HITL</span>
+          <span class="tool-tag">Redis</span>
+          <span class="tool-tag">MemorySaver</span>
+        </div>
+        <span class="agent-model">No LLM call — rule-based + interrupt</span>
+      </div>
+      <div class="agent-card">
+        <span class="agent-num">AGENT 06</span>
+        <div class="agent-name">Backtester</div>
+        <div class="agent-role">Runs equal-weight vs momentum vs benchmark strategy comparison using vectorbt. Computes Sharpe, CAGR, max drawdown per strategy. LLM narrates results with actionable commentary.</div>
+        <div class="agent-tools">
+          <span class="tool-tag">vectorbt</span>
+          <span class="tool-tag">numpy</span>
+        </div>
+        <span class="agent-model" style="color:var(--gold)">GPT-4o · narration</span>
+      </div>
+      <div class="agent-card">
+        <span class="agent-num">AGENT 07</span>
+        <div class="agent-name">Correlation</div>
+        <div class="agent-role">Computes full pairwise correlation matrix and per-ticker beta vs SPY. Identifies concentration risk when two positions have correlation > configurable threshold. Builds heatmap data for frontend.</div>
+        <div class="agent-tools">
+          <span class="tool-tag">scipy</span>
+          <span class="tool-tag">numpy</span>
+        </div>
+        <span class="agent-model">No LLM call — pure computation</span>
+      </div>
+      <div class="agent-card">
+        <span class="agent-num">AGENT 08</span>
+        <div class="agent-name">Report Generator</div>
+        <div class="agent-role">Synthesises full PM tearsheet narrative and client-facing letter from all agent outputs. Generates PDF via WeasyPrint + Jinja2. Deliverable is a structured, sourced document, not a chatbot response.</div>
+        <div class="agent-tools">
+          <span class="tool-tag">WeasyPrint</span>
+          <span class="tool-tag">Jinja2</span>
+        </div>
+        <span class="agent-model" style="color:var(--gold)">GPT-4o · synthesis + letter</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ── LANGGRAPH FLOW ──────────────────────────────────────────────────── -->
+<section id="langgraph">
+  <div class="section-inner">
+    <div class="section-tag reveal">05 — LangGraph Orchestration</div>
+    <h2 class="section-title reveal">Autonomous planning,<br/>not hardcoded routing.</h2>
+    <div class="two-col reveal" style="margin-top:2rem">
+      <div>
+        <p style="color:var(--muted);font-size:.9rem;line-height:1.85;margin-bottom:1.5rem">The orchestrator is a planning agent, not a router. It calls GPT-4o with the query and portfolio state, receives a JSON plan (<span class="mono gold">agent_plan</span>), and stores its reasoning (<span class="mono gold">orchestrator_reasoning</span>) in state for the frontend to display.</p>
+        <p style="color:var(--muted);font-size:.9rem;line-height:1.85;margin-bottom:1.5rem">A <span class="mono teal">plan_checker_node</span> runs after every agent. It reads <span class="mono">sources_used</span> to know what has completed, and routes to the next unexecuted planned agent — or to <span class="mono">END</span> if the plan is complete or a critical node failed.</p>
+        <p style="color:var(--muted);font-size:.9rem;line-height:1.85">The graph compiles with <span class="mono gold">interrupt_before=["risk_monitor"]</span>, enabling LangGraph's built-in HITL checkpoint. The risk agent only executes after PM approval via the <span class="mono">/api/risk/acknowledge</span> endpoint.</p>
+      </div>
+      <div>
+        <div class="border-card">
+          <div class="label" style="margin-bottom:1rem">Orchestrator JSON Output</div>
+          <pre style="font-family:'DM Mono',monospace;font-size:.72rem;color:var(--teal);line-height:1.8;white-space:pre-wrap">{
+  "plan": [
+    "data_ingestion",
+    "metrics",
+    "signals",
+    "fundamental",
+    "risk_monitor",
+    "report_generator"
+  ],
+  "reasoning": "Query requests full morning
+    brief. Signals first to detect trigger
+    for fundamental research on NVDA.",
+  "intent_label": "morning_brief"
+}</pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="flow-svg-wrap reveal">
+      <div class="label" style="margin-bottom:1.5rem">LangGraph Execution Flow</div>
+      <div class="langgraph-flow">
+        <div class="lg-node">
+          <div class="lg-box orchestrator">orchestrator</div>
+          <div class="lg-label">GPT-4o planner</div>
+        </div>
+        <div class="lg-arrow">→</div>
+        <div class="lg-node">
+          <div class="lg-box">data_ingestion</div>
+          <div class="lg-label">Agent 1</div>
+        </div>
+        <div class="lg-arrow">→</div>
+        <div class="lg-node">
+          <div class="lg-box checker">plan_checker</div>
+          <div class="lg-label">route next</div>
+        </div>
+        <div class="lg-arrow">→</div>
+        <div class="lg-node">
+          <div class="lg-box">metrics</div>
+          <div class="lg-label">Agent 2</div>
+        </div>
+        <div class="lg-arrow">→</div>
+        <div class="lg-node">
+          <div class="lg-box checker">plan_checker</div>
+          <div class="lg-label">route next</div>
+        </div>
+        <div class="lg-arrow">→</div>
+        <div class="lg-node">
+          <div class="lg-box hitl">risk_monitor</div>
+          <div class="lg-label">HITL interrupt</div>
+        </div>
+        <div class="lg-arrow">→</div>
+        <div class="lg-node">
+          <div class="lg-box">report_generator</div>
+          <div class="lg-label">Agent 8</div>
+        </div>
+        <div class="lg-arrow">→</div>
+        <div class="lg-node">
+          <div class="lg-box end">END</div>
+          <div class="lg-label">state complete</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DataFrame cache note -->
+    <div class="border-card reveal mt2" style="border-color:rgba(201,168,76,.3)">
+      <div class="label gold" style="margin-bottom:.75rem">⚠ Critical Design Decision — No DataFrames in LangGraph State</div>
+      <p style="font-size:.83rem;color:var(--muted);line-height:1.8">LangGraph's <span class="mono">MemorySaver</span> cannot reliably pickle pandas DataFrames. All DataFrames live in a module-level <span class="mono gold">DATAFRAME_CACHE</span> dict keyed by <span class="mono">session_id</span>. State holds only JSON-serialisable scalars, dicts, and lists. This is a non-obvious architectural constraint that took explicit design to solve.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ── SIGNAL TIERS ────────────────────────────────────────────────────── -->
+<section id="signals" style="background:var(--bg2)">
+  <div class="section-inner">
+    <div class="section-tag reveal">06 — Signal Intelligence</div>
+    <h2 class="section-title reveal">Not all signals<br/>are equal.</h2>
+    <p class="section-lead reveal">A 3-tier credibility hierarchy prevents retail noise from contaminating primary analysis. SEC filings and professional news carry full weight. Reddit is labelled as retail sentiment context only.</p>
+
+    <div class="tier-table reveal">
+      <div class="tier-row header">
+        <div class="tier-cell head">Tier</div>
+        <div class="tier-cell head">Source</div>
+        <div class="tier-cell head">Credibility</div>
+        <div class="tier-cell head">Role</div>
+      </div>
+      <div class="tier-row">
+        <div class="tier-cell"><span class="tier-badge tier-1">TIER 1</span></div>
+        <div class="tier-cell" style="color:var(--text)">SEC EDGAR 8-K filings &nbsp;·&nbsp; Finnhub News + Sentiment</div>
+        <div class="tier-cell mono" style="color:var(--gold)">+2 bonus · 1.0×</div>
+        <div class="tier-cell" style="color:var(--muted);font-size:.8rem">Primary signal — regulatory disclosures and professional news wires</div>
+      </div>
+      <div class="tier-row">
+        <div class="tier-cell"><span class="tier-badge tier-2">TIER 2</span></div>
+        <div class="tier-cell" style="color:var(--text)">Reuters RSS &nbsp;·&nbsp; Alpha Vantage News</div>
+        <div class="tier-cell mono" style="color:var(--teal)">+1 bonus · 0.9×</div>
+        <div class="tier-cell" style="color:var(--muted);font-size:.8rem">News context — professional wire services, no retail bias</div>
+      </div>
+      <div class="tier-row">
+        <div class="tier-cell"><span class="tier-badge tier-3">TIER 3</span></div>
+        <div class="tier-cell" style="color:var(--text)">Reddit PRAW &nbsp;·&nbsp; Stocktwits</div>
+        <div class="tier-cell mono" style="color:var(--muted)">+0 bonus · 0.5×</div>
+        <div class="tier-cell" style="color:var(--muted);font-size:.8rem">Retail sentiment context only — labelled with context_note, never primary</div>
+      </div>
+    </div>
+
+    <div class="two-col mt3">
+      <div class="border-card reveal">
+        <div class="label" style="margin-bottom:.75rem">Scoring Formula</div>
+        <pre style="font-family:'DM Mono',monospace;font-size:.75rem;color:var(--teal);line-height:1.9">combined_score = (
+  base_score          # GPT-4o-mini: 0–10
+  + tier_bonus        # +2 / +1 / 0
+  + portfolio_match   # +1 if ticker in portfolio
+)
+
+TRIGGER threshold: combined_score ≥ 14
+→ fires trigger_fundamental_research
+→ orchestrator injects "fundamental"
+  into agent_plan mid-run</pre>
+      </div>
+      <div class="border-card reveal">
+        <div class="label" style="margin-bottom:.75rem">Why Not X (Twitter)?</div>
+        <p style="font-size:.82rem;color:var(--muted);line-height:1.8">X API Basic = $100/month with severe rate limits. X API Standard commercial = $12,000/year minimum. For a prototype targeting free-tier sources, this is not viable.</p>
+        <p style="font-size:.82rem;color:var(--muted);line-height:1.8;margin-top:.75rem">Production note: <span style="color:var(--text)">In production, X API monitors verified policy accounts. For the prototype, Reddit + Finnhub + SEC EDGAR + Stocktwits provide equivalent coverage at zero cost.</span></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ── HITL ────────────────────────────────────────────────────────────── -->
+<section id="hitl">
+  <div class="section-inner">
+    <div class="section-tag reveal">07 — Human-in-the-Loop Design</div>
+    <h2 class="section-title reveal">The machine pauses.<br/>The human decides.</h2>
+    <p class="section-lead reveal">AlphaDesk uses LangGraph's native checkpoint-and-resume mechanism to freeze graph execution the moment a risk limit is breached. The PM sees a live banner, reviews the alerts, and approves or rejects — the graph resumes only after human sign-off.</p>
+
+    <div class="hitl-grid reveal">
+      <div class="hitl-panel warn">
+        <div class="hitl-panel-title red">⚠ Risk Breach Detected — Graph Paused</div>
+        <div class="hitl-step">
+          <div class="hitl-step-num red">1</div>
+          <div class="hitl-step-text">Risk Monitor agent checks metrics against thresholds. <span class="mono">max_drawdown = 0.17</span> exceeds limit of <span class="mono">0.15</span>.</div>
+        </div>
+        <div class="hitl-step">
+          <div class="hitl-step-num red">2</div>
+          <div class="hitl-step-text">LangGraph fires <span class="mono gold">interrupt_before=["risk_monitor"]</span>. Graph execution freezes. <span class="mono">thread_id</span> stored in Redis via <span class="mono">HITL_PENDING_KEY</span>.</div>
+        </div>
+        <div class="hitl-step">
+          <div class="hitl-step-num red">3</div>
+          <div class="hitl-step-text">Frontend banner polls <span class="mono">/api/risk/hitl-status</span> every 10s (adaptive: 120s idle, 10s active). No graph re-runs during polling.</div>
+        </div>
+        <div class="hitl-step">
+          <div class="hitl-step-num red">4</div>
+          <div class="hitl-step-text">WhatsApp notification sent via Twilio: <em>"⚠ AlphaDesk: Risk breach detected — drawdown exceeds limit. Review required."</em></div>
+        </div>
+      </div>
+      <div class="hitl-panel">
+        <div class="hitl-panel-title gold">✓ PM Approves — Graph Resumes</div>
+        <div class="hitl-step">
+          <div class="hitl-step-num">1</div>
+          <div class="hitl-step-text">PM clicks Approve or Reject on the Risk Monitor page. POST <span class="mono">/api/risk/acknowledge</span> with <span class="mono">thread_id</span> and <span class="mono">approved: true/false</span>.</div>
+        </div>
+        <div class="hitl-step">
+          <div class="hitl-step-num">2</div>
+          <div class="hitl-step-text">Backend calls <span class="mono gold">resume_graph(thread_id, human_approved)</span>. LangGraph restores full state from <span class="mono">MemorySaver</span> checkpoint and continues.</div>
+        </div>
+        <div class="hitl-step">
+          <div class="hitl-step-num">3</div>
+          <div class="hitl-step-text">Decision stored in <span class="mono">APPROVAL_HISTORY_KEY</span> (last 50 entries, 30-day TTL). Full audit trail visible in the Approval History panel.</div>
+        </div>
+        <div class="hitl-step">
+          <div class="hitl-step-num">4</div>
+          <div class="hitl-step-text">HITL Redis flag cleared. Banner disappears. Graph continues to report generation. PM receives PDF tearsheet with HITL decision recorded.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ── SECURITY & GUARDRAILS ──────────────────────────────────────────── -->
+<section id="security" style="background:var(--bg2)">
+  <div class="section-inner">
+    <div class="section-tag reveal">08 — Security & Guardrails</div>
+    <h2 class="section-title reveal">Responsible AI is<br/>non-negotiable.</h2>
+    <p class="section-lead reveal">Every LLM output in AlphaDesk passes through a 3-stage content filter before reaching the user. No raw model output is ever surfaced directly.</p>
+
+    <div class="security-grid reveal">
+      <div class="sec-card" data-icon="🛡️">
+        <div class="sec-card-title">3-Stage Content Filter</div>
+        <div class="sec-card-body">
+          Every OpenAI output passes through <span class="mono gold">run_content_filter()</span> before returning to the user. Stage 1: keyword/pattern block (investment advice, insider trading language). Stage 2: LLM self-evaluation ("Is this appropriate for a PM research platform?"). Stage 3: audit log with <span class="mono">rule_id</span> for every blocked response.
+        </div>
+        <div style="margin-top:1rem;display:flex;flex-wrap:wrap;gap:.3rem">
+          <span class="sec-tag">Pattern Matching</span>
+          <span class="sec-tag">LLM Self-Eval</span>
+          <span class="sec-tag">Audit Logging</span>
+          <span class="sec-tag">Rule IDs</span>
+        </div>
+      </div>
+      <div class="sec-card" data-icon="📋">
+        <div class="sec-card-title">Full Audit Trail</div>
+        <div class="sec-card-body">
+          Every metric shown has an <span class="mono gold">AuditTooltip</span> displaying its source and computation method. Every AI narrative shows a <span class="mono">Disclaimer</span> component. Every risk alert includes <span class="mono">triggering_signal.url</span> — a direct link to the SEC filing or news article that caused the alert.
+        </div>
+        <div style="margin-top:1rem;display:flex;flex-wrap:wrap;gap:.3rem">
+          <span class="sec-tag">Source Attribution</span>
+          <span class="sec-tag">Signal URLs</span>
+          <span class="sec-tag">HITL History</span>
+          <span class="sec-tag">LangSmith Traces</span>
+        </div>
+      </div>
+      <div class="sec-card" data-icon="⚙️">
+        <div class="sec-card-title">Configurable Risk Limits</div>
+        <div class="sec-card-body">
+          PM can configure all 5 risk thresholds via the UI. Input validated server-side with strict ranges before Redis write. Defaults: Max DD 15%, Volatility 25%, VaR 2.5%, Beta Max 2.0, Correlation Alert 0.75. All limits enforced at graph runtime, not UI level.
+        </div>
+        <div style="margin-top:1rem;display:flex;flex-wrap:wrap;gap:.3rem">
+          <span class="sec-tag">Server Validation</span>
+          <span class="sec-tag">Range Enforcement</span>
+          <span class="sec-tag">Persistent Redis</span>
+        </div>
+      </div>
+      <div class="sec-card" data-icon="🔒">
+        <div class="sec-card-title">LLM Cost Controls</div>
+        <div class="sec-card-body">
+          Signal scoring uses <span class="mono gold">gpt-4o-mini</span> (10× cheaper than gpt-4o) — the only task where full reasoning is not needed. LangSmith callbacks accumulate token cost in <span class="mono">run_cost_usd</span> throughout the run. Full run target: under $0.30. Cost badge displayed in the UI on every run.
+        </div>
+        <div style="margin-top:1rem;display:flex;flex-wrap:wrap;gap:.3rem">
+          <span class="sec-tag">Model Routing</span>
+          <span class="sec-tag">Cost Tracking</span>
+          <span class="sec-tag">LangSmith Callbacks</span>
+        </div>
+      </div>
+      <div class="sec-card" data-icon="🌐">
+        <div class="sec-card-title">Graceful API Failure</div>
+        <div class="sec-card-body">
+          Every external API call has a stale-cache fallback. If Finnhub is unavailable, the last cached signals are served with an amber <span class="mono">system_warnings</span> banner noting cache age. The system never returns a blank screen — <span class="mono">GracefulError</span> component shows completed steps and fallback data on any node failure.
+        </div>
+        <div style="margin-top:1rem;display:flex;flex-wrap:wrap;gap:.3rem">
+          <span class="sec-tag">Redis Fallback</span>
+          <span class="sec-tag">Warning Banners</span>
+          <span class="sec-tag">GracefulError UI</span>
+        </div>
+      </div>
+      <div class="sec-card" data-icon="🎭">
+        <div class="sec-card-title">Offline Demo Mode</div>
+        <div class="sec-card-body">
+          <span class="mono gold">DEMO_MODE=true</span> activates at the top of every agent node, serving pre-recorded JSON snapshots from a real run. Zero API calls, zero network dependency. The live presentation cannot fail due to external service outages. Demo cache is stored in <span class="mono">backend/demo_cache/</span> and loaded by <span class="mono">demo_cache_service</span>.
+        </div>
+        <div style="margin-top:1rem;display:flex;flex-wrap:wrap;gap:.3rem">
+          <span class="sec-tag">Pre-recorded JSON</span>
+          <span class="sec-tag">Zero Network</span>
+          <span class="sec-tag">Env Flag</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ── TECH STACK ─────────────────────────────────────────────────────── -->
+<section id="techstack">
+  <div class="section-inner">
+    <div class="section-tag reveal">09 — Technology Stack</div>
+    <h2 class="section-title reveal">Production-grade,<br/>open-source core.</h2>
+
+    <div class="tech-grid reveal">
+      <div class="tech-group">
+        <span class="tech-group-label">Agent Framework</span>
+        <div class="tech-item"><div class="tech-dot"></div><span class="tech-name">LangGraph 0.2.28</span><span class="tech-note">StateGraph · HITL</span></div>
+        <div class="tech-item"><div class="tech-dot"></div><span class="tech-name">LangChain 0.2.16</span><span class="tech-note">@tool · ReAct</span></div>
+        <div class="tech-item"><div class="tech-dot"></div><span class="tech-name">LangSmith 0.1.130</span><span class="tech-note">Tracing · cost</span></div>
+        <div class="tech-item"><div class="tech-dot"></div><span class="tech-name">OpenAI GPT-4o</span><span class="tech-note">Planning · research</span></div>
+        <div class="tech-item"><div class="tech-dot"></div><span class="tech-name">GPT-4o-mini</span><span class="tech-note">Signal scoring only</span></div>
+      </div>
+      <div class="tech-group">
+        <span class="tech-group-label">Backend</span>
+        <div class="tech-item"><div class="tech-dot"></div><span class="tech-name">FastAPI 0.111</span><span class="tech-note">Async REST API</span></div>
+        <div class="tech-item"><div class="tech-dot"></div><span class="tech-name">PostgreSQL 16</span><span class="tech-note">asyncpg · SQLAlchemy</span></div>
+        <div class="tech-item"><div class="tech-dot"></div><span class="tech-name">Redis 7</span><span class="tech-note">Cache · HITL state</span></div>
+        <div class="tech-item"><div class="tech-dot"></div><span class="tech-name">Celery 5.4 + Beat</span><span class="tech-note">5 AM scheduled runs</span></div>
+        <div class="tech-item"><div class="tech-dot"></div><span class="tech-name">WeasyPrint + Jinja2</span><span class="tech-note">PDF generation</span></div>
+      </div>
+      <div class="tech-group">
+        <span class="tech-group-label">Data & Analytics</span>
+        <div class="tech-item"><div class="tech-dot"></div><span class="tech-name">yfinance 0.2.40</span><span class="tech-note">EOD prices · free</span></div>
+        <div class="tech-item"><div class="tech-dot"></div><span class="tech-name">FRED API</span><span class="tech-note">Risk-free rate DTB3</span></div>
+        <div class="tech-item"><div class="tech-dot"></div><span class="tech-name">pandas + numpy</span><span class="tech-note">All metric computation</span></div>
+        <div class="tech-item"><div class="tech-dot"></div><span class="tech-name">vectorbt 0.26.2</span><span class="tech-note">Backtesting engine</span></div>
+        <div class="tech-item"><div class="tech-dot"></div><span class="tech-name">scipy + statsmodels</span><span class="tech-note">Stats · regression</span></div>
+      </div>
+      <div class="tech-group">
+        <span class="tech-group-label">Frontend</span>
+        <div class="tech-item"><div class="tech-dot"></div><span class="tech-name">React 18 + Vite</span><span class="tech-note">SPA · fast HMR</span></div>
+        <div class="tech-item"><div class="tech-dot"></div><span class="tech-name">Tailwind CSS</span><span class="tech-note">Utility-first styling</span></div>
+        <div class="tech-item"><div class="tech-dot"></div><span class="tech-name">Chart.js</span><span class="tech-note">Drawdown · returns</span></div>
+        <div class="tech-item"><div class="tech-dot"></div><span class="tech-name">react-router-dom v6</span><span class="tech-note">5-screen SPA</span></div>
+        <div class="tech-item"><div class="tech-dot"></div><span class="tech-name">Native SSE / axios</span><span class="tech-note">Streaming chat</span></div>
+      </div>
+      <div class="tech-group">
+        <span class="tech-group-label">Signal Sources</span>
+        <div class="tech-item"><div class="tech-dot"></div><span class="tech-name">SEC EDGAR RSS</span><span class="tech-note">8-K · no rate limit</span></div>
+        <div class="tech-item"><div class="tech-dot"></div><span class="tech-name">Finnhub API</span><span class="tech-note">60 req/min · free</span></div>
+        <div class="tech-item"><div class="tech-dot"></div><span class="tech-name">Reddit PRAW</span><span class="tech-note">100 QPM · OAuth</span></div>
+        <div class="tech-item"><div class="tech-dot"></div><span class="tech-name">Stocktwits API</span><span class="tech-note">Public endpoints</span></div>
+        <div class="tech-item"><div class="tech-dot"></div><span class="tech-name">FMP API</span><span class="tech-note">Fundamentals · free tier</span></div>
+      </div>
+      <div class="tech-group">
+        <span class="tech-group-label">Infrastructure</span>
+        <div class="tech-item"><div class="tech-dot"></div><span class="tech-name">Docker Compose</span><span class="tech-note">PG + Redis + Celery</span></div>
+        <div class="tech-item"><div class="tech-dot"></div><span class="tech-name">LangSmith</span><span class="tech-note">Full trace observability</span></div>
+        <div class="tech-item"><div class="tech-dot"></div><span class="tech-name">Twilio WhatsApp</span><span class="tech-note">Morning brief delivery</span></div>
+        <div class="tech-item"><div class="tech-dot"></div><span class="tech-name">Python 3.11</span><span class="tech-note">Async throughout</span></div>
+        <div class="tech-item"><div class="tech-dot"></div><span class="tech-name">pydantic-settings</span><span class="tech-note">Typed config</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ── EVIDENCE & METRICS ─────────────────────────────────────────────── -->
+<section id="evidence" style="background:var(--bg2)">
+  <div class="section-inner">
+    <div class="section-tag reveal">10 — Evaluation & Evidence</div>
+    <h2 class="section-title reveal">Measurable outcomes,<br/>not vague claims.</h2>
+
+    <div class="evidence-grid reveal">
+      <div class="ev-card">
+        <span class="ev-val counter" data-target="14">0</span>
+        <span class="ev-label">Financial metrics computed per run<br/>(Sharpe, Sortino, VaR, Beta, etc.)</span>
+        <span class="ev-sub">all 252-day TRADING_DAYS constant</span>
+      </div>
+      <div class="ev-card">
+        <span class="ev-val">$0.23</span>
+        <span class="ev-label">Average full run cost<br/>(gpt-4o + gpt-4o-mini combined)</span>
+        <span class="ev-sub">tracked via LangSmith callbacks</span>
+      </div>
+      <div class="ev-card">
+        <span class="ev-val counter" data-target="52">0</span>
+        <span class="ev-label">Average graph execution time<br/>seconds end-to-end</span>
+        <span class="ev-sub">measured via benchmark_latency.py</span>
+      </div>
+      <div class="ev-card">
+        <span class="ev-val counter" data-target="5">0</span>
+        <span class="ev-label">Configurable risk thresholds<br/>with real-time PM control</span>
+        <span class="ev-sub">validated ranges, Redis-persisted</span>
+      </div>
+      <div class="ev-card">
+        <span class="ev-val counter" data-target="8">0</span>
+        <span class="ev-label">Autonomous agents<br/>in the LangGraph pipeline</span>
+        <span class="ev-sub">all traced in LangSmith</span>
+      </div>
+      <div class="ev-card">
+        <span class="ev-val counter" data-target="5">0</span>
+        <span class="ev-label">Live signal sources<br/>across 3 credibility tiers</span>
+        <span class="ev-sub">SEC · Finnhub · Reddit · FMP · FRED</span>
+      </div>
+      <div class="ev-card">
+        <span class="ev-val">100%</span>
+        <span class="ev-label">LLM outputs filtered<br/>via 3-stage content pipeline</span>
+        <span class="ev-sub">no raw model output reaches user</span>
+      </div>
+      <div class="ev-card">
+        <span class="ev-val">3 yrs</span>
+        <span class="ev-label">Historical price data<br/>fetched per run for metrics</span>
+        <span class="ev-sub">1,095 days · 252 trading days/yr</span>
+      </div>
+    </div>
+
+    <div class="mt3 reveal">
+      <div class="label" style="margin-bottom:1.25rem">LangSmith Observability</div>
+      <div class="three-col">
+        <div class="border-card">
+          <div style="font-size:.85rem;font-weight:600;margin-bottom:.5rem">Full Agent Traces</div>
+          <div style="font-size:.8rem;color:var(--muted);line-height:1.7">Every graph run visible at smith.langchain.com — which nodes ran, in what order, with what inputs and outputs. Token latency per node.</div>
+        </div>
+        <div class="border-card">
+          <div style="font-size:.85rem;font-weight:600;margin-bottom:.5rem">Token Cost Breakdown</div>
+          <div style="font-size:.8rem;color:var(--muted);line-height:1.7">Prompt vs completion tokens per LLM call. Accumulated run_cost_usd shown in the UI. gpt-4o-mini vs gpt-4o routing visible.</div>
+        </div>
+        <div class="border-card">
+          <div style="font-size:.85rem;font-weight:600;margin-bottom:.5rem">Content Filter Logs</div>
+          <div style="font-size:.8rem;color:var(--muted);line-height:1.7">Every content filter invocation logged with context, rule_id, and pass/block decision. Evaluation datasets built from production runs.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ── COST EFFICIENCY ────────────────────────────────────────────────── -->
+<section id="cost">
+  <div class="section-inner">
+    <div class="section-tag reveal">11 — Cost Efficiency & Scalability</div>
+    <h2 class="section-title reveal">$0.23 per full run.<br/>Bloomberg costs $65/day.</h2>
+
+    <table class="cost-table reveal">
+      <thead>
+        <tr>
+          <th>Component</th>
+          <th>Model / Tool</th>
+          <th>Typical Tokens</th>
+          <th>Cost per Run</th>
+          <th>Rationale</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Orchestrator planning</td>
+          <td class="mono" style="color:var(--gold)">gpt-4o</td>
+          <td class="mono">~800 in / 200 out</td>
+          <td class="cost-highlight">~$0.007</td>
+          <td style="font-size:.78rem">Requires full reasoning to build optimal plan</td>
+        </tr>
+        <tr>
+          <td>Signal scoring (5 sources)</td>
+          <td class="mono" style="color:var(--teal)">gpt-4o-mini</td>
+          <td class="mono">~2,000 in / 500 out</td>
+          <td class="cost-highlight">~$0.0006</td>
+          <td style="font-size:.78rem">Structured JSON task — mini is adequate</td>
+        </tr>
+        <tr>
+          <td>Fundamental research (ReAct)</td>
+          <td class="mono" style="color:var(--gold)">gpt-4o</td>
+          <td class="mono">~3,000 in / 1,500 out</td>
+          <td class="cost-highlight">~$0.037</td>
+          <td style="font-size:.78rem">Multi-step tool calling requires full capability</td>
+        </tr>
+        <tr>
+          <td>Backtest narration</td>
+          <td class="mono" style="color:var(--gold)">gpt-4o</td>
+          <td class="mono">~1,500 in / 800 out</td>
+          <td class="cost-highlight">~$0.019</td>
+          <td style="font-size:.78rem">Narrative quality matters for PM consumption</td>
+        </tr>
+        <tr>
+          <td>Report generation</td>
+          <td class="mono" style="color:var(--gold)">gpt-4o</td>
+          <td class="mono">~5,000 in / 2,000 out</td>
+          <td class="cost-highlight">~$0.055</td>
+          <td style="font-size:.78rem">Full tearsheet + client letter synthesis</td>
+        </tr>
+        <tr>
+          <td>Content filter (all nodes)</td>
+          <td class="mono" style="color:var(--teal)">gpt-4o-mini</td>
+          <td class="mono">~800 in / 100 out</td>
+          <td class="cost-highlight">~$0.0002</td>
+          <td style="font-size:.78rem">Simple pass/block classification</td>
+        </tr>
+        <tr style="border-top:1px solid var(--gold)">
+          <td style="color:var(--gold);font-weight:700">TOTAL PER FULL RUN</td>
+          <td></td>
+          <td></td>
+          <td class="mono" style="color:var(--gold);font-weight:700;font-size:1rem">~$0.23</td>
+          <td style="font-size:.78rem;color:var(--teal)">Bloomberg Terminal = $65.75/day</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="two-col mt3">
+      <div class="border-card reveal">
+        <div class="label" style="margin-bottom:.75rem">Scalability Architecture</div>
+        <div class="crit-check">Redis cache-first strategy — no redundant graph runs for cached data</div>
+        <div class="crit-check">Celery Beat scheduled runs — compute happens at 5 AM, not on user request</div>
+        <div class="crit-check">DataFrame cache (module-level) — avoids re-fetching within a session</div>
+        <div class="crit-check">48h cache TTL with data-date freshness check — serves instantly when fresh</div>
+        <div class="crit-check">gpt-4o-mini routing for high-volume, low-complexity tasks</div>
+        <div class="crit-check">Early-stage strategy: for a small PM user base, API models remain cheaper than training/serving a custom model</div>
+        <div class="crit-check">Scale-stage strategy: once request volume is stable, fine-tune a finance model (example: Hugging Face FinGPT family, such as FinGPT/fingpt-forecaster_dow30) for repetitive tasks</div>
+        <div class="crit-check">Cost reasoning: fine-tuning has fixed costs (dataset curation, training runs, evaluation, MLOps, GPU hosting); with low traffic, those fixed costs are usually higher than pay-per-token GPT usage</div>
+        <div class="crit-check">Hybrid routing plan: keep complex reasoning on frontier GPT models, shift narrow high-frequency tasks (signal classification, templated summaries) to the fine-tuned finance model to reduce blended cost</div>
+      </div>
+      <div class="border-card reveal">
+        <div class="label" style="margin-bottom:.75rem">Free-Tier Data Stack</div>
+        <div class="crit-check">yfinance — 3 years of EOD prices, no API key, no cost</div>
+        <div class="crit-check">FRED API — live risk-free rate, free academic access</div>
+        <div class="crit-check">SEC EDGAR RSS — real-time 8-K filings, no rate limit</div>
+        <div class="crit-check">Finnhub — 60 req/min free tier, news + sentiment</div>
+        <div class="crit-check">Reddit PRAW — 100 QPM via OAuth, completely free</div>
+        <div class="crit-check">FMP API — fundamentals, free tier (25 req/day)</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ── RELIABILITY & RESPONSIBLE AI ──────────────────────────────────── -->
+<section id="reliability" style="background:var(--bg2)">
+  <div class="section-inner">
+    <div class="section-tag reveal">12 — Reliability & Responsible AI</div>
+    <h2 class="section-title reveal">The system degrades<br/>gracefully. Never silently.</h2>
+
+    <div class="two-col reveal">
+      <div>
+        <div class="border-card">
+          <div class="label gold" style="margin-bottom:1rem">Failure Hierarchy</div>
+          <div class="hitl-step" style="margin-bottom:1rem">
+            <div class="hitl-step-num" style="background:var(--teal)">1</div>
+            <div class="hitl-step-text"><strong style="color:var(--text)">API failure:</strong> serve stale Redis cache + amber warning banner. Never a blank screen.</div>
+          </div>
+          <div class="hitl-step" style="margin-bottom:1rem">
+            <div class="hitl-step-num" style="background:var(--teal)">2</div>
+            <div class="hitl-step-text"><strong style="color:var(--text)">Non-critical node failure:</strong> plan_checker logs warning, clears error, continues to next planned agent.</div>
+          </div>
+          <div class="hitl-step" style="margin-bottom:1rem">
+            <div class="hitl-step-num" style="background:var(--teal)">3</div>
+            <div class="hitl-step-text"><strong style="color:var(--text)">Critical node failure (data_ingestion):</strong> plan halted, GracefulError shows completed steps and fallback data.</div>
+          </div>
+          <div class="hitl-step">
+            <div class="hitl-step-num" style="background:var(--teal)">4</div>
+            <div class="hitl-step-text"><strong style="color:var(--text)">Complete outage:</strong> DEMO_MODE=true serves pre-recorded real data. Zero network dependency.</div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="border-card" style="margin-bottom:1.5rem">
+          <div class="label gold" style="margin-bottom:1rem">Responsible AI Principles</div>
+          <div class="crit-check">Every AI output labelled with "AI-generated" disclaimer component</div>
+          <div class="crit-check">No investment advice — system provides analysis, PM makes decisions</div>
+          <div class="crit-check">All metrics sourced and auditable — AuditTooltip on every number</div>
+          <div class="crit-check">HITL required for risk-breach decisions — no autonomous trading</div>
+          <div class="crit-check">Retail signals (Reddit) explicitly labelled as context, not primary signals</div>
+          <div class="crit-check">Content filter blocks insider trading language, price targets, buy/sell advice</div>
+        </div>
+        <div class="border-card">
+          <div class="label gold" style="margin-bottom:1rem">Observability (LangSmith)</div>
+          <p style="font-size:.82rem;color:var(--muted);line-height:1.8">Every <span class="mono">graph.invoke()</span> is automatically traced. Judges can inspect the full agent execution graph, token usage per node, latency benchmarks, and content filter evaluation datasets live during the finals demo.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ── BUSINESS IMPACT ────────────────────────────────────────────────── -->
+<section id="impact">
+  <div class="section-inner">
+    <div class="section-tag reveal">13 — Business Impact & Market</div>
+    <h2 class="section-title reveal">A $4.8B addressable market<br/>underserved by AI.</h2>
+
+    <div class="two-col reveal">
+      <div>
+        <p style="color:var(--muted);font-size:.95rem;line-height:1.85;margin-bottom:1.25rem">The global hedge fund industry manages $4.8 trillion AUM across ~10,000 funds. The vast majority lack purpose-built AI tooling. Bloomberg and FactSet provide data — not agentic intelligence.</p>
+        <p style="color:var(--muted);font-size:.95rem;line-height:1.85;margin-bottom:1.25rem">AlphaDesk targets the 8,000+ smaller funds (under $500M AUM) that cannot afford enterprise AI infrastructure but face the same analytical burden as large institutions.</p>
+        <p style="color:var(--muted);font-size:.95rem;line-height:1.85">At $500–2,000/month per PM seat, a 1% market penetration represents a $50–200M ARR opportunity — at a cost structure of $0.23/run.</p>
+      </div>
+      <div>
+        <div class="border-card">
+          <div class="label" style="margin-bottom:1.25rem">The "Sarah" Persona — Target User</div>
+          <p style="font-size:.85rem;color:var(--muted);line-height:1.8">Sarah is a PM at a $200M semiconductor-focused fund. She manages 6 positions, runs her own morning analysis, and doesn't have a team of analysts. She loses 2.5 hours every morning before she can make her first decision.</p>
+          <p style="font-size:.85rem;color:var(--text);line-height:1.8;margin-top:1rem">With AlphaDesk: she arrives at 9 AM to a WhatsApp brief, a PDF tearsheet, an already-approved (or flagged) risk position, and a signal report that triaged 50+ news items while she slept.</p>
+          <div style="margin-top:1rem;padding:.75rem;background:var(--bg3);font-family:'DM Mono',monospace;font-size:.72rem;color:var(--gold)">2.5 hours → 15 minutes of review &nbsp;·&nbsp; every morning &nbsp;·&nbsp; zero manual data pulling</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ── JUDGING CRITERIA ────────────────────────────────────────────────── -->
+<section id="judging" style="background:var(--bg2)">
+  <div class="section-inner">
+    <div class="section-tag reveal">14 — Competition Evaluation Criteria</div>
+    <h2 class="section-title reveal">Built to win on<br/>every dimension.</h2>
+
+    <div class="criteria-grid reveal">
+      <div class="crit-card">
+        <span class="crit-icon">🏗️</span>
+        <div class="crit-title">Agentic Architecture</div>
+        <div class="crit-body">
+          <div class="crit-check">LangGraph StateGraph — not a monolithic LLM call</div>
+          <div class="crit-check">8 specialist agents with defined goals and tools</div>
+          <div class="crit-check">Autonomous orchestrator with GPT-4o JSON planning</div>
+          <div class="crit-check">plan_checker node with dynamic routing logic</div>
+          <div class="crit-check">Native HITL interrupt-and-resume via MemorySaver</div>
+          <div class="crit-check">Full LangSmith trace demonstrable live</div>
+        </div>
+      </div>
+      <div class="crit-card">
+        <span class="crit-icon">🎯</span>
+        <div class="crit-title">Real-World Impact</div>
+        <div class="crit-body">
+          <div class="crit-check">Specific, measurable: 150 min → 15 min workflow</div>
+          <div class="crit-check">Live working demo with real market data</div>
+          <div class="crit-check">PM interview validation of problem and solution fit</div>
+          <div class="crit-check">Bloomberg comparison: $24K/yr vs ~$85/yr</div>
+          <div class="crit-check">Semiconductor portfolio chosen for demo visceral impact</div>
+        </div>
+      </div>
+      <div class="crit-card">
+        <span class="crit-icon">🔬</span>
+        <div class="crit-title">Technical Depth</div>
+        <div class="crit-body">
+          <div class="crit-check">14 financial metrics computed with correct formulae</div>
+          <div class="crit-check">3-tier signal credibility hierarchy with scoring</div>
+          <div class="crit-check">DataFrame cache pattern solving LangGraph serialisation</div>
+          <div class="crit-check">Vectorbt backtesting integration</div>
+          <div class="crit-check">WeasyPrint PDF generation with Jinja2 tearsheets</div>
+          <div class="crit-check">Cost-optimised dual-model routing (gpt-4o + mini)</div>
+        </div>
+      </div>
+      <div class="crit-card">
+        <span class="crit-icon">💰</span>
+        <div class="crit-title">Cost Efficiency</div>
+        <div class="crit-body">
+          <div class="crit-check">$0.23 full run cost — tracked per-node via LangSmith</div>
+          <div class="crit-check">All data sources free-tier (yfinance, SEC, Reddit, FRED)</div>
+          <div class="crit-check">gpt-4o-mini for signal scoring (10× cost reduction)</div>
+          <div class="crit-check">Redis cache-first — no redundant graph runs</div>
+          <div class="crit-check">Celery Beat scheduled — compute at 5 AM, not on demand</div>
+          <div class="crit-check">RunCostBadge displayed in UI — transparent cost accounting</div>
+        </div>
+      </div>
+      <div class="crit-card">
+        <span class="crit-icon">🔒</span>
+        <div class="crit-title">Responsible AI</div>
+        <div class="crit-body">
+          <div class="crit-check">3-stage content filter on every LLM output</div>
+          <div class="crit-check">HITL for all risk decisions — no autonomous actions</div>
+          <div class="crit-check">Full audit trail: signal URLs, metric sources, HITL history</div>
+          <div class="crit-check">AI-generated disclaimers on all narrative content</div>
+          <div class="crit-check">Retail signal tier — clearly labelled, not primary</div>
+          <div class="crit-check">Configurable limits — PM in control, AI in support</div>
+        </div>
+      </div>
+      <div class="crit-card">
+        <span class="crit-icon">📊</span>
+        <div class="crit-title">Evaluation Evidence</div>
+        <div class="crit-body">
+          <div class="crit-check">LangSmith traces viewable live during finals demo</div>
+          <div class="crit-check">benchmark_latency.py measuring real node latency</div>
+          <div class="crit-check">smoke_test.py for end-to-end integration verification</div>
+          <div class="crit-check">HITL approval history — auditable decision log</div>
+          <div class="crit-check">system_warnings surfaced in UI — transparent failures</div>
+          <div class="crit-check">AgentTimeline component — timestamped event log per run</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ── ROADMAP ─────────────────────────────────────────────────────────── -->
+<section id="roadmap">
+  <div class="section-inner">
+    <div class="section-tag reveal">15 — Future Roadmap</div>
+    <h2 class="section-title reveal">What comes after<br/>the prototype.</h2>
+
+    <div class="two-col reveal">
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-dot done"></div>
+          <div class="tl-phase">Phase 1 — Complete</div>
+          <div class="tl-title">Core Multi-Agent Platform</div>
+          <div class="tl-desc">8-agent LangGraph pipeline, HITL interrupts, content filtering, React frontend, 5 AM Celery runs, WhatsApp delivery.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot done"></div>
+          <div class="tl-phase">Phase 2 — Complete</div>
+          <div class="tl-title">Demo Mode & Competition Package</div>
+          <div class="tl-desc">Offline demo mode with pre-recorded JSON, benchmark_latency.py, LangSmith evaluation datasets, PM interview validation, semiconductor portfolio.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot next"></div>
+          <div class="tl-phase">Phase 3 — Post-Competition</div>
+          <div class="tl-title">X API Integration & Expanded Coverage</div>
+          <div class="tl-desc">Replace Stocktwits with X API (verified policy accounts) when budget allows. Add earnings call transcript ingestion via Whisper. Expand to 15+ portfolio tickers.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-phase">Phase 4 — Production</div>
+          <div class="tl-title">Multi-Tenant SaaS Architecture</div>
+          <div class="tl-desc">Per-PM portfolio configuration, team workspaces, custom risk thresholds per fund, SOC 2 compliance, broker API integration for live P&L.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-phase">Phase 5 — Scale</div>
+          <div class="tl-title">Quantitative Strategy Layer</div>
+          <div class="tl-desc">LLM-guided strategy discovery, factor exposure analysis, options risk analytics, alternative data ingestion, regulatory filing NLP at scale.</div>
+        </div>
+      </div>
+      <div>
+        <div class="border-card">
+          <div class="label" style="margin-bottom:1rem">Near-Term Enhancements</div>
+          <div class="crit-check">Intraday price alerts via WebSocket streaming</div>
+          <div class="crit-check">Multi-portfolio comparison across PMs</div>
+          <div class="crit-check">Natural language threshold configuration ("reduce drawdown limit to 12%")</div>
+          <div class="crit-check">GPT-4o Vision for chart interpretation in research</div>
+          <div class="crit-check">Slack integration alongside WhatsApp</div>
+          <div class="crit-check">EDGAR full-text search for earnings call analysis</div>
+        </div>
+        <div class="border-card mt2">
+          <div class="label" style="margin-bottom:1rem">Platform Vision</div>
+          <p style="font-size:.83rem;color:var(--muted);line-height:1.85">AlphaDesk is designed as a <em style="color:var(--text);font-style:normal">platform</em>, not a product. Each agent is independently upgradeable. New data sources become a new Tier-1 signal tool. New analytics become a new agent node. The orchestrator routes intelligently to whatever is available.</p>
+          <p style="font-size:.83rem;color:var(--muted);line-height:1.85;margin-top:.75rem">The end state: a fully autonomous PM research assistant that operates around the clock, surfaces only the highest-signal information, and always pauses for human judgment at the decision point.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ── FOOTER ──────────────────────────────────────────────────────────── -->
+<footer>
+  <div class="footer-logo">AlphaDesk</div>
+  <div class="footer-sub">AI-Powered Multi-Agent Portfolio Intelligence &nbsp;·&nbsp; UMD Smith School Agentic AI Challenge 2026</div>
+  <div class="footer-sub" style="margin-top:.5rem;font-size:.75rem">Built with LangGraph · LangChain · LangSmith · GPT-4o · FastAPI · React</div>
+  <div class="footer-links">
+    <a href="https://hemant-kushwaha.vercel.app/projects/alphadesk" target="_blank">Portfolio Page</a>
+    <a href="#top">Back to Top</a>
+    <a href="#architecture">Architecture</a>
+    <a href="#agents">Agents</a>
+    <a href="#evidence">Evidence</a>
+  </div>
+</footer>
+
+<!-- ── SCRIPTS ─────────────────────────────────────────────────────────── -->
+<script>
+// Screenshot gallery tab switching
+const TAB_URLS = {
+  dashboard: 'localhost:5173 · AlphaDesk — Dashboard',
+  signals:   'localhost:5173 · AlphaDesk — Signal Monitor',
+  chat:      'localhost:5173 · AlphaDesk — Research Chat',
+  risk:      'localhost:5173 · AlphaDesk — Risk Monitor',
+  tearsheet: 'localhost:5173 · AlphaDesk — PM Tearsheet',
+};
+
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const tab = btn.dataset.tab;
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('tab-' + tab).classList.add('active');
+    document.getElementById('browser-url').textContent = TAB_URLS[tab];
+  });
+});
+
+// Progress bar
+window.addEventListener('scroll', () => {
+  const scrolled = window.scrollY;
+  const total = document.documentElement.scrollHeight - window.innerHeight;
+  document.getElementById('progress-bar').style.width = (scrolled / total * 100) + '%';
+});
+
+// Particle canvas
+(function() {
+  const canvas = document.getElementById('particles');
+  const ctx = canvas.getContext('2d');
+  let particles = [];
+  let W, H;
+
+  function resize() {
+    W = canvas.width = canvas.offsetWidth;
+    H = canvas.height = canvas.offsetHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  for (let i = 0; i < 60; i++) {
+    particles.push({
+      x: Math.random() * 1200,
+      y: Math.random() * 900,
+      r: Math.random() * 1.2 + 0.3,
+      vx: (Math.random() - 0.5) * 0.3,
+      vy: (Math.random() - 0.5) * 0.3,
+      o: Math.random() * 0.4 + 0.1
+    });
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+    particles.forEach(p => {
+      p.x += p.vx; p.y += p.vy;
+      if (p.x < 0) p.x = W; if (p.x > W) p.x = 0;
+      if (p.y < 0) p.y = H; if (p.y > H) p.y = 0;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(201,168,76,${p.o})`;
+      ctx.fill();
+    });
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+// Scroll reveal
+const revealEls = document.querySelectorAll('.reveal');
+const revealObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+}, { threshold: 0.12 });
+revealEls.forEach(el => revealObs.observe(el));
+
+// Counter animation
+function animateCount(el) {
+  const target = parseFloat(el.dataset.target || el.dataset.countDecimal || 0);
+  const isDecimal = !!el.dataset.countDecimal;
+  const prefix = el.dataset.prefix || '';
+  const suffix = el.dataset.suffix || '';
+  const duration = 1800;
+  const start = performance.now();
+  function step(now) {
+    const progress = Math.min((now - start) / duration, 1);
+    const ease = 1 - Math.pow(1 - progress, 3);
+    const val = isDecimal ? (target * ease).toFixed(2) : Math.round(target * ease);
+    el.textContent = prefix + val + suffix;
+    if (progress < 1) requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+}
+
+// Hero metrics count on load
+setTimeout(() => {
+  document.querySelectorAll('.hero-metric-val[data-count], .hero-metric-val[data-count-decimal]').forEach(animateCount);
+}, 1000);
+
+// Evidence counters on scroll
+const counterEls = document.querySelectorAll('.counter[data-target]');
+const counterObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      animateCount(e.target);
+      counterObs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.5 });
+counterEls.forEach(el => counterObs.observe(el));
+</script>
+</body>
+</html>

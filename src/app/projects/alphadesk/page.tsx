@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { AlphaDeskShowcase } from "./AlphaDeskShowcase";
+import { redirect } from "next/navigation";
 
 export const metadata: Metadata = {
   title: "AlphaDesk | Agentic Portfolio Intelligence",
@@ -8,5 +8,5 @@ export const metadata: Metadata = {
 };
 
 export default function AlphaDeskProjectPage() {
-  return <AlphaDeskShowcase />;
+  redirect("/alphadesk-showcase/index.html");
 }

@@ -89,7 +89,7 @@ export default function RootLayout({
         {/* Anti-flash: apply saved theme before React hydrates */}
         <script
           dangerouslySetInnerHTML={{
-            __html: `try{var t=localStorage.getItem('theme');if(t!=='dark')document.documentElement.classList.add('light')}catch(e){document.documentElement.classList.add('light')}`,
+            __html: `try{var t=localStorage.getItem('theme');if(t==='light'){document.documentElement.classList.add('light')}else{document.documentElement.classList.remove('light')}}catch(e){document.documentElement.classList.remove('light')}`,
           }}
         />
       </head>
