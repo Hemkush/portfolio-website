@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { redirect } from "next/navigation";
 
 export const metadata: Metadata = {
   title: "AlphaDesk | Agentic Portfolio Intelligence",
@@ -8,5 +7,18 @@ export const metadata: Metadata = {
 };
 
 export default function AlphaDeskProjectPage() {
-  redirect("/alphadesk-showcase/index.html");
+  return (
+    <main style={{ minHeight: "100vh", background: "#050810" }}>
+      <iframe
+        src="/alphadesk-showcase/index.html"
+        title="AlphaDesk Showcase"
+        style={{
+          width: "100%",
+          height: "100vh",
+          border: "none",
+          display: "block",
+        }}
+      />
+    </main>
+  );
 }

@@ -298,6 +298,33 @@ footer{background:var(--bg2);border-top:1px solid var(--border2);padding:3rem 2.
   nav{padding:1rem 1.25rem}
   .hero{padding:7rem 1.25rem 4rem}
 }
+
+/* Static page chatbot */
+.hk-chat-fab{
+  position:fixed;right:22px;bottom:22px;z-index:9999;
+  width:56px;height:56px;border-radius:999px;border:1px solid rgba(201,168,76,.35);
+  background:linear-gradient(135deg,var(--gold),var(--gold-lt));color:#111;
+  display:flex;align-items:center;justify-content:center;cursor:pointer;
+  box-shadow:0 14px 30px rgba(0,0,0,.45);font-size:22px;font-weight:700;
+}
+.hk-chat-panel{
+  position:fixed;right:22px;bottom:90px;z-index:9999;width:min(420px,calc(100vw - 24px));
+  height:560px;max-height:72vh;display:none;flex-direction:column;
+  border:1px solid var(--border);background:rgba(7,9,15,.96);backdrop-filter:blur(16px);
+  border-radius:12px;overflow:hidden;box-shadow:0 24px 56px rgba(0,0,0,.55);
+}
+.hk-chat-panel.open{display:flex}
+.hk-chat-head{padding:12px 14px;border-bottom:1px solid var(--border2);display:flex;align-items:center;justify-content:space-between}
+.hk-chat-title{font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);font-family:'DM Mono',monospace}
+.hk-chat-close{background:transparent;border:0;color:var(--muted);cursor:pointer;font-size:18px}
+.hk-chat-log{flex:1;overflow:auto;padding:12px;display:flex;flex-direction:column;gap:10px}
+.hk-msg{max-width:88%;padding:9px 11px;border-radius:9px;font-size:.83rem;line-height:1.55;white-space:pre-wrap}
+.hk-msg.user{align-self:flex-end;background:rgba(56,201,192,.14);border:1px solid rgba(56,201,192,.35);color:#d8f8f6}
+.hk-msg.bot{align-self:flex-start;background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.2);color:var(--text)}
+.hk-chat-input{border-top:1px solid var(--border2);padding:10px;display:flex;gap:8px}
+.hk-chat-input textarea{flex:1;resize:none;background:#0d1117;border:1px solid var(--border2);border-radius:8px;color:var(--text);padding:9px 10px;font-size:.82rem;min-height:42px;max-height:120px}
+.hk-chat-send{border:1px solid rgba(201,168,76,.45);background:rgba(201,168,76,.12);color:var(--gold-lt);border-radius:8px;padding:0 12px;font-size:.75rem;letter-spacing:.05em;text-transform:uppercase;cursor:pointer}
+.hk-chat-send:disabled{opacity:.45;cursor:not-allowed}
 </style>
 </head>
 <body>
@@ -1594,6 +1621,19 @@ TRIGGER threshold: combined_score ≥ 14
 <div class="divider"></div>
 
 <!-- ── FOOTER ──────────────────────────────────────────────────────────── -->
+<div id="hk-chat-panel" class="hk-chat-panel" role="dialog" aria-label="Portfolio Chatbot" aria-modal="false">
+  <div class="hk-chat-head">
+    <div class="hk-chat-title">Ask Hemant's AI Assistant</div>
+    <button id="hk-chat-close" class="hk-chat-close" aria-label="Close chatbot">�</button>
+  </div>
+  <div id="hk-chat-log" class="hk-chat-log">
+    <div class="hk-msg bot">Hi! Ask me about Hemant's projects, skills, experience, or availability.</div>
+  </div>
+  <div class="hk-chat-input">
+    <textarea id="hk-chat-text" placeholder="Ask a question..." aria-label="Message"></textarea>
+    <button id="hk-chat-send" class="hk-chat-send">Send</button>
+  </div>
+</div>
 <footer>
   <div class="footer-logo">AlphaDesk</div>
   <div class="footer-sub">AI-Powered Multi-Agent Portfolio Intelligence &nbsp;·&nbsp; UMD Smith School Agentic AI Challenge 2026</div>
@@ -1718,6 +1758,85 @@ const counterObs = new IntersectionObserver((entries) => {
   });
 }, { threshold: 0.5 });
 counterEls.forEach(el => counterObs.observe(el));
+
+// Static page chatbot
+(function(){
+  const fab = document.getElementById('hk-chat-fab');
+  const panel = document.getElementById('hk-chat-panel');
+  const closeBtn = document.getElementById('hk-chat-close');
+  const log = document.getElementById('hk-chat-log');
+  const input = document.getElementById('hk-chat-text');
+  const sendBtn = document.getElementById('hk-chat-send');
+  if (!fab || !panel || !closeBtn || !log || !input || !sendBtn) return;
+
+  const messages = [{ role: 'assistant', content: "Hi! Ask me about Hemant's projects, skills, experience, or availability." }];
+
+  function toggle(open) {
+    panel.classList.toggle('open', open);
+    if (open) {
+      setTimeout(() => input.focus(), 20);
+    }
+  }
+
+  function appendMessage(role, content) {
+    const node = document.createElement('div');
+    node.className = `hk-msg ${role === 'user' ? 'user' : 'bot'}`;
+    node.textContent = content;
+    log.appendChild(node);
+    log.scrollTop = log.scrollHeight;
+    return node;
+  }
+
+  async function sendMessage() {
+    const text = input.value.trim();
+    if (!text) return;
+
+    input.value = '';
+    appendMessage('user', text);
+    messages.push({ role: 'user', content: text });
+
+    const typing = appendMessage('assistant', 'Thinking...');
+    sendBtn.disabled = true;
+
+    try {
+      const res = await fetch('/api/ai/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ messages }),
+      });
+
+      const data = await res.json();
+      typing.remove();
+
+      if (!res.ok) {
+        const err = data?.error || 'Unable to generate response right now.';
+        appendMessage('assistant', String(err));
+        return;
+      }
+
+      const answer = data?.response || 'No response generated.';
+      appendMessage('assistant', String(answer));
+      messages.push({ role: 'assistant', content: String(answer) });
+    } catch {
+      typing.remove();
+      appendMessage('assistant', 'Network error. Please try again.');
+    } finally {
+      sendBtn.disabled = false;
+    }
+  }
+
+  fab.addEventListener('click', () => toggle(!panel.classList.contains('open')));
+  closeBtn.addEventListener('click', () => toggle(false));
+  sendBtn.addEventListener('click', sendMessage);
+  input.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      sendMessage();
+    }
+  });
+})();
 </script>
 </body>
 </html>
+
+
