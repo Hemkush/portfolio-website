@@ -4,6 +4,7 @@ import "./globals.css";
 import NavLinks from "@/app/ui/components/nav-link";
 import Chatbot from "@/app/home/aiAssistant/chatbot";
 import { ThemeProvider } from "@/app/ui/components/ThemeProvider";
+import { Analytics } from "@vercel/analytics/next";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -120,6 +121,7 @@ export default function RootLayout({
           />
           <main className="relative z-10 pt-16">{children}</main>
           <Chatbot />
+          <Analytics />
         </ThemeProvider>
       </body>
     </html>
