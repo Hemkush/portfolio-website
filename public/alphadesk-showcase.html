@@ -2103,6 +2103,40 @@
 
 </main>
 
+
+<section id="deployment">
+  <div class="section-inner">
+    <div class="section-tag reveal">10 — Live Deployment</div>
+    <h2 class="section-title reveal">Deployed on <em style="color:var(--teal)">Google Cloud</em> + Vercel.</h2>
+    <p class="section-sub reveal">AlphaDesk is fully deployed across a production-grade cloud stack. The frontend is served globally via Vercel CDN, the backend API runs on Google Cloud Run with auto-scaling, and the database is managed PostgreSQL on Cloud SQL.</p>
+
+    <div class="reveal" style="display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:3rem">
+      <a href="https://alphadesk-rho.vercel.app" target="_blank"
+        style="display:inline-flex;align-items:center;gap:.6em;padding:.65em 1.4em;border-radius:3px;text-decoration:none;font-family:'DM Mono',monospace;font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;background:rgba(56,201,192,.1);border:1px solid rgba(56,201,192,.3);color:var(--teal);transition:all .2s">
+        &#9654;&nbsp; Live Platform
+      </a>
+      <a href="https://alphadesk-api-211797094460.us-central1.run.app/api/system/health" target="_blank"
+        style="display:inline-flex;align-items:center;gap:.6em;padding:.65em 1.4em;border-radius:3px;text-decoration:none;font-family:'DM Mono',monospace;font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.25);color:var(--gold);transition:all .2s">
+        &#9670;&nbsp; API Health Check
+      </a>
+    </div>
+
+    <div class="reveal" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1px;background:var(--border2);border:1px solid var(--border2);margin-bottom:2.5rem">
+      <div style="background:var(--bg2);padding:1.75rem"><div style="font-family:'DM Mono',monospace;font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:var(--teal);margin-bottom:.75rem">Frontend</div><div style="font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--text);margin-bottom:.5rem">Vercel</div><div style="font-size:.82rem;color:var(--muted);line-height:1.6">React 18 + Vite · Global CDN · Auto-deploy from GitHub · SPA rewrites configured</div><div style="margin-top:1rem;font-family:'DM Mono',monospace;font-size:.7rem;color:var(--teal);word-break:break-all">alphadesk-rho.vercel.app</div></div>
+      <div style="background:var(--bg2);padding:1.75rem"><div style="font-family:'DM Mono',monospace;font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:.75rem">Backend API</div><div style="font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--text);margin-bottom:.5rem">Cloud Run</div><div style="font-size:.82rem;color:var(--muted);line-height:1.6">FastAPI · Python 3.11 · 2 GB RAM · Auto-scales to zero · 300s timeout for agent runs</div><div style="margin-top:1rem;font-family:'DM Mono',monospace;font-size:.7rem;color:var(--gold);word-break:break-all">us-central1</div></div>
+      <div style="background:var(--bg2);padding:1.75rem"><div style="font-family:'DM Mono',monospace;font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:.75rem">Database</div><div style="font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--text);margin-bottom:.5rem">Cloud SQL</div><div style="font-size:.82rem;color:var(--muted);line-height:1.6">PostgreSQL 16 · Managed backups · Stores positions, returns, signals, run metadata</div><div style="margin-top:1rem;font-family:'DM Mono',monospace;font-size:.7rem;color:var(--muted)">GCP us-central1</div></div>
+      <div style="background:var(--bg2);padding:1.75rem"><div style="font-family:'DM Mono',monospace;font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:.75rem">Cache</div><div style="font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--text);margin-bottom:.5rem">Upstash Redis</div><div style="font-size:.82rem;color:var(--muted);line-height:1.6">Serverless Redis · TLS · 48-hour portfolio cache · HITL state · Yesterday rotation</div><div style="margin-top:1rem;font-family:'DM Mono',monospace;font-size:.7rem;color:var(--muted)">Free tier · global</div></div>
+      <div style="background:var(--bg2);padding:1.75rem"><div style="font-family:'DM Mono',monospace;font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:.75rem">Scheduler</div><div style="font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--text);margin-bottom:.5rem">Cloud Scheduler</div><div style="font-size:.82rem;color:var(--muted);line-height:1.6">Fires 5am ET weekdays · Triggers Cloud Run Job · Replaces Celery Beat in production</div><div style="margin-top:1rem;font-family:'DM Mono',monospace;font-size:.7rem;color:var(--muted)">0 5 * * 1-5 America/New_York</div></div>
+      <div style="background:var(--bg2);padding:1.75rem"><div style="font-family:'DM Mono',monospace;font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:.75rem">CI / CD</div><div style="font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--text);margin-bottom:.5rem">Cloud Build</div><div style="font-size:.82rem;color:var(--muted);line-height:1.6">Auto-builds Docker image on git push · Deploys API + worker · Secrets via Secret Manager</div><div style="margin-top:1rem;font-family:'DM Mono',monospace;font-size:.7rem;color:var(--muted)">cloudbuild.yaml</div></div>
+    </div>
+
+    <div class="reveal" style="border:1px solid rgba(56,201,192,.2);border-radius:4px;padding:1.25rem 1.5rem;background:rgba(56,201,192,.04);font-size:.85rem;color:var(--muted);line-height:1.7">
+      <span style="color:var(--teal);font-family:'DM Mono',monospace;font-size:.7rem;letter-spacing:.1em;text-transform:uppercase">Note —</span>
+      &nbsp;The live platform is deployed and accessible. For a guaranteed complete demo experience with all agents running, we recommend the local setup guide or the full walkthrough at
+      <a href="https://hemant-kushwaha.vercel.app/projects/alphadesk" target="_blank" style="color:var(--gold);text-decoration:none">hemant-kushwaha.vercel.app/projects/alphadesk</a>.
+    </div>
+  </div>
+</section>
 <!-- FOOTER -->
 <footer>
   <main>
@@ -2244,3 +2278,5 @@ heroObserver.observe(document.getElementById('hero'));
 </script>
 </body>
 </html>
+
+
