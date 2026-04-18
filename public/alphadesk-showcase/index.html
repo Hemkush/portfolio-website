@@ -300,19 +300,8 @@ footer{background:var(--bg2);border-top:1px solid var(--border2);padding:3rem 2.
 }
 
 /* Static page chatbot */
-.hk-chat-fab{
-  position:fixed;right:22px;bottom:22px;z-index:9999;
-  width:56px;height:56px;border-radius:999px;border:1px solid rgba(201,168,76,.35);
-  background:linear-gradient(135deg,var(--gold),var(--gold-lt));color:#111;
-  display:flex;align-items:center;justify-content:center;cursor:pointer;
-  box-shadow:0 14px 30px rgba(0,0,0,.45);font-size:22px;font-weight:700;
-}
-.hk-chat-panel{
-  position:fixed;right:22px;bottom:90px;z-index:9999;width:min(420px,calc(100vw - 24px));
-  height:560px;max-height:72vh;display:none;flex-direction:column;
-  border:1px solid var(--border);background:rgba(7,9,15,.96);backdrop-filter:blur(16px);
-  border-radius:12px;overflow:hidden;box-shadow:0 24px 56px rgba(0,0,0,.55);
-}
+.hk-chat-fab{position:fixed;right:22px;bottom:22px;z-index:9999;width:56px;height:56px;border-radius:999px;border:1px solid rgba(201,168,76,.35);background:linear-gradient(135deg,var(--gold),var(--gold-lt));color:#111;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 14px 30px rgba(0,0,0,.45);font-size:22px;font-weight:700;}
+.hk-chat-panel{position:fixed;right:22px;bottom:90px;z-index:9999;width:min(420px,calc(100vw - 24px));height:560px;max-height:72vh;display:none;flex-direction:column;border:1px solid var(--border);background:rgba(7,9,15,.96);backdrop-filter:blur(16px);border-radius:12px;overflow:hidden;box-shadow:0 24px 56px rgba(0,0,0,.55);}
 .hk-chat-panel.open{display:flex}
 .hk-chat-head{padding:12px 14px;border-bottom:1px solid var(--border2);display:flex;align-items:center;justify-content:space-between}
 .hk-chat-title{font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);font-family:'DM Mono',monospace}
@@ -1282,7 +1271,7 @@ TRIGGER threshold: combined_score ≥ 14
     </div>
 
     <div class="mt3 reveal">
-      <div class="label" style="margin-bottom:1.25rem">LangSmith Observability</div>
+      <div class="label" style="margin-bottom:1.25rem">LangSmith Observability — What Judges Can Inspect</div>
       <div class="three-col">
         <div class="border-card">
           <div style="font-size:.85rem;font-weight:600;margin-bottom:.5rem">Full Agent Traces</div>
@@ -1620,26 +1609,14 @@ TRIGGER threshold: combined_score ≥ 14
 
 <div class="divider"></div>
 
-<!-- ── FOOTER ──────────────────────────────────────────────────────────── -->
-<div id="hk-chat-panel" class="hk-chat-panel" role="dialog" aria-label="Portfolio Chatbot" aria-modal="false">
-  <div class="hk-chat-head">
-    <div class="hk-chat-title">Ask Hemant's AI Assistant</div>
-    <button id="hk-chat-close" class="hk-chat-close" aria-label="Close chatbot">&times;</button>
-  </div>
-  <div id="hk-chat-log" class="hk-chat-log">
-    <div class="hk-msg bot">Hi! Ask me about Hemant's projects, skills, experience, or availability.</div>
-  </div>
-  <div class="hk-chat-input">
-    <textarea id="hk-chat-text" placeholder="Ask a question..." aria-label="Message"></textarea>
-    <button id="hk-chat-send" class="hk-chat-send">Send</button>
-  </div>
-</div>
+<!-- ── DEPLOYMENT ──────────────────────────────────────────────────────── -->
 <section id="deployment">
   <div class="section-inner">
-    <div class="section-tag reveal">10 � Live Deployment</div>
+    <div class="section-tag reveal">10 — Live Deployment</div>
     <h2 class="section-title reveal">Deployed on <em style="color:var(--teal)">Google Cloud</em> + Vercel.</h2>
     <p class="section-lead reveal">AlphaDesk is fully deployed across a production-grade cloud stack. The frontend is served globally via Vercel CDN, the backend API runs on Google Cloud Run with auto-scaling, and the database is managed PostgreSQL on Cloud SQL.</p>
 
+    <!-- Live links -->
     <div class="reveal" style="display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:3rem">
       <a href="https://alphadesk-rho.vercel.app" target="_blank"
         style="display:inline-flex;align-items:center;gap:.6em;padding:.65em 1.4em;border-radius:3px;text-decoration:none;font-family:'DM Mono',monospace;font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;background:rgba(56,201,192,.1);border:1px solid rgba(56,201,192,.3);color:var(--teal);transition:all .2s">
@@ -1651,22 +1628,63 @@ TRIGGER threshold: combined_score ≥ 14
       </a>
     </div>
 
+    <!-- Deployment architecture grid -->
     <div class="reveal" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1px;background:var(--border2);border:1px solid var(--border2);margin-bottom:2.5rem">
-      <div style="background:var(--bg2);padding:1.75rem"><div style="font-family:'DM Mono',monospace;font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:var(--teal);margin-bottom:.75rem">Frontend</div><div style="font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--text);margin-bottom:.5rem">Vercel</div><div style="font-size:.82rem;color:var(--muted);line-height:1.6">React 18 + Vite � Global CDN � Auto-deploy from GitHub � SPA rewrites configured</div><div style="margin-top:1rem;font-family:'DM Mono',monospace;font-size:.7rem;color:var(--teal);word-break:break-all">alphadesk-rho.vercel.app</div></div>
-      <div style="background:var(--bg2);padding:1.75rem"><div style="font-family:'DM Mono',monospace;font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:.75rem">Backend API</div><div style="font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--text);margin-bottom:.5rem">Cloud Run</div><div style="font-size:.82rem;color:var(--muted);line-height:1.6">FastAPI � Python 3.11 � 2 GB RAM � Auto-scales to zero � 300s timeout for agent runs</div><div style="margin-top:1rem;font-family:'DM Mono',monospace;font-size:.7rem;color:var(--gold);word-break:break-all">us-central1</div></div>
-      <div style="background:var(--bg2);padding:1.75rem"><div style="font-family:'DM Mono',monospace;font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:.75rem">Database</div><div style="font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--text);margin-bottom:.5rem">Cloud SQL</div><div style="font-size:.82rem;color:var(--muted);line-height:1.6">PostgreSQL 16 � Managed backups � Stores positions, returns, signals, run metadata</div><div style="margin-top:1rem;font-family:'DM Mono',monospace;font-size:.7rem;color:var(--muted)">GCP us-central1</div></div>
-      <div style="background:var(--bg2);padding:1.75rem"><div style="font-family:'DM Mono',monospace;font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:.75rem">Cache</div><div style="font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--text);margin-bottom:.5rem">Upstash Redis</div><div style="font-size:.82rem;color:var(--muted);line-height:1.6">Serverless Redis � TLS � 48-hour portfolio cache � HITL state � Yesterday rotation</div><div style="margin-top:1rem;font-family:'DM Mono',monospace;font-size:.7rem;color:var(--muted)">Free tier � global</div></div>
-      <div style="background:var(--bg2);padding:1.75rem"><div style="font-family:'DM Mono',monospace;font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:.75rem">Scheduler</div><div style="font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--text);margin-bottom:.5rem">Cloud Scheduler</div><div style="font-size:.82rem;color:var(--muted);line-height:1.6">Fires 5am ET weekdays � Triggers Cloud Run Job � Replaces Celery Beat in production</div><div style="margin-top:1rem;font-family:'DM Mono',monospace;font-size:.7rem;color:var(--muted)">0 5 * * 1-5 America/New_York</div></div>
-      <div style="background:var(--bg2);padding:1.75rem"><div style="font-family:'DM Mono',monospace;font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:.75rem">CI / CD</div><div style="font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--text);margin-bottom:.5rem">Cloud Build</div><div style="font-size:.82rem;color:var(--muted);line-height:1.6">Auto-builds Docker image on git push � Deploys API + worker � Secrets via Secret Manager</div><div style="margin-top:1rem;font-family:'DM Mono',monospace;font-size:.7rem;color:var(--muted)">cloudbuild.yaml</div></div>
+
+      <div style="background:var(--bg2);padding:1.75rem">
+        <div style="font-family:'DM Mono',monospace;font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:var(--teal);margin-bottom:.75rem">Frontend</div>
+        <div style="font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--text);margin-bottom:.5rem">Vercel</div>
+        <div style="font-size:.82rem;color:var(--muted);line-height:1.6">React 18 + Vite · Global CDN · Auto-deploy from GitHub · SPA rewrites configured</div>
+        <div style="margin-top:1rem;font-family:'DM Mono',monospace;font-size:.7rem;color:var(--teal);word-break:break-all">alphadesk-rho.vercel.app</div>
+      </div>
+
+      <div style="background:var(--bg2);padding:1.75rem">
+        <div style="font-family:'DM Mono',monospace;font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:.75rem">Backend API</div>
+        <div style="font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--text);margin-bottom:.5rem">Cloud Run</div>
+        <div style="font-size:.82rem;color:var(--muted);line-height:1.6">FastAPI · Python 3.11 · 2 GB RAM · Auto-scales to zero · 300s timeout for agent runs</div>
+        <div style="margin-top:1rem;font-family:'DM Mono',monospace;font-size:.7rem;color:var(--gold);word-break:break-all">us-central1</div>
+      </div>
+
+      <div style="background:var(--bg2);padding:1.75rem">
+        <div style="font-family:'DM Mono',monospace;font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:.75rem">Database</div>
+        <div style="font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--text);margin-bottom:.5rem">Cloud SQL</div>
+        <div style="font-size:.82rem;color:var(--muted);line-height:1.6">PostgreSQL 16 · Managed backups · Stores positions, returns, signals, run metadata</div>
+        <div style="margin-top:1rem;font-family:'DM Mono',monospace;font-size:.7rem;color:var(--muted)">GCP us-central1</div>
+      </div>
+
+      <div style="background:var(--bg2);padding:1.75rem">
+        <div style="font-family:'DM Mono',monospace;font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:.75rem">Cache</div>
+        <div style="font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--text);margin-bottom:.5rem">Upstash Redis</div>
+        <div style="font-size:.82rem;color:var(--muted);line-height:1.6">Serverless Redis · TLS · 48-hour portfolio cache · HITL state · Yesterday rotation</div>
+        <div style="margin-top:1rem;font-family:'DM Mono',monospace;font-size:.7rem;color:var(--muted)">Free tier · global</div>
+      </div>
+
+      <div style="background:var(--bg2);padding:1.75rem">
+        <div style="font-family:'DM Mono',monospace;font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:.75rem">Scheduler</div>
+        <div style="font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--text);margin-bottom:.5rem">Cloud Scheduler</div>
+        <div style="font-size:.82rem;color:var(--muted);line-height:1.6">Fires 5am ET weekdays · Triggers Cloud Run Job · Replaces Celery Beat in production</div>
+        <div style="margin-top:1rem;font-family:'DM Mono',monospace;font-size:.7rem;color:var(--muted)">0 5 * * 1-5 America/New_York</div>
+      </div>
+
+      <div style="background:var(--bg2);padding:1.75rem">
+        <div style="font-family:'DM Mono',monospace;font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:.75rem">CI / CD</div>
+        <div style="font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--text);margin-bottom:.5rem">Cloud Build</div>
+        <div style="font-size:.82rem;color:var(--muted);line-height:1.6">Auto-builds Docker image on git push · Deploys API + worker · Secrets via Secret Manager</div>
+        <div style="margin-top:1rem;font-family:'DM Mono',monospace;font-size:.7rem;color:var(--muted)">cloudbuild.yaml</div>
+      </div>
+
     </div>
 
+    <!-- Note -->
     <div class="reveal" style="border:1px solid rgba(56,201,192,.2);border-radius:4px;padding:1.25rem 1.5rem;background:rgba(56,201,192,.04);font-size:.85rem;color:var(--muted);line-height:1.7">
-      <span style="color:var(--teal);font-family:'DM Mono',monospace;font-size:.7rem;letter-spacing:.1em;text-transform:uppercase">Note �</span>
+      <span style="color:var(--teal);font-family:'DM Mono',monospace;font-size:.7rem;letter-spacing:.1em;text-transform:uppercase">📌 Note —</span>
       &nbsp;The live platform is deployed and accessible. For a guaranteed complete demo experience with all agents running, we recommend the local setup guide or the full walkthrough at
       <a href="https://hemant-kushwaha.vercel.app/projects/alphadesk" target="_blank" style="color:var(--gold);text-decoration:none">hemant-kushwaha.vercel.app/projects/alphadesk</a>.
     </div>
+
   </div>
 </section>
+
 <div class="divider"></div>
 
 <footer>
@@ -1806,13 +1824,7 @@ counterEls.forEach(el => counterObs.observe(el));
 
   const messages = [{ role: 'assistant', content: "Hi! Ask me about Hemant's projects, skills, experience, or availability." }];
 
-  function toggle(open) {
-    panel.classList.toggle('open', open);
-    if (open) {
-      setTimeout(() => input.focus(), 20);
-    }
-  }
-
+  function toggle(open) { panel.classList.toggle('open', open); if (open) setTimeout(() => input.focus(), 20); }
   function appendMessage(role, content) {
     const node = document.createElement('div');
     node.className = `hk-msg ${role === 'user' ? 'user' : 'bot'}`;
@@ -1825,11 +1837,9 @@ counterEls.forEach(el => counterObs.observe(el));
   async function sendMessage() {
     const text = input.value.trim();
     if (!text) return;
-
     input.value = '';
     appendMessage('user', text);
     messages.push({ role: 'user', content: text });
-
     const typing = appendMessage('assistant', 'Thinking...');
     sendBtn.disabled = true;
 
@@ -1839,19 +1849,15 @@ counterEls.forEach(el => counterObs.observe(el));
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ messages }),
       });
-
       const data = await res.json();
       typing.remove();
-
       if (!res.ok) {
-        const err = data?.error || 'Unable to generate response right now.';
-        appendMessage('assistant', String(err));
+        appendMessage('assistant', String(data?.error || 'Unable to generate response right now.'));
         return;
       }
-
-      const answer = data?.response || 'No response generated.';
-      appendMessage('assistant', String(answer));
-      messages.push({ role: 'assistant', content: String(answer) });
+      const answer = String(data?.response || 'No response generated.');
+      appendMessage('assistant', answer);
+      messages.push({ role: 'assistant', content: answer });
     } catch {
       typing.remove();
       appendMessage('assistant', 'Network error. Please try again.');
@@ -1873,7 +1879,6 @@ counterEls.forEach(el => counterObs.observe(el));
 </script>
 </body>
 </html>
-
 
 
 
