@@ -118,7 +118,7 @@ export const ACHIEVEMENTS_DATA: Achievement[] = [
 // List of core skills
 export const SKILLS_DATA: string[] = [
   // AI & LLM Engineering
-  'RAG Pipelines', 'LLM Orchestration', 'Multi-Agent Systems', 'Prompt Engineering', 'ReACT Agents',
+  'RAG Pipelines', 'GraphRAG', 'Knowledge Graphs', 'LLM Orchestration', 'Multi-Agent Systems', 'Prompt Engineering', 'ReACT Agents',
   'LangChain', 'LangGraph', 'Google Gemini API', 'OpenAI API', 'Agentic AI',
   'Fine-Tuning LLMs', 'Conversational AI', 'AI Content Generation', 'Token Optimization',
   'Structured Output Extraction', 'MCP (Model Context Protocol)', 'System Design',
@@ -196,8 +196,8 @@ export const PROJECT_DATA: Project[] = [
       timeline: 'June 2025 - Mar 2026',
       ongoing: false,
       category: 'ai',
-      description: 'Built a production-grade AI portfolio from scratch using Next.js 15 App Router, TypeScript, and Tailwind CSS. Implemented a RAG-powered AI chatbot using Google Gemini embeddings and PostgreSQL vector search — answers recruiter questions about my background, projects, and skills in real time. Built a live AI Landscape news feed that aggregates 6 RSS sources hourly, then uses Gemini to categorize articles, extract model releases, surface protocol updates (MCP, A2A), and generate a daily digest with per-article insights. Applied ISR edge caching to keep Gemini API calls under 24/day while serving all visitors in under 30ms. Includes Google OAuth (NextAuth v5), contact form, resume delivery, and full mobile-responsive navigation.',
-      skills: ['Next.js 15', 'TypeScript', 'React', 'Tailwind CSS', 'Google Gemini API', 'RAG', 'pgvector', 'ISR / Edge Caching', 'NextAuth', 'Vercel', 'Full-Stack Development'],
+      description: 'Built a production-grade AI portfolio from scratch using Next.js 15 App Router, TypeScript, and Tailwind CSS. Upgraded the AI chatbot from flat vector RAG to GraphRAG (Microsoft GraphRAG-style): Gemini auto-extracts named entities and relationships from portfolio content, Union-Find detects knowledge communities, and dual retrieval — local entity graph traversal (1-2 hops) + community similarity + pgvector cosine search — delivers multi-hop answers about my background, projects, and skills in real time. Built a live AI Landscape news feed that aggregates 6 RSS sources hourly, then uses Gemini to categorize articles, extract model releases, surface protocol updates (MCP, A2A), and generate a daily digest with per-article insights. Applied ISR edge caching to keep Gemini API calls under 24/day while serving all visitors in under 30ms. Includes Google OAuth (NextAuth v5), contact form, resume delivery, and full mobile-responsive navigation.',
+      skills: ['Next.js 15', 'TypeScript', 'React', 'Tailwind CSS', 'Google Gemini API', 'GraphRAG', 'Knowledge Graphs', 'RAG', 'pgvector', 'ISR / Edge Caching', 'NextAuth', 'Vercel', 'Full-Stack Development'],
       githubUrl: 'https://github.com/Hemkush/portfolio-website',
       liveUrl: 'https://hemant-kushwaha.vercel.app',
   },
