@@ -1,6 +1,7 @@
 'use client';
 import { useState } from 'react';
 import React from 'react';
+import { motion } from 'framer-motion';
 
 export default function CourseCard({ name, description, date, skills, ongoing, platform }: {
   name: string;
@@ -23,7 +24,14 @@ export default function CourseCard({ name, description, date, skills, ongoing, p
       : [];
 
   return (
-    <div className="card rounded-xl p-5 flex flex-col gap-3 hover:-translate-y-0.5">
+    <motion.div
+      className="card rounded-xl p-5 flex flex-col gap-3"
+      whileHover={{
+        y: -5,
+        boxShadow: '0 12px 36px -8px rgba(6,182,212,0.18)',
+        transition: { duration: 0.2 },
+      }}
+    >
       {/* Header */}
       <div className="flex items-start justify-between gap-3">
         <div className="flex-1 min-w-0">
@@ -76,6 +84,6 @@ export default function CourseCard({ name, description, date, skills, ongoing, p
           </div>
         </div>
       )}
-    </div>
+    </motion.div>
   );
 }

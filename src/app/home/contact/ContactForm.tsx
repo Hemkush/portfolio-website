@@ -2,9 +2,11 @@
 
 import React, { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Section } from '../about/section';
 import { CONTACT_DETAILS, SOCIAL_LINKS } from '../constant';
 import { CtaButton } from '@/app/ui/components/cta-button';
+import { AnimatedPageHeader, FadeUp, Stagger, StaggerItem } from '@/app/ui/components/animations';
 
 type SubmissionStatus = 'idle' | 'sending' | 'success' | 'error';
 
@@ -82,158 +84,219 @@ export default function ContactForm() {
 
   return (
     <div className="page-shell">
-      <header className="page-header">
-        <h1 className="page-title">Let&apos;s Connect</h1>
-        <p className="page-subtitle">I&apos;m happy to discuss AI engineering roles, projects, and collaboration opportunities.</p>
-      </header>
+      <AnimatedPageHeader
+        title="Let's Connect"
+        subtitle="I'm happy to discuss AI engineering roles, projects, and collaboration opportunities."
+      />
 
-      <div className="mb-8 grid gap-3 sm:grid-cols-3">
+      {/* Contact notes — staggered chips */}
+      <Stagger className="mb-8 grid gap-3 sm:grid-cols-3" staggerDelay={0.1}>
         {CONTACT_NOTES.map((note) => (
-          <div key={note} className="rounded-lg border border-cyan-400/25 bg-cyan-400/5 px-4 py-3 text-sm text-slate-300">
-            {note}
-          </div>
+          <StaggerItem key={note}>
+            <motion.div
+              className="rounded-lg border border-cyan-400/25 bg-cyan-400/5 px-4 py-3 text-sm text-slate-300"
+              whileHover={{ borderColor: 'rgba(34,211,238,0.5)', background: 'rgba(34,211,238,0.08)', transition: { duration: 0.2 } }}
+            >
+              {note}
+            </motion.div>
+          </StaggerItem>
         ))}
-      </div>
+      </Stagger>
 
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,1.25fr)_minmax(0,1fr)]">
-        <Section title="Send a Message">
-          <p className="mb-5 text-sm text-slate-300">
-            Share your role, team, and expectations. The more context you provide, the more specific I can be in response.
-          </p>
+        {/* Form */}
+        <FadeUp delay={0.15}>
+          <Section title="Send a Message">
+            <p className="mb-5 text-sm text-slate-300">
+              Share your role, team, and expectations. The more context you provide, the more specific I can be in response.
+            </p>
 
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div>
-              <label htmlFor="name" className="mb-1 block text-sm font-medium" style={{ color: 'var(--foreground)' }}>
-                Name
-              </label>
-              <input
-                type="text"
-                id="name"
-                name="name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                required
-                disabled={status === 'sending'}
-                className="form-input"
-              />
-            </div>
-
-            <div>
-              <label htmlFor="email" className="mb-1 block text-sm font-medium" style={{ color: 'var(--foreground)' }}>
-                Email
-              </label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-                disabled={status === 'sending'}
-                className={`form-input ${email.length > 0 && !emailIsValid ? 'form-input-error' : ''}`}
-              />
-              {email.length > 0 && !emailIsValid && <p className="mt-1 text-xs text-red-400">Please enter a valid email address.</p>}
-            </div>
-
-            <div>
-              <label htmlFor="message" className="mb-1 block text-sm font-medium" style={{ color: 'var(--foreground)' }}>
-                Message
-              </label>
-              <textarea
-                id="message"
-                name="message"
-                rows={5}
-                value={message}
-                onChange={(e) => setMessage(e.target.value)}
-                required
-                disabled={status === 'sending'}
-                className={`form-input resize-none ${messageTooShort || messageTooLong ? 'form-input-error' : ''}`}
-              />
-              <div className="mt-1 flex items-center justify-between">
-                <p className={`text-xs ${messageTooShort || messageTooLong ? 'text-red-400' : 'text-slate-400'}`}>
-                  {messageTooShort
-                    ? `Message should be at least ${messageMinLength} characters.`
-                    : messageTooLong
-                      ? `Message should be at most ${messageMaxLength} characters.`
-                      : `Tip: include role scope, team, and timeline (${messageMinLength}+ characters).`}
-                </p>
-                <p className={`text-xs ${messageTooLong ? 'text-red-400' : 'text-slate-500'}`}>
-                  {messageLength}/{messageMaxLength}
-                </p>
-              </div>
-            </div>
-
-            <div className="pt-1">
-              <CtaButton
-                type="submit"
-                variant="primary"
-                size="lg"
-                fullWidth
-                disabled={status === 'sending' || !formIsValid}
-                className="rounded-lg text-sm normal-case tracking-normal shadow-lg shadow-cyan-500/20 disabled:bg-gray-600 disabled:shadow-none"
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <motion.div
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, delay: 0.2 }}
               >
-                {status === 'sending' ? 'Sending...' : 'Send Message'}
-              </CtaButton>
-              {status === 'success' && (
-                <p className="mt-3 text-center text-sm text-green-400" role="status" aria-live="polite">
-                  {feedbackMessage}
-                </p>
-              )}
-              {status === 'error' && (
-                <p className="mt-3 text-center text-sm text-red-400" role="alert" aria-live="polite">
-                  {feedbackMessage}
-                </p>
-              )}
-            </div>
-          </form>
-        </Section>
+                <label htmlFor="name" className="mb-1 block text-sm font-medium" style={{ color: 'var(--foreground)' }}>
+                  Name
+                </label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  required
+                  disabled={status === 'sending'}
+                  className="form-input"
+                />
+              </motion.div>
 
-        <div className="flex flex-col gap-8">
-          <Section title="Direct Contact">
-            <div className="space-y-4">
-              <div className="flex items-center gap-3 rounded-lg border border-slate-700/70 bg-slate-900/40 px-3 py-3">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                </svg>
-                <a href={`mailto:${CONTACT_DETAILS.email}`} className="transition-colors hover:text-cyan-300" style={{ color: 'var(--foreground)' }}>
-                  {CONTACT_DETAILS.email}
-                </a>
-              </div>
-              <div className="flex items-center gap-3 rounded-lg border border-slate-700/70 bg-slate-900/40 px-3 py-3">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                </svg>
-                <span style={{ color: 'var(--foreground)' }}>{CONTACT_DETAILS.location}</span>
-              </div>
-            </div>
-          </Section>
+              <motion.div
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, delay: 0.28 }}
+              >
+                <label htmlFor="email" className="mb-1 block text-sm font-medium" style={{ color: 'var(--foreground)' }}>
+                  Email
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                  disabled={status === 'sending'}
+                  className={`form-input ${email.length > 0 && !emailIsValid ? 'form-input-error' : ''}`}
+                />
+                {email.length > 0 && !emailIsValid && <p className="mt-1 text-xs text-red-400">Please enter a valid email address.</p>}
+              </motion.div>
 
-          <Section title="What to Include">
-            <p className="mb-3 text-sm text-slate-300">For a faster and better response, include:</p>
-            <ul className="list-disc space-y-2 pl-5 text-sm text-slate-300">
-              {MESSAGE_TIPS.map((tip) => (
-                <li key={tip}>{tip}</li>
-              ))}
-            </ul>
-          </Section>
+              <motion.div
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, delay: 0.36 }}
+              >
+                <label htmlFor="message" className="mb-1 block text-sm font-medium" style={{ color: 'var(--foreground)' }}>
+                  Message
+                </label>
+                <textarea
+                  id="message"
+                  name="message"
+                  rows={5}
+                  value={message}
+                  onChange={(e) => setMessage(e.target.value)}
+                  required
+                  disabled={status === 'sending'}
+                  className={`form-input resize-none ${messageTooShort || messageTooLong ? 'form-input-error' : ''}`}
+                />
+                <div className="mt-1 flex items-center justify-between">
+                  <p className={`text-xs ${messageTooShort || messageTooLong ? 'text-red-400' : 'text-slate-400'}`}>
+                    {messageTooShort
+                      ? `Message should be at least ${messageMinLength} characters.`
+                      : messageTooLong
+                        ? `Message should be at most ${messageMaxLength} characters.`
+                        : `Tip: include role scope, team, and timeline (${messageMinLength}+ characters).`}
+                  </p>
+                  <p className={`text-xs ${messageTooLong ? 'text-red-400' : 'text-slate-500'}`}>
+                    {messageLength}/{messageMaxLength}
+                  </p>
+                </div>
+              </motion.div>
 
-          <Section title="Find Me On Social Media">
-            <div className="grid grid-cols-2 gap-3">
-              {SOCIAL_LINKS.map((link) => (
-                <a
-                  key={link.name}
-                  href={link.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group flex items-center gap-3 rounded-lg border border-slate-700/70 bg-slate-900/50 p-3 transition-all duration-300 hover:border-cyan-400/50 hover:bg-slate-800/60"
+              <motion.div
+                className="pt-1"
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, delay: 0.44 }}
+              >
+                <CtaButton
+                  type="submit"
+                  variant="primary"
+                  size="lg"
+                  fullWidth
+                  disabled={status === 'sending' || !formIsValid}
+                  className="rounded-lg text-sm normal-case tracking-normal shadow-lg shadow-cyan-500/20 disabled:bg-gray-600 disabled:shadow-none"
                 >
-                  <div className="text-cyan-500 transition-colors group-hover:text-cyan-300">{link.icon}</div>
-                  <span className="font-semibold" style={{ color: 'var(--foreground)' }}>{link.name}</span>
-                </a>
-              ))}
-            </div>
+                  {status === 'sending' ? 'Sending...' : 'Send Message'}
+                </CtaButton>
+
+                <AnimatePresence>
+                  {status === 'success' && (
+                    <motion.p
+                      className="mt-3 text-center text-sm text-green-400"
+                      role="status"
+                      aria-live="polite"
+                      initial={{ opacity: 0, y: -8 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0 }}
+                    >
+                      {feedbackMessage}
+                    </motion.p>
+                  )}
+                  {status === 'error' && (
+                    <motion.p
+                      className="mt-3 text-center text-sm text-red-400"
+                      role="alert"
+                      aria-live="polite"
+                      initial={{ opacity: 0, y: -8 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0 }}
+                    >
+                      {feedbackMessage}
+                    </motion.p>
+                  )}
+                </AnimatePresence>
+              </motion.div>
+            </form>
           </Section>
+        </FadeUp>
+
+        {/* Right panel */}
+        <div className="flex flex-col gap-8">
+          <FadeUp delay={0.25}>
+            <Section title="Direct Contact">
+              <div className="space-y-4">
+                <motion.div
+                  className="flex items-center gap-3 rounded-lg border border-slate-700/70 bg-slate-900/40 px-3 py-3"
+                  whileHover={{ borderColor: 'rgba(34,211,238,0.4)', transition: { duration: 0.2 } }}
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                  </svg>
+                  <a href={`mailto:${CONTACT_DETAILS.email}`} className="transition-colors hover:text-cyan-300" style={{ color: 'var(--foreground)' }}>
+                    {CONTACT_DETAILS.email}
+                  </a>
+                </motion.div>
+                <motion.div
+                  className="flex items-center gap-3 rounded-lg border border-slate-700/70 bg-slate-900/40 px-3 py-3"
+                  whileHover={{ borderColor: 'rgba(34,211,238,0.4)', transition: { duration: 0.2 } }}
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                  </svg>
+                  <span style={{ color: 'var(--foreground)' }}>{CONTACT_DETAILS.location}</span>
+                </motion.div>
+              </div>
+            </Section>
+          </FadeUp>
+
+          <FadeUp delay={0.32}>
+            <Section title="What to Include">
+              <p className="mb-3 text-sm text-slate-300">For a faster and better response, include:</p>
+              <Stagger className="list-disc space-y-2 pl-5" staggerDelay={0.08}>
+                {MESSAGE_TIPS.map((tip) => (
+                  <StaggerItem key={tip}>
+                    <li className="text-sm text-slate-300">{tip}</li>
+                  </StaggerItem>
+                ))}
+              </Stagger>
+            </Section>
+          </FadeUp>
+
+          <FadeUp delay={0.4}>
+            <Section title="Find Me On Social Media">
+              <Stagger className="grid grid-cols-2 gap-3" staggerDelay={0.07}>
+                {SOCIAL_LINKS.map((link) => (
+                  <StaggerItem key={link.name}>
+                    <motion.a
+                      href={link.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group flex items-center gap-3 rounded-lg border border-slate-700/70 bg-slate-900/50 p-3 transition-colors duration-200"
+                      whileHover={{ y: -3, borderColor: 'rgba(34,211,238,0.5)', background: 'rgba(30,41,59,0.7)', transition: { duration: 0.2 } }}
+                      whileTap={{ scale: 0.97 }}
+                    >
+                      <div className="text-cyan-500 transition-colors group-hover:text-cyan-300">{link.icon}</div>
+                      <span className="font-semibold" style={{ color: 'var(--foreground)' }}>{link.name}</span>
+                    </motion.a>
+                  </StaggerItem>
+                ))}
+              </Stagger>
+            </Section>
+          </FadeUp>
         </div>
       </div>
     </div>

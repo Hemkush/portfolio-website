@@ -28,76 +28,78 @@ export const metadata: Metadata = {
   },
 };
 import { Section } from '../about/section';
-import  CourseCard  from './courseCard';
+import CourseCard from './courseCard';
 import { getCoursework } from '@/app/lib/data';
+import { AnimatedPageHeader, FadeUp, Stagger, StaggerItem } from '@/app/ui/components/animations';
 
-
-
-// const CourseworkPage: React.FC = () => {
 export default async function CourseworkPage() {
-    const courseData = await getCoursework();
-    const onlineCourses = [];
-    const graduateCourses = [];
+  const courseData = await getCoursework();
+  const onlineCourses = [];
+  const graduateCourses = [];
 
-if (courseData) {
-  for (const courseDetail of courseData) {
-    if (courseDetail.course_platform !== "Robert H. Smith School of Business (UMD)") {
-       onlineCourses.push(courseDetail);
-    } else {
-      graduateCourses.push(courseDetail);
+  if (courseData) {
+    for (const courseDetail of courseData) {
+      if (courseDetail.course_platform !== 'Robert H. Smith School of Business (UMD)') {
+        onlineCourses.push(courseDetail);
+      } else {
+        graduateCourses.push(courseDetail);
+      }
     }
   }
-} else {
-  console.log("No course data found.");
+
+  const sortedOnlineCourses = onlineCourses
+    ? [...onlineCourses].sort((a, b) => Number(b.course_status) - Number(a.course_status))
+    : [];
+  const sortedGraduateCourses = graduateCourses
+    ? [...graduateCourses].sort((a, b) => Number(b.course_status) - Number(a.course_status))
+    : [];
+
+  return (
+    <div className="page-shell">
+      <AnimatedPageHeader
+        title="My Learning Journey"
+        subtitle="A collection of my academic and self-paced learning activities."
+      />
+
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mt-4 lg:items-start">
+        <FadeUp delay={0.1}>
+          <Section title="Graduate Coursework">
+            <Stagger className="space-y-8" staggerDelay={0.08}>
+              {sortedGraduateCourses.map((course) => (
+                <StaggerItem key={course.course_id}>
+                  <CourseCard
+                    name={course.course_name}
+                    description={course.course_description}
+                    date={course.course_completion_year}
+                    skills={course.learned_skills}
+                    ongoing={course.course_status}
+                    platform={course.course_platform}
+                  />
+                </StaggerItem>
+              ))}
+            </Stagger>
+          </Section>
+        </FadeUp>
+
+        <FadeUp delay={0.2}>
+          <Section title="Online Certifications & Courses">
+            <Stagger className="space-y-8" staggerDelay={0.08}>
+              {sortedOnlineCourses.map((course) => (
+                <StaggerItem key={course.course_id}>
+                  <CourseCard
+                    name={course.course_name}
+                    description={course.course_description}
+                    date={course.course_completion_year}
+                    skills={course.learned_skills}
+                    ongoing={course.course_status}
+                    platform={course.course_platform}
+                  />
+                </StaggerItem>
+              ))}
+            </Stagger>
+          </Section>
+        </FadeUp>
+      </div>
+    </div>
+  );
 }
-
-// onlineCourses = courseData?.filter((courseDetail) => courseDetail.course_platform !== "Robert H. Smith School of Business (UMD)") || [];
-// graduateCourses = courseData?.filter((courseDetail) => courseDetail.course_platform === "Robert H. Smith School of Business (UMD)") || [];
-
-    const sortedOnlineCourses = onlineCourses ? [...onlineCourses].sort((a, b) => Number(b.course_status) - Number(a.course_status)) : [];
-    const sortedGraduateCourses = graduateCourses ? [...graduateCourses].sort((a, b) => Number(b.course_status) - Number(a.course_status)) : [];
-    return (
-        <div className="page-shell">
-            <header className="page-header">
-                <h1 className="page-title">My Learning Journey</h1>
-                <p className="page-subtitle">A collection of my academic and self-paced learning activities.</p>
-            </header>
-
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mt-4 lg:items-start">
-                <Section title="Graduate Coursework">
-                    <div className="space-y-8">
-                        {sortedGraduateCourses.map((course) => (
-                            <CourseCard key={course.course_id}  
-                            name={course.course_name} 
-                            description={course.course_description} 
-                            date={course.course_completion_year}
-                            skills={course.learned_skills}
-                            ongoing={course.course_status}
-                            platform={course.course_platform}/>
-                        ))}
-                    </div>
-                </Section>
-                <Section title="Online Certifications & Courses">
-                     {/* <div className="space-y-8">
-                        {sortedOnlineCourses.map((course, index) => (
-                            <CourseCard key={index} course={course} />
-                        ))}
-                    </div> */}
-                    <div className="space-y-8">
-                        {sortedOnlineCourses.map((course) => (
-                            <CourseCard key={course.course_id}  
-                            name={course.course_name} 
-                            description={course.course_description} 
-                            date={course.course_completion_year}
-                            skills={course.learned_skills}
-                            ongoing={course.course_status}
-                            platform={course.course_platform}/>
-                        ))}
-                    </div>
-                </Section>
-            </div>
-        </div>
-    );
-};
-
-// export default CourseworkPage;
