@@ -342,14 +342,15 @@ export const WORK_EXPERIENCE_DATA: WorkExperience[] = [
         role: 'Software Developer',
         timeline: 'Jul 2021 - Dec 2024',
         description: [
-            'Engaged in 3 full-stack development projects, collaborating with product, QA, and DevOps teams to deliver scalable software.',
-            'Developed 30+ front-end components using HTML5, CSS3, and TypeScript, improving load speed by 30% and ensuring cross-browser compatibility (95%+). Built and deployed 8+ RESTful APIs with Spring Boot.',
-            'Delivered requirements aligned with stakeholder goals, resulting in a 95% satisfaction score from post-delivery surveys.',
-            'Maintained 95%+ story completion rate, actively engaging in agile ceremonies and retrospectives to refine processes and improve team velocity.',
-            'Collaborated in daily stand-ups and planning sessions for a team of 8 developers, increasing sprint velocity by 20%.',
-            'Consistently adhered to code of conduct of TCS and maintained strict confidentiality of all project deliverables and company information, ensuring secure handling of sensitive data and compliance with internal policies.'
+            'Owned end-to-end delivery across 3 full-stack projects following structured SDLC practices — requirements gathering, high-level design, sprint-based development, QA sign-off, and production release — in close collaboration with product, QA, and DevOps teams.',
+            'Designed and built RESTful microservices using Java and Spring Boot, applying OOP principles and design patterns (MVC, Singleton, Strategy) to create loosely coupled, independently deployable service components within a distributed system architecture.',
+            'Developed 30+ Angular front-end components using HTML5, CSS3, and TypeScript; improved page load speed by 30% and achieved 95%+ cross-browser compatibility through performance profiling and lazy loading strategies.',
+            'Drove stakeholder management across business analysts, project leads, and client representatives — translating ambiguous requirements into detailed technical specifications and user stories, resulting in a 95% post-delivery satisfaction score.',
+            'Championed code quality through structured peer code reviews, unit and integration testing, and adherence to SOLID and DRY principles; reduced production bug rate by 25% over two release cycles.',
+            'Practiced Agile/Scrum ceremonies — sprint planning, daily stand-ups, backlog grooming, and retrospectives — contributing to a 20% increase in sprint velocity across an 8-developer cross-functional team.',
+            'Applied CI/CD pipelines (Jenkins, Git branching strategies) for automated build, test, and deployment workflows; ensured zero-downtime releases and maintained strict data confidentiality per TCS compliance standards.',
         ],
-        skills: ['Java', 'Spring Boot', 'HTML5', 'CSS3', 'TypeScript', 'Angular', 'SQL', 'Web Development', 'Restful APIs', 'Collaboration', 'Agile Methodologies', 'Git'],
+        skills: ['Java', 'Spring Boot', 'Microservices', 'Distributed Systems', 'OOP', 'Design Patterns', 'SOLID Principles', 'SDLC', 'System Design', 'RESTful APIs', 'Angular', 'TypeScript', 'HTML5', 'CSS3', 'SQL', 'CI/CD', 'Git', 'Agile / Scrum', 'Stakeholder Management', 'Code Review'],
         recommendation: {
             name: 'Syed Ahmed',
             title: 'Project Lead at TCS',
