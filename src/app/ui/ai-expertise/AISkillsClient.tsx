@@ -131,7 +131,7 @@ export default function AISkillsClient() {
                   Professional Summary
                 </div>
                 <p style={{ fontSize: '12px', color: 'var(--muted)', lineHeight: 1.75, marginBottom: '8px' }}>
-                  AI Engineer with 3.5+ years of software engineering experience and hands-on delivery of production AI systems across RAG, multi-agent workflows, and full-stack applications.
+                  AI Engineer with 3.5+ years of software engineering experience, including 1.5 years building production-ready AI applications across RAG, multi-agent workflows, and full-stack platforms.
                 </p>
                 <p style={{ fontSize: '12px', color: 'var(--muted)', lineHeight: 1.75, marginBottom: '8px' }}>
                   Experienced in building reliable, business-aligned solutions end-to-end using FastAPI, React/Next.js, PostgreSQL, and modern LLM tooling.
