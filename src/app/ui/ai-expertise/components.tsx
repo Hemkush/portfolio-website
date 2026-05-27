@@ -125,7 +125,6 @@ export function CategoryPanel({ cat, active, onClick }: { cat: SkillCategory; ac
     >
       <span style={{ fontSize: isAcademic ? '13px' : '16px', lineHeight: 1 }}>{cat.icon}</span>
       {cat.label}
-      {!isAcademic && <span style={{ marginLeft: 'auto', fontSize: '10px', color: active ? cat.color : 'var(--muted-strong)' }}>{cat.skills.length}</span>}
     </button>
   );
 }
