@@ -133,12 +133,13 @@ export const SKILLS_DATA: string[] = [
   'Machine Learning', 'Deep Learning', 'Natural Language Processing',
   'Scikit-Learn', 'PyTorch', 'Keras', 'XGBoost', 'LightGBM', 'Feature Engineering',
   'Pandas', 'NumPy', 'R (Statistical Modeling)', 'Data Analytics', 'Data Visualization', 'Statistics',
+  'MLflow', 'Optuna', 'Evidently AI', 'Drift Detection', 'Autonomous Retraining',
   // Databases
   'PostgreSQL', 'MongoDB', 'Neo4j', 'MySQL', 'SQL',
   // Full-Stack & Backend
   'Python', 'TypeScript', 'JavaScript', 'Java',
   'FastAPI', 'Flask', 'Next.js', 'React', 'Node.js', 'SpringBoot',
-  'REST APIs', 'Docker', 'CI/CD Pipelines', 'AWS', 'Vercel',
+  'REST APIs', 'Docker', 'CI/CD Pipelines', 'AWS', 'Vercel', 'Apache Kafka', 'Redis', 'Prefect',
   // Dev Practices
   'Tailwind CSS', 'Git & GitHub', 'Agile Scrum', 'Web Scraping', 'Web Development',
 ];
@@ -168,6 +169,15 @@ export const PROJECT_DATA: Project[] = [
       description: 'Built an AI-powered portfolio manager workstation that compresses the pre-market workflow into one operating layer. AlphaDesk combines deterministic portfolio analytics, signal monitoring, single-name research, risk review, and PM-ready reporting through a LangGraph multi-agent architecture. Human-in-the-Loop (HITL) interrupt-before gates pause the agent loop on risk-threshold breaches — requiring explicit human approval before any risk action proceeds. MemorySaver checkpointing enables crash recovery and full session replay. LangSmith traces every agent node with per-step token cost, latency, and output quality for full production observability. Autonomous LLM orchestrator acts as a planning agent — calling GPT-4o to produce a structured agent execution plan with reasoning before any work begins, with agent governors enforcing step and cost limits.',
       skills: ['FastAPI', 'LangGraph', 'LangChain', 'LangSmith', 'React', 'Tailwind CSS', 'PostgreSQL', 'Redis', 'Chart.js', 'Multi-Agent Systems', 'Human-in-the-Loop (HITL)', 'Durable Agentic Workflows', 'AI Observability & Tracing', 'Agent Governors', 'Risk Analytics'],
       caseStudyUrl: '/projects/alphadesk',
+  },
+  {
+      name: 'Demand-IQ — Autonomous Demand Forecasting & Self-Improving ML',
+      timeline: '2026',
+      ongoing: false,
+      category: 'ai',
+      description: 'Built an autonomous demand forecasting system that self-improves without human intervention — addressing the 2–4 week gap between ML drift detection and retraining that costs retailers $1.7T annually in stockouts and $300B in overstock. An autonomous feedback loop runs every 60 minutes: MonitoringNode detects MAPE degradation and PSI data drift using Evidently AI; DiagnosisNode calls GPT-4o-mini to classify root cause across 6 categories (PROMOTION_EFFECT · SEASONALITY_SHIFT · GRADUAL_DRIFT · EXTERNAL_SHOCK · DATA_QUALITY · NEW_PRODUCT); DecisionNode maps root cause to action — autonomous retrain or human escalation; TrainingNode relaunches LightGBM with Optuna 50-trial HPO and logs experiments to MLflow; EvaluationNode promotes challenger only when MAPE improves ≥ 2% and 80% prediction interval coverage stays within 78–82%. Human-in-the-loop is built in by design, not bolted on: circuit breaker halts autonomous retraining after 3 consecutive failures, a review queue handles EXTERNAL_SHOCK cases, and planners have a full override panel with an AI advisor rating manual changes HIGH / MEDIUM / LOW confidence. Live fairness monitoring tracks 3 bias dimensions — per-store MAPE disparity, per-category accuracy gap, and 90-day temporal trend. Capstone project for Agentic AI Systems course. Modelled ROI: ~$1M first-year impact for a 200-SKU / 10-store retailer (580% ROI).',
+      skills: ['LangGraph', 'LightGBM', 'GPT-4o-mini', 'FastAPI', 'PostgreSQL', 'Redis', 'Apache Kafka', 'MLflow', 'Prefect', 'Evidently AI', 'Optuna', 'React', 'TypeScript', 'WebSocket', 'Recharts', 'Human-in-the-Loop (HITL)', 'AI Observability & Tracing', 'Durable Agentic Workflows', 'Evaluation-as-Infrastructure', 'Drift Detection', 'Autonomous Retraining'],
+      githubUrl: 'https://github.com/Hemkush',
   },
   {
       name: 'Document Analysis Multiagent RAG-Chatbot',

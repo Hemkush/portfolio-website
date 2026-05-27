@@ -254,6 +254,18 @@ export const PROJECTS: Project[] = [
     tradeoffs: 'Accepted added orchestration complexity to gain guardrails, observability, and model-routing capability — the minimum bar for any production AI system.',
   },
   {
+    name: 'Demand-IQ — Autonomous Demand Forecasting',
+    role: 'Solo Builder',
+    tags: ['LangGraph', 'LightGBM', 'GPT-4o-mini', 'MLflow', 'Evidently AI', 'Optuna', 'HITL', 'FastAPI'],
+    color: '#34d399',
+    highlight: 'Autonomous 60-min retraining loop · GPT-4o-mini drift diagnosis · HITL circuit breaker · fairness monitoring',
+    skills: ['llm', 'mlops', 'ml'],
+    impactMetrics: ['580% modelled ROI', 'HITL circuit breaker', 'Fairness monitoring'],
+    problem: "Retailers lose $1.7T to stockouts and $300B to overstock. Existing ML tools don't self-correct — drift goes undetected for 2–4 weeks before someone notices and triggers a retrain.",
+    architecture: 'LangGraph autonomous feedback loop: MonitoringNode (Evidently AI MAPE+PSI drift) → DiagnosisNode (GPT-4o-mini, 6 root-cause categories) → DecisionNode (retrain or escalate) → TrainingNode (LightGBM + Optuna 50-trial HPO + MLflow) → EvaluationNode (challenger gating: MAPE ≥ 2% + 78–82% interval coverage). HITL circuit breaker + review queue + planner override panel.',
+    tradeoffs: 'Chose conservative challenger promotion criteria (MAPE ≥ 2% improvement + interval coverage within 78–82%) over aggressive auto-deployment to prevent retrain loops degrading the champion model in production.',
+  },
+  {
     name: 'Document Analysis Multiagent RAG-Chatbot',
     role: 'Solo Builder',
     tags: ['LangGraph', 'Gemini', 'ReACT', 'Chroma', 'FastAPI', 'Next.js', 'Context Budget'],
@@ -331,7 +343,7 @@ export const PROOF_POINTS: ProofPoint[] = [
   { stat: '8', label: 'AI Agents Built', sub: 'modular service pipeline' },
   { stat: '40%', label: 'Token Reduction', sub: 'via memory optimization' },
   { stat: '85%', label: 'ML Accuracy', sub: 'Sparks Foundation models' },
-  { stat: '7+', label: 'AI Projects', sub: 'three deployed to production' },
+  { stat: '8+', label: 'AI Projects', sub: 'three deployed to production' },
   { stat: '3', label: 'RAG Systems', sub: 'GraphRAG + hybrid + vector' },
   { stat: '7+', label: 'Team Members', sub: 'led as technical lead' },
 ];
