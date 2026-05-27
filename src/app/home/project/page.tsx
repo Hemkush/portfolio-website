@@ -3,6 +3,7 @@ import React from 'react';
 import { ProjectsClient } from './projectsClient';
 import { PROJECT_DATA } from '../constant';
 import { PROJECT_EVIDENCE } from './projectEvidence';
+import { AnimatedPageHeader } from '@/app/ui/components/animations';
 
 export const metadata: Metadata = {
   title: 'Projects',
@@ -35,10 +36,10 @@ export const metadata: Metadata = {
 export default function ProjectPage() {
   return (
     <div className="page-shell">
-      <header className="page-header">
-        <h1 className="page-title">Projects</h1>
-        <p className="page-subtitle">Selected implementations, architecture decisions, and measurable outcomes.</p>
-      </header>
+      <AnimatedPageHeader
+        title="Projects"
+        subtitle="Selected implementations, architecture decisions, and measurable outcomes."
+      />
       <ProjectsClient projects={PROJECT_DATA} evidence={PROJECT_EVIDENCE} />
     </div>
   );

@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from 'react';
+import { motion } from 'framer-motion';
 import type { Project } from '../sectionType';
 
 interface ProjectCardProps {
@@ -21,9 +22,15 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
   const needsToggle = project.description.length > 200;
 
   return (
-    <div
-      className="card group relative rounded-2xl overflow-hidden flex flex-col hover:-translate-y-0.5"
+    <motion.div
+      className="card group relative rounded-2xl overflow-hidden flex flex-col"
       style={{ '--accent': cat.accent } as React.CSSProperties}
+      whileHover={{
+        y: -6,
+        boxShadow: `0 16px 48px -8px ${cat.accent}30`,
+        transition: { duration: 0.2, ease: 'easeOut' },
+      }}
+      whileTap={{ scale: 0.99, transition: { duration: 0.1 } }}
     >
       {/* Category accent bar */}
       <div className="h-1 w-full" style={{ background: cat.accent }} />
@@ -125,6 +132,6 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
           )}
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };

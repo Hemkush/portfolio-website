@@ -1,5 +1,6 @@
 'use client';
 import React from 'react';
+import { motion } from 'framer-motion';
 
 interface RoleCardProps {
   title: string;
@@ -11,7 +12,10 @@ interface RoleCardProps {
 
 export const RoleCard: React.FC<RoleCardProps> = ({ title, organization, timeline, description, accent = '#06b6d4' }) => {
   return (
-    <div className="card group relative rounded-2xl overflow-hidden flex flex-col hover:-translate-y-0.5">
+    <motion.div
+      className="card group relative rounded-2xl overflow-hidden flex flex-col"
+      whileHover={{ y: -4, boxShadow: `0 12px 32px -8px ${accent}28`, transition: { duration: 0.2 } }}
+    >
       {/* Top accent bar */}
       <div className="h-0.5 w-full" style={{ background: accent }} />
 
@@ -30,6 +34,6 @@ export const RoleCard: React.FC<RoleCardProps> = ({ title, organization, timelin
           {description}
         </p>
       </div>
-    </div>
+    </motion.div>
   );
 };

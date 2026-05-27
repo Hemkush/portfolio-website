@@ -3,6 +3,8 @@ import React, { useState } from 'react';
 import type { Project } from '../sectionType';
 import type { ProjectEvidence } from './projectEvidence';
 import { ProjectCard } from './projectCard';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Stagger, StaggerItem, FadeUp } from '@/app/ui/components/animations';
 
 type FilterCategory = 'all' | 'ai' | 'data' | 'fullstack' | 'consulting';
 
@@ -37,81 +39,110 @@ export const ProjectsClient: React.FC<ProjectsClientProps> = ({ projects, eviden
   return (
     <>
       {/* Filter tabs */}
-      <div className="mt-8 flex flex-wrap gap-2">
-        {FILTERS.map((f) => {
-          const active = activeFilter === f.value;
-          return (
-            <button
-              key={f.value}
-              onClick={() => setActiveFilter(f.value)}
-              className="flex items-center gap-1.5 text-sm font-semibold px-4 py-2 rounded-full border transition-all duration-200"
-              style={
-                active
-                  ? { background: `${f.color}18`, color: f.color, borderColor: `${f.color}55` }
-                  : { background: 'var(--tag-bg)', color: 'var(--muted)', borderColor: 'var(--tag-border)' }
-              }
-            >
-              {f.label}
-              <span
-                className="text-xs font-bold px-1.5 py-0.5 rounded-full"
+      <FadeUp delay={0.1}>
+        <div className="mt-8 flex flex-wrap gap-2">
+          {FILTERS.map((f) => {
+            const active = activeFilter === f.value;
+            return (
+              <motion.button
+                key={f.value}
+                onClick={() => setActiveFilter(f.value)}
+                className="flex items-center gap-1.5 text-sm font-semibold px-4 py-2 rounded-full border transition-colors duration-200"
                 style={
                   active
-                    ? { background: f.color, color: '#fff' }
-                    : { background: 'var(--card-border)', color: 'var(--muted)' }
+                    ? { background: `${f.color}18`, color: f.color, borderColor: `${f.color}55` }
+                    : { background: 'var(--tag-bg)', color: 'var(--muted)', borderColor: 'var(--tag-border)' }
                 }
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.96 }}
               >
-                {counts[f.value]}
-              </span>
-            </button>
-          );
-        })}
-      </div>
+                {f.label}
+                <span
+                  className="text-xs font-bold px-1.5 py-0.5 rounded-full"
+                  style={
+                    active
+                      ? { background: f.color, color: '#fff' }
+                      : { background: 'var(--card-border)', color: 'var(--muted)' }
+                  }
+                >
+                  {counts[f.value]}
+                </span>
+              </motion.button>
+            );
+          })}
+        </div>
+      </FadeUp>
 
-      {/* Projects grid */}
-      <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
-        {filtered.length > 0 ? (
-          filtered.map((project) => (
-            <ProjectCard key={project.name} project={project} />
-          ))
-        ) : (
-          <p className="text-gray-400 col-span-2 py-8 text-center">No projects in this category.</p>
-        )}
-      </div>
+      {/* Projects grid — staggered entrance + animate on filter change */}
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={activeFilter}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.2 }}
+        >
+          <Stagger className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6" staggerDelay={0.07}>
+            {filtered.length > 0 ? (
+              filtered.map((project) => (
+                <StaggerItem key={project.name}>
+                  <ProjectCard project={project} />
+                </StaggerItem>
+              ))
+            ) : (
+              <motion.p
+                className="text-gray-400 col-span-2 py-8 text-center"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+              >
+                No projects in this category.
+              </motion.p>
+            )}
+          </Stagger>
+        </motion.div>
+      </AnimatePresence>
 
       {/* Evidence & Architecture section */}
       {evidence.length > 0 && (
         <section className="mt-16">
-          <h2 className="text-2xl font-bold mb-1" style={{ color: 'var(--foreground)' }}>Evidence & Architecture</h2>
-          <p className="text-sm mb-6" style={{ color: 'var(--muted)' }}>Deep-dives: problem framing, system design, and measured impact.</p>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <FadeUp>
+            <h2 className="text-2xl font-bold mb-1" style={{ color: 'var(--foreground)' }}>Evidence & Architecture</h2>
+            <p className="text-sm mb-6" style={{ color: 'var(--muted)' }}>Deep-dives: problem framing, system design, and measured impact.</p>
+          </FadeUp>
+          <Stagger className="grid grid-cols-1 lg:grid-cols-2 gap-6" staggerDelay={0.1}>
             {evidence.map((item) => (
-              <article key={item.name} className="card rounded-2xl p-5">
-                <div className="flex items-start justify-between gap-3 mb-3">
-                  <h3 className="text-base font-bold leading-snug" style={{ color: 'var(--foreground)' }}>{item.name}</h3>
-                  <span className="text-xs px-2.5 py-1 rounded-lg whitespace-nowrap shrink-0"
-                    style={{ color: 'var(--accent)', border: '1px solid var(--accent-glow)', background: 'var(--accent-glow)' }}>
-                    {item.role}
-                  </span>
-                </div>
-                <div className="space-y-3 text-sm" style={{ color: 'var(--muted)' }}>
-                  <p><span className="font-semibold" style={{ color: 'var(--foreground)' }}>Problem: </span>{item.problem}</p>
-                  <p><span className="font-semibold" style={{ color: 'var(--foreground)' }}>Architecture: </span>{item.architecture}</p>
-                  <div>
-                    <p className="font-semibold mb-1.5" style={{ color: 'var(--foreground)' }}>Impact:</p>
-                    <ul className="space-y-1">
-                      {item.impact.map((point) => (
-                        <li key={point} className="flex items-start gap-2">
-                          <span className="w-1.5 h-1.5 rounded-full shrink-0 mt-1.5" style={{ background: 'var(--accent)' }} />
-                          {point}
-                        </li>
-                      ))}
-                    </ul>
+              <StaggerItem key={item.name}>
+                <motion.article
+                  className="card rounded-2xl p-5"
+                  whileHover={{ y: -4, transition: { duration: 0.2 } }}
+                >
+                  <div className="flex items-start justify-between gap-3 mb-3">
+                    <h3 className="text-base font-bold leading-snug" style={{ color: 'var(--foreground)' }}>{item.name}</h3>
+                    <span className="text-xs px-2.5 py-1 rounded-lg whitespace-nowrap shrink-0"
+                      style={{ color: 'var(--accent)', border: '1px solid var(--accent-glow)', background: 'var(--accent-glow)' }}>
+                      {item.role}
+                    </span>
                   </div>
-                  <p><span className="font-semibold" style={{ color: 'var(--foreground)' }}>Tradeoff: </span>{item.tradeoffs}</p>
-                </div>
-              </article>
+                  <div className="space-y-3 text-sm" style={{ color: 'var(--muted)' }}>
+                    <p><span className="font-semibold" style={{ color: 'var(--foreground)' }}>Problem: </span>{item.problem}</p>
+                    <p><span className="font-semibold" style={{ color: 'var(--foreground)' }}>Architecture: </span>{item.architecture}</p>
+                    <div>
+                      <p className="font-semibold mb-1.5" style={{ color: 'var(--foreground)' }}>Impact:</p>
+                      <ul className="space-y-1">
+                        {item.impact.map((point) => (
+                          <li key={point} className="flex items-start gap-2">
+                            <span className="w-1.5 h-1.5 rounded-full shrink-0 mt-1.5" style={{ background: 'var(--accent)' }} />
+                            {point}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                    <p><span className="font-semibold" style={{ color: 'var(--foreground)' }}>Tradeoff: </span>{item.tradeoffs}</p>
+                  </div>
+                </motion.article>
+              </StaggerItem>
             ))}
-          </div>
+          </Stagger>
         </section>
       )}
     </>

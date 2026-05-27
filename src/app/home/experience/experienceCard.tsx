@@ -1,5 +1,6 @@
 'use client';
 import React from 'react';
+import { motion } from 'framer-motion';
 import type { WorkExperience } from '../sectionType';
 
 interface ExperienceCardProps {
@@ -14,13 +15,24 @@ export const ExperienceCard: React.FC<ExperienceCardProps> = ({ experience, inde
   const accent = ACCENTS[index % ACCENTS.length];
 
   return (
-    <div className="group relative flex gap-0">
+    <motion.div
+      className="group relative flex gap-0"
+      initial={{ opacity: 0, x: -32 }}
+      whileInView={{ opacity: 1, x: 0 }}
+      viewport={{ once: true, amount: 0.08 }}
+      transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1], delay: index * 0.1 }}
+    >
       {/* Timeline connector */}
       <div className="relative flex flex-col items-center mr-6 shrink-0">
         {/* Dot */}
-        <div
-          className="w-4 h-4 rounded-full border-2 z-10 mt-1 shrink-0 transition-transform duration-300 group-hover:scale-110"
+        <motion.div
+          className="w-4 h-4 rounded-full border-2 z-10 mt-1 shrink-0"
           style={{ background: accent, borderColor: 'var(--background)' }}
+          initial={{ scale: 0 }}
+          whileInView={{ scale: 1 }}
+          viewport={{ once: true, amount: 0.5 }}
+          transition={{ duration: 0.4, ease: 'backOut', delay: index * 0.1 + 0.2 }}
+          whileHover={{ scale: 1.3, transition: { duration: 0.15 } }}
         />
         {/* Vertical line */}
         <div className="w-px flex-1 mt-2" style={{ background: `${accent}35` }} />
@@ -28,7 +40,10 @@ export const ExperienceCard: React.FC<ExperienceCardProps> = ({ experience, inde
 
       {/* Card */}
       <div className="flex-1 mb-10">
-        <div className="card relative rounded-2xl overflow-hidden">
+        <motion.div
+          className="card relative rounded-2xl overflow-hidden"
+          whileHover={{ y: -4, boxShadow: `0 12px 40px -8px ${accent}28`, transition: { duration: 0.2 } }}
+        >
           {/* Left accent stripe */}
           <div className="absolute left-0 top-0 bottom-0 w-1 rounded-l-2xl" style={{ background: accent }} />
 
@@ -115,8 +130,8 @@ export const ExperienceCard: React.FC<ExperienceCardProps> = ({ experience, inde
               </div>
             )}
           </div>
-        </div>
+        </motion.div>
       </div>
-    </div>
+    </motion.div>
   );
 };

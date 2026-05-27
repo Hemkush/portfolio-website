@@ -6,6 +6,8 @@ import { CtaButton } from '@/app/ui/components/cta-button';
 import { AcademicPanel, CategoryPanel, DifferentiatorCard, EvidenceProjectCard, SkillBar, StatCard } from '@/app/ui/ai-expertise/components';
 import { ACADEMIC_COURSES, DIFFERENTIATORS, PROJECTS, PROOF_POINTS, SKILL_CATEGORIES } from '@/app/ui/ai-expertise/data';
 import { useInView } from '@/app/ui/ai-expertise/hooks';
+import { motion } from 'framer-motion';
+import { Stagger, StaggerItem, FadeUp } from '@/app/ui/components/animations';
 
 export default function AISkillsClient() {
   const [activeCategory, setActiveCategory] = useState('llm');
@@ -47,7 +49,11 @@ export default function AISkillsClient() {
               gap: '24px',
               alignItems: 'start',
             }}>
-              <div>
+              <motion.div
+                initial={{ opacity: 0, y: 24 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+              >
                 <div style={{ display: 'inline-block', marginBottom: '14px', padding: '5px 10px', border: '1px solid rgba(56,189,248,0.35)', color: '#38bdf8', fontSize: '10px', letterSpacing: '1.5px', textTransform: 'uppercase', borderRadius: '2px', fontFamily: 'var(--font-dm-mono), monospace' }}>
                   Open to Work
                 </div>
@@ -112,10 +118,15 @@ export default function AISkillsClient() {
                     <span>Resume file unavailable right now — use Contact Me and I will share it.</span>
                   )}
                 </div>
-              </div>
+              </motion.div>
 
               {/* Summary box */}
-              <div style={{ border: '1px solid rgba(56,189,248,0.22)', background: 'rgba(56,189,248,0.06)', borderRadius: '2px', padding: '18px 18px 16px', backdropFilter: 'blur(8px)', minHeight: '184px' }}>
+              <motion.div
+                initial={{ opacity: 0, x: 24 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: 0.15 }}
+                style={{ border: '1px solid rgba(56,189,248,0.22)', background: 'rgba(56,189,248,0.06)', borderRadius: '2px', padding: '18px 18px 16px', backdropFilter: 'blur(8px)', minHeight: '184px' }}
+              >
                 <div style={{ fontSize: '10px', letterSpacing: '2px', textTransform: 'uppercase', color: '#7dd3fc', marginBottom: '10px', fontFamily: 'var(--font-dm-mono), monospace' }}>
                   Professional Summary
                 </div>
@@ -128,18 +139,22 @@ export default function AISkillsClient() {
                 <p style={{ fontSize: '12px', color: 'var(--muted)', lineHeight: 1.75 }}>
                   Strong in stakeholder communication, system design, and translating ambiguity into measurable outcomes in fast-paced teams.
                 </p>
-              </div>
+              </motion.div>
             </div>
           </div>
 
           {/* ── Proof points ── */}
-          <div style={{ padding: '48px 0', ...divider }}>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(150px,1fr))', gap: '2px' }}>
-              {PROOF_POINTS.map((point, idx) => (
-                <StatCard key={point.label} {...point} index={idx} />
-              ))}
+          <FadeUp delay={0.1}>
+            <div style={{ padding: '48px 0', ...divider }}>
+              <Stagger style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(150px,1fr))', gap: '2px' }} staggerDelay={0.06}>
+                {PROOF_POINTS.map((point, idx) => (
+                  <StaggerItem key={point.label}>
+                    <StatCard {...point} index={idx} />
+                  </StaggerItem>
+                ))}
+              </Stagger>
             </div>
-          </div>
+          </FadeUp>
 
           {/* ── Skills ── */}
           <div ref={skillsRef} style={{ padding: '56px 0' }}>
