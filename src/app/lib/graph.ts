@@ -273,6 +273,7 @@ export async function reindexGraphRag(genAI: GoogleGenerativeAI): Promise<{
   nodeCount: number;
   edgeCount: number;
   communityCount: number;
+  extractionFailures: number;
 }> {
   // Dynamic imports keep rag.ts (and its JSX dependencies) out of the unit-test module graph
   const { reindexRag, getEmbedding: _getEmbedding } = await import('./rag');
@@ -296,8 +297,14 @@ export async function reindexGraphRag(genAI: GoogleGenerativeAI): Promise<{
   console.log(`[graph] Extracting entities from ${docs.length} document chunks…`);
 
   const allResults: ExtractionResult[] = [];
+  let extractionFailures = 0;
   for (const doc of docs) {
     const result = await extractEntitiesFromChunk(doc.content, genAI);
+    // extractEntitiesFromChunk returns {entities:[], relationships:[]} on error
+    // and logs a warning internally; track failures as empty results from non-empty docs
+    if (result.entities.length === 0 && result.relationships.length === 0 && doc.content.trim().length > 0) {
+      extractionFailures++;
+    }
     allResults.push(result);
   }
 
@@ -424,5 +431,6 @@ Output ONLY valid JSON — no markdown fences:
     nodeCount: Number(nc.rows[0]?.count ?? 0),
     edgeCount: Number(ec.rows[0]?.count ?? 0),
     communityCount: Number(cc.rows[0]?.count ?? 0),
+    extractionFailures,
   };
 }

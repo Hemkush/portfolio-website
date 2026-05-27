@@ -48,6 +48,7 @@ export async function POST(request: Request) {
         nodeCount: result.nodeCount,
         edgeCount: result.edgeCount,
         communityCount: result.communityCount,
+        extractionFailures: result.extractionFailures,
       },
       { status: 200 }
     );
