@@ -4,7 +4,7 @@ import React from 'react';
 export const metadata: Metadata = {
   title: 'About',
   description:
-    'Hemant Kushwaha — AI Engineer with an MS in Information Systems from the University of Maryland (GPA 3.94), B.Tech from NIT Rourkela, and 3.5+ years of software engineering experience building production AI systems.',
+    'Hemant Kushwaha — AI Engineer with an MS in Information Systems from the University of Maryland (GPA 3.94, May 2026), B.Tech from NIT Rourkela, and 3.5+ years of software engineering experience building production AI systems.',
   keywords: [
     'Hemant Kushwaha', 'AI Engineer', 'about', 'University of Maryland', 'UMD',
     'MS Information Systems', 'NIT Rourkela', 'GPA 3.94', 'software engineer background',
@@ -15,14 +15,14 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'About Hemant Kushwaha — AI Engineer',
     description:
-      'MS Information Systems at UMD (GPA 3.94), B.Tech from NIT Rourkela. 3.5+ years building production AI systems. OPT-eligible May 2026.',
+      'MS Information Systems at UMD (GPA 3.94, May 2026), B.Tech from NIT Rourkela. 3.5+ years building production AI systems. OPT-authorized.',
     url: 'https://hemant-kushwaha.vercel.app/home/about',
     images: [{ url: '/profile.png', width: 800, height: 800, alt: 'Hemant Kushwaha — AI Engineer' }],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'About Hemant Kushwaha — AI Engineer',
-    description: 'MS UMD GPA 3.94 · NIT Rourkela · 3.5+ yrs production AI engineering · OPT-eligible May 2026.',
+    description: 'MS UMD GPA 3.94 (May 2026) · NIT Rourkela · 3.5+ yrs production AI engineering · OPT-authorized.',
     images: ['/profile.png'],
   },
 };

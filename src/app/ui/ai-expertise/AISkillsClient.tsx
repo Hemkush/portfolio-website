@@ -64,7 +64,7 @@ export default function AISkillsClient() {
                   AI Engineer · MS Information Systems · UMD · GPA 3.94
                 </p>
                 <p style={{ marginTop: '6px', fontSize: '12px', color: 'var(--muted-strong)', letterSpacing: '0.2px' }}>
-                  OPT-eligible May 2026 · Open to AI Engineer / ML Engineer roles
+                  MS completed May 2026 · OPT-authorized · Open to AI Engineer / ML Engineer roles
                 </p>
                 <div style={{ marginTop: '20px', display: 'flex', gap: '10px', flexWrap: 'wrap', alignItems: 'center' }}>
                   <CtaButton asChild variant="primary" size="md">

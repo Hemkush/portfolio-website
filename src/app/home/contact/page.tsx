@@ -4,7 +4,7 @@ import ContactForm from './ContactForm';
 export const metadata: Metadata = {
   title: 'Contact',
   description:
-    'Contact Hemant Kushwaha for AI Engineer, ML Engineer, or LLM Engineer opportunities. Open to remote, hybrid, and in-office roles nationwide. OPT-eligible May 2026. Available to start immediately.',
+    'Contact Hemant Kushwaha for AI Engineer, ML Engineer, or LLM Engineer opportunities. Open to remote, hybrid, and in-office roles nationwide. MS completed May 2026. OPT-authorized. Available to start immediately.',
   keywords: [
     'hire AI engineer', 'contact Hemant Kushwaha', 'AI engineer available', 'ML engineer hiring',
     'LLM engineer for hire', 'OPT eligible AI engineer 2026', 'AI engineer remote',
@@ -16,14 +16,14 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Contact Hemant Kushwaha — AI Engineer',
     description:
-      'Reach out for AI Engineer, ML Engineer, or LLM Engineer roles. Open to remote, hybrid, and relocation. OPT-eligible May 2026.',
+      'Reach out for AI Engineer, ML Engineer, or LLM Engineer roles. Open to remote, hybrid, and relocation. MS completed May 2026. OPT-authorized.',
     url: 'https://hemant-kushwaha.vercel.app/home/contact',
     images: [{ url: '/profile.png', width: 800, height: 800, alt: 'Contact Hemant Kushwaha — AI Engineer' }],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Contact Hemant Kushwaha — AI Engineer',
-    description: 'Open to AI Engineer / ML Engineer roles. OPT-eligible May 2026. Remote, hybrid, or relocation.',
+    description: 'Open to AI Engineer / ML Engineer roles. MS completed May 2026. OPT-authorized. Remote, hybrid, or relocation.',
     images: ['/profile.png'],
   },
 };

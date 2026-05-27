@@ -37,7 +37,7 @@ export const metadata: Metadata = {
     template: '%s | Hemant Kushwaha',
   },
   description:
-    'AI Engineer with 3.5+ years of experience building production RAG pipelines, LLM orchestration systems, and full-stack AI applications. MS Information Systems at UMD (GPA 3.94). OPT-eligible May 2026.',
+    'AI Engineer with 3.5+ years of experience building production RAG pipelines, LLM orchestration systems, and full-stack AI applications. MS Information Systems at UMD (GPA 3.94, May 2026). OPT-authorized.',
   keywords: [
     'AI Engineer', 'ML Engineer', 'LLM Engineer', 'Machine Learning Engineer',
     'RAG', 'LLM Orchestration', 'Multi-Agent Systems', 'vector search', 'pgvector',
@@ -55,7 +55,7 @@ export const metadata: Metadata = {
     siteName: 'Hemant Kushwaha — AI Engineer Portfolio',
     title: 'Hemant Kushwaha — AI Engineer',
     description:
-      'AI Engineer with 3.5+ years of experience building production RAG pipelines, LLM orchestration systems, and full-stack AI applications. MS at UMD. OPT-eligible May 2026.',
+      'AI Engineer with 3.5+ years of experience building production RAG pipelines, LLM orchestration systems, and full-stack AI applications. MS at UMD (May 2026). OPT-authorized.',
     images: [
       {
         url: `${BASE_URL}/profile.png`,
@@ -69,7 +69,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Hemant Kushwaha — AI Engineer',
     description:
-      'AI Engineer with 3.5+ years of experience. Building production RAG, LLM orchestration, and full-stack AI systems. MS at UMD. OPT-eligible May 2026.',
+      'AI Engineer with 3.5+ years of experience. Building production RAG, LLM orchestration, and full-stack AI systems. MS at UMD (May 2026). OPT-authorized.',
     images: [`${BASE_URL}/profile.png`],
   },
   robots: {

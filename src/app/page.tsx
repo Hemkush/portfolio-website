@@ -6,7 +6,7 @@ const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://hemant-kushwaha.ve
 export const metadata: Metadata = {
   title: 'Hemant Kushwaha — AI Engineer | RAG, LLM & Full-Stack AI Systems',
   description:
-    'AI Engineer with 3.5+ years of experience building production RAG pipelines, LLM orchestration, multi-agent systems, and full-stack AI apps. MS Information Systems at UMD (GPA 3.94). OPT-eligible May 2026. Open to AI Engineer and ML Engineer roles.',
+    'AI Engineer with 3.5+ years of experience building production RAG pipelines, LLM orchestration, multi-agent systems, and full-stack AI apps. MS Information Systems at UMD (GPA 3.94, May 2026). OPT-authorized. Open to AI Engineer and ML Engineer roles.',
   keywords: [
     'AI Engineer', 'ML Engineer', 'LLM Engineer', 'Machine Learning Engineer',
     'RAG pipeline', 'LLM orchestration', 'multi-agent systems', 'vector search',
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Hemant Kushwaha — AI Engineer | RAG, LLM & Full-Stack AI',
     description:
-      'Building production RAG pipelines, LLM orchestration, and full-stack AI systems. MS at UMD (GPA 3.94). OPT-eligible May 2026.',
+      'Building production RAG pipelines, LLM orchestration, and full-stack AI systems. MS at UMD (GPA 3.94, May 2026). OPT-authorized.',
     url: BASE_URL,
     images: [{ url: '/profile.png', width: 800, height: 800, alt: 'Hemant Kushwaha — AI Engineer' }],
   },
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Hemant Kushwaha — AI Engineer | RAG, LLM & Full-Stack AI',
     description:
-      'Production RAG pipelines, LLM orchestration, multi-agent systems. MS UMD GPA 3.94. OPT-eligible May 2026.',
+      'Production RAG pipelines, LLM orchestration, multi-agent systems. MS UMD GPA 3.94 (May 2026). OPT-authorized.',
     images: ['/profile.png'],
   },
 };

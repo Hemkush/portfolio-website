@@ -28,7 +28,7 @@ export const PROFILE_IMAGE_URL: string = '/profile.png';
 export const INTRODUCTION = {
   greeting: "Hello, I'm Hemant Kushwaha",
   title: "AI Engineer | Full-Stack AI Systems Builder",
-  text: "AI Engineer with 3+ years of software development experience — including 1.5 years building production-ready AI applications — and currently pursuing an MS in Information Systems at the University of Maryland (GPA 3.94). I design and ship production-ready AI applications across RAG, LLM orchestration, and full-stack platforms using FastAPI, Next.js, PostgreSQL, and cloud-native tooling. My focus is building reliable systems that balance model quality, performance, and business impact through scalable architecture, strong engineering discipline, and user-first product thinking."
+  text: "AI Engineer with 3+ years of software development experience — including 1.5 years building production-ready AI applications — and holding an MS in Information Systems from the University of Maryland (GPA 3.94, May 2026). I design and ship production-ready AI applications across RAG, LLM orchestration, and full-stack platforms using FastAPI, Next.js, PostgreSQL, and cloud-native tooling. My focus is building reliable systems that balance model quality, performance, and business impact through scalable architecture, strong engineering discipline, and user-first product thinking."
 };
 
 // Text content for the objective section

@@ -14,7 +14,7 @@ ABOUT HEMANT (always-available facts):
 - AI Engineer with 3.5+ years of software engineering experience
 - MS Information Systems, University of Maryland — Robert H. Smith School of Business (GPA 3.94)
 - B.Tech Mechanical Engineering, NIT Rourkela (GPA 3.40)
-- OPT-eligible May 2026 — authorized to work in the US without visa sponsorship for 3 years
+- MS completed May 2026 · OPT-authorized — authorized to work in the US without visa sponsorship for 3 years
 - Open to: AI Engineer, ML Engineer, LLM Engineer, Software Engineer roles
 - Open to: remote, hybrid, or in-office; open to relocation
 - Core expertise: RAG pipelines, LLM orchestration, multi-agent systems, full-stack AI apps
