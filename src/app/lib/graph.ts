@@ -54,6 +54,121 @@ export function stableNodeId(value: string): string {
   return Buffer.from(value).toString('base64').replace(/=+$/, '').slice(0, 180);
 }
 
+// ─── Community detection (Union-Find) ────────────────────────────────────────
+
+export function detectCommunities(
+  nodeIds: string[],
+  edges: Array<{ sourceId: string; targetId: string }>
+): Map<string, number> {
+  const parent = new Map<string, string>();
+  const rank = new Map<string, number>();
+
+  for (const id of nodeIds) {
+    parent.set(id, id);
+    rank.set(id, 0);
+  }
+
+  function find(x: string): string {
+    if (parent.get(x) !== x) {
+      parent.set(x, find(parent.get(x)!));
+    }
+    return parent.get(x)!;
+  }
+
+  function union(x: string, y: string): void {
+    const rx = find(x);
+    const ry = find(y);
+    if (rx === ry) return;
+    const rankX = rank.get(rx) ?? 0;
+    const rankY = rank.get(ry) ?? 0;
+    if (rankX < rankY) {
+      parent.set(rx, ry);
+    } else if (rankX > rankY) {
+      parent.set(ry, rx);
+    } else {
+      parent.set(ry, rx);
+      rank.set(rx, rankX + 1);
+    }
+  }
+
+  for (const edge of edges) {
+    if (parent.has(edge.sourceId) && parent.has(edge.targetId)) {
+      union(edge.sourceId, edge.targetId);
+    }
+  }
+
+  // Map each root to a sequential integer community ID
+  const rootToCommunityId = new Map<string, number>();
+  let nextId = 0;
+  const result = new Map<string, number>();
+  for (const id of nodeIds) {
+    const root = find(id);
+    if (!rootToCommunityId.has(root)) {
+      rootToCommunityId.set(root, nextId++);
+    }
+    result.set(id, rootToCommunityId.get(root)!);
+  }
+  return result;
+}
+
+// ─── Entity deduplication ─────────────────────────────────────────────────────
+
+export function deduplicateEntities(results: ExtractionResult[]): {
+  nodes: Map<string, GraphNode>;
+  edges: GraphEdge[];
+} {
+  const nodesByNorm = new Map<string, GraphNode>();
+  const seenEdgeKeys = new Set<string>();
+  const edges: GraphEdge[] = [];
+
+  // Pass 1: merge nodes by normalised name
+  for (const result of results) {
+    for (const entity of result.entities) {
+      const norm = entity.name.toLowerCase().trim();
+      if (!norm) continue;
+      if (nodesByNorm.has(norm)) {
+        const existing = nodesByNorm.get(norm)!;
+        if (entity.description && !existing.description.includes(entity.description)) {
+          existing.description = `${existing.description} | ${entity.description}`;
+        }
+      } else {
+        nodesByNorm.set(norm, {
+          id: stableNodeId(norm),
+          name: entity.name.trim(),
+          type: (entity.type as NodeType) ?? 'CONCEPT',
+          description: entity.description ?? '',
+        });
+      }
+    }
+  }
+
+  // Pass 2: resolve and deduplicate edges
+  for (const result of results) {
+    for (const rel of result.relationships) {
+      const srcNorm = rel.source.toLowerCase().trim();
+      const tgtNorm = rel.target.toLowerCase().trim();
+      const srcNode = nodesByNorm.get(srcNorm);
+      const tgtNode = nodesByNorm.get(tgtNorm);
+      if (!srcNode || !tgtNode) continue;
+
+      const edgeKey = `${srcNode.id}:${rel.relation}:${tgtNode.id}`;
+      if (seenEdgeKeys.has(edgeKey)) continue;
+      seenEdgeKeys.add(edgeKey);
+
+      edges.push({
+        id: stableNodeId(edgeKey),
+        sourceId: srcNode.id,
+        targetId: tgtNode.id,
+        relation: rel.relation,
+        context: rel.context ?? '',
+        weight: 1.0,
+      });
+    }
+  }
+
+  return { nodes: nodesByNorm, edges };
+}
+
 // ─── Schema init ──────────────────────────────────────────────────────────────
 
 let graphTableInitPromise: Promise<void> | null = null;
