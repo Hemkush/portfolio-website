@@ -1,7 +1,7 @@
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import { NextResponse } from 'next/server';
 import { getPortfolioContext } from '@/app/home/constant';
-import { retrieveRagContext } from '@/app/lib/rag';
+import { retrieveGraphRagContext } from '@/app/lib/graphrag';
 
 type ChatRequestMessage = {
   role: 'user' | 'assistant';
@@ -89,11 +89,16 @@ export async function POST(request: Request) {
 
     if (latestUserQuestion) {
       try {
-        const ragResult = await retrieveRagContext(latestUserQuestion, genAI);
+        const ragResult = await retrieveGraphRagContext(latestUserQuestion, genAI);
         ragContext = ragResult.contextText;
         ragEnabled = ragResult.usedRag;
         ragMeta = {
-          mode: ragResult.usedRag ? 'rag_vector_retrieval' : 'fallback_full_context',
+          mode: ragResult.mode,
+          vectorChunks: ragResult.vectorChunks,
+          entitiesMatched: ragResult.entitiesMatched,
+          communitiesUsed: ragResult.communitiesUsed,
+          hopsTraversed: ragResult.hopsTraversed,
+          // legacy fields
           retrievedChunks: ragResult.chunks.length,
           thresholdBypassed: ragResult.thresholdBypassed,
           threshold: ragResult.threshold,
@@ -101,8 +106,8 @@ export async function POST(request: Request) {
           embeddingModel: ragResult.embeddingModel,
         };
       } catch (error) {
-        console.warn('RAG retrieval failed, falling back to full-context prompting.', error);
-        ragMeta = { mode: 'fallback_full_context', error: 'rag_retrieval_failed' };
+        console.warn('[chat] GraphRAG retrieval failed, falling back to full-context prompting.', error);
+        ragMeta = { mode: 'fallback_full_context', error: 'graphrag_retrieval_failed' };
       }
     }
 

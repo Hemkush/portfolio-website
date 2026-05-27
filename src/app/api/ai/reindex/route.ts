@@ -1,7 +1,7 @@
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import { NextResponse } from 'next/server';
 import { auth } from '../../../../../auth.config';
-import { reindexRag } from '@/app/lib/rag';
+import { reindexGraphRag } from '@/app/lib/graph';
 
 function getAdminEmails() {
   return (process.env.ADMIN_EMAILS ?? process.env.ADMIN_EMAIL ?? '')
@@ -40,12 +40,14 @@ export async function POST(request: Request) {
     }
 
     const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-    const result = await reindexRag(genAI);
+    const result = await reindexGraphRag(genAI);
 
     return NextResponse.json(
       {
-        message: 'RAG index updated successfully.',
-        indexedDocuments: result.indexedDocuments,
+        message: 'GraphRAG index updated successfully.',
+        nodeCount: result.nodeCount,
+        edgeCount: result.edgeCount,
+        communityCount: result.communityCount,
       },
       { status: 200 }
     );

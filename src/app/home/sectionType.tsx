@@ -85,4 +85,9 @@ export interface SocialLink {
 export interface ChatMessage {
   sender: 'user' | 'ai';
   text: string;
+  ragMeta?: {
+    mode?: string;
+    entitiesMatched?: string[];
+    communitiesUsed?: string[];
+  };
 }

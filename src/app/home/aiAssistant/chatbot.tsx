@@ -190,7 +190,20 @@ const Chatbot: React.FC = () => {
       const data = await res.json();
       const reply = data?.response?.toString()?.trim();
       if (reply) {
-        setMessages((prev) => [...prev, { sender: 'ai', text: reply }]);
+        setMessages((prev) => [
+          ...prev,
+          {
+            sender: 'ai',
+            text: reply,
+            ragMeta: data?.rag
+              ? {
+                  mode: data.rag.mode,
+                  entitiesMatched: data.rag.entitiesMatched,
+                  communitiesUsed: data.rag.communitiesUsed,
+                }
+              : undefined,
+          },
+        ]);
       } else {
         throw new Error('Received an empty response.');
       }
@@ -231,7 +244,7 @@ const Chatbot: React.FC = () => {
               <div className="w-8 h-8 rounded-full bg-gradient-to-br from-cyan-500 to-cyan-700 flex items-center justify-center text-white text-xs font-bold shrink-0">HK</div>
               <div>
                 <p className="text-sm font-semibold text-white leading-none">Hemant&apos;s Assistant</p>
-                <p className="text-xs text-gray-400 mt-0.5">Powered by RAG + Gemini</p>
+                <p className="text-xs text-gray-400 mt-0.5">Powered by GraphRAG + Gemini</p>
               </div>
             </div>
             <div className="flex items-center gap-1">
@@ -267,7 +280,36 @@ const Chatbot: React.FC = () => {
                       : 'bg-gray-800 text-gray-200 rounded-bl-sm border border-gray-700/50'
                   }`}
                 >
-                  {msg.sender === 'ai' ? renderAiText(msg.text) : <p className="leading-relaxed">{msg.text}</p>}
+                  {msg.sender === 'ai' ? (
+                    <>
+                      {renderAiText(msg.text)}
+                      {msg.ragMeta?.mode &&
+                        msg.ragMeta.mode !== 'fallback_full_context' && (
+                          <div className="mt-1.5 pt-1.5 border-t border-gray-700/40 flex flex-wrap gap-1 items-center">
+                            <span className="text-[10px] text-gray-500">
+                              via{' '}
+                              {msg.ragMeta.mode.startsWith('graphrag')
+                                ? 'GraphRAG'
+                                : 'RAG'}
+                            </span>
+                            {msg.ragMeta.entitiesMatched &&
+                              msg.ragMeta.entitiesMatched.length > 0 && (
+                                <span className="text-[10px] text-cyan-600/70">
+                                  · {msg.ragMeta.entitiesMatched.slice(0, 3).join(', ')}
+                                </span>
+                              )}
+                            {msg.ragMeta.communitiesUsed &&
+                              msg.ragMeta.communitiesUsed.length > 0 && (
+                                <span className="text-[10px] text-purple-500/60">
+                                  · {msg.ragMeta.communitiesUsed[0]}
+                                </span>
+                              )}
+                          </div>
+                        )}
+                    </>
+                  ) : (
+                    <p className="leading-relaxed">{msg.text}</p>
+                  )}
                 </div>
               </div>
             ))}
