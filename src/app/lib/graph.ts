@@ -1,7 +1,6 @@
 // src/app/lib/graph.ts
 import { sql } from '@vercel/postgres';
-import { GoogleGenerativeAI } from '@google/generative-ai';
-import { reindexRag } from './rag';
+// GoogleGenerativeAI and reindexRag are imported in Task 7 (reindexGraphRag)
 // TODO: getEmbedding will be exported from ./rag in Task 5
 
 // ─── Types ────────────────────────────────────────────────────────────────────
@@ -97,6 +96,7 @@ export async function ensureGraphTables(): Promise<void> {
           created_at        TIMESTAMPTZ NOT NULL DEFAULT NOW()
         )
       `;
+      await sql`CREATE INDEX IF NOT EXISTS graph_communities_community_id_idx ON graph_communities (community_id)`;
     })().catch((err) => {
       graphTableInitPromise = null;
       throw err;
