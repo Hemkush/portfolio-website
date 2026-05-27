@@ -5,6 +5,8 @@
 // All rag imports are done dynamically inside the functions that use them (Task 9),
 // keeping this module test-safe while assembleContext remains a pure function.
 
+import type { GoogleGenerativeAI } from '@google/generative-ai';
+
 // ─── Types ────────────────────────────────────────────────────────────────────
 
 export type GraphRagMode =
@@ -98,4 +100,245 @@ export function assembleContext(
   }
 
   return sections.join('\n\n');
+}
+
+// ─── Query entity extraction ──────────────────────────────────────────────────
+
+async function extractQueryEntities(
+  query: string,
+  genAI: GoogleGenerativeAI
+): Promise<string[]> {
+  const modelName =
+    process.env.GEMINI_EXTRACTION_MODEL ??
+    process.env.GEMINI_MODEL ??
+    'gemini-2.0-flash';
+  const model = genAI.getGenerativeModel({ model: modelName });
+  const prompt = `Extract named entities (people, organizations, technologies, projects, skills) from this portfolio chatbot query.
+Return ONLY a JSON array of strings — no markdown, no explanation.
+Examples: ["LangChain", "NVIDIA", "Python"] or []
+
+Query: ${query}`;
+
+  try {
+    const res = await model.generateContent(prompt);
+    let text = res.response.text().trim();
+    text = text.replace(/^```(?:json)?\n?/, '').replace(/\n?```$/, '');
+    const parsed = JSON.parse(text);
+    return Array.isArray(parsed)
+      ? parsed.filter((x: unknown) => typeof x === 'string')
+      : [];
+  } catch {
+    return [];
+  }
+}
+
+// ─── Local search (entity graph traversal) ───────────────────────────────────
+
+async function localGraphSearch(entityNames: string[]): Promise<string> {
+  if (entityNames.length === 0) return '';
+  const { sql } = await import('@vercel/postgres');
+  const parts: string[] = [];
+
+  for (const name of entityNames.slice(0, 5)) {
+    const pattern = `%${name.toLowerCase()}%`;
+
+    const rootResult = await sql<{
+      id: string;
+      name: string;
+      type: string;
+      description: string;
+    }>`
+      SELECT id, name, type, description
+      FROM graph_nodes
+      WHERE LOWER(name) LIKE ${pattern}
+      LIMIT 3
+    `;
+    const roots = rootResult.rows ?? [];
+    if (roots.length === 0) continue;
+
+    for (const root of roots) {
+      parts.push(`[${root.type}] ${root.name}: ${root.description}`);
+    }
+
+    for (const root of roots) {
+      // Outgoing edges from this node
+      const outgoing = await sql<{
+        relation: string;
+        context: string;
+        other_id: string;
+        other_name: string;
+        other_type: string;
+      }>`
+        SELECT e.relation, e.context, n2.id AS other_id, n2.name AS other_name, n2.type AS other_type
+        FROM graph_edges e
+        JOIN graph_nodes n2 ON e.target_id = n2.id
+        WHERE e.source_id = ${root.id}
+        LIMIT 8
+      `;
+      // Incoming edges to this node
+      const incoming = await sql<{
+        relation: string;
+        context: string;
+        other_id: string;
+        other_name: string;
+        other_type: string;
+      }>`
+        SELECT e.relation, e.context, n2.id AS other_id, n2.name AS other_name, n2.type AS other_type
+        FROM graph_edges e
+        JOIN graph_nodes n2 ON e.source_id = n2.id
+        WHERE e.target_id = ${root.id}
+        LIMIT 8
+      `;
+
+      const hop1 = [
+        ...(outgoing.rows ?? []),
+        ...(incoming.rows ?? []),
+      ];
+
+      for (const h of hop1) {
+        parts.push(`  ${root.name} ←→[${h.relation}]→ ${h.other_name} (${h.other_type}): ${h.context}`);
+      }
+
+      // Hop 2: expand only when hop-1 returned fewer than 3 nodes
+      if (hop1.length < 3) {
+        for (const h1 of hop1) {
+          const hop2 = await sql<{
+            relation: string;
+            context: string;
+            other_name: string;
+          }>`
+            SELECT e.relation, e.context, n2.name AS other_name
+            FROM graph_edges e
+            JOIN graph_nodes n2 ON e.target_id = n2.id
+            WHERE e.source_id = ${h1.other_id}
+              AND n2.id != ${root.id}
+            LIMIT 3
+          `;
+          for (const h of (hop2.rows ?? [])) {
+            parts.push(`    ${h1.other_name} →[${h.relation}]→ ${h.other_name}: ${h.context}`);
+          }
+        }
+      }
+    }
+  }
+
+  return parts.join('\n');
+}
+
+// ─── Global search (community similarity) ────────────────────────────────────
+
+async function queryCommunitiesByEmbedding(
+  queryVector: number[],
+  topN = 2
+): Promise<Array<{ title: string; summary: string }>> {
+  const { sql } = await import('@vercel/postgres');
+  const queryVec = `[${queryVector.join(',')}]`;
+  try {
+    const result = await sql<{ title: string; summary: string }>`
+      SELECT title, summary
+      FROM graph_communities
+      WHERE summary_embedding IS NOT NULL
+      ORDER BY summary_embedding <=> ${queryVec}::vector
+      LIMIT ${topN}
+    `;
+    return result.rows ?? [];
+  } catch {
+    return [];
+  }
+}
+
+// ─── Main retrieval entry point ───────────────────────────────────────────────
+
+export async function retrieveGraphRagContext(
+  query: string,
+  genAI: GoogleGenerativeAI
+): Promise<GraphRagResult> {
+  const topK = Number(process.env.RAG_TOP_K ?? 4);
+  const threshold = Number(process.env.RAG_SIMILARITY_THRESHOLD ?? 0.55);
+
+  // Check whether the graph has been indexed
+  let graphPopulated = false;
+  try {
+    const { sql } = await import('@vercel/postgres');
+    const check = await sql`SELECT COUNT(*)::int AS count FROM graph_nodes`;
+    graphPopulated = Number(check.rows[0]?.count ?? 0) > 0;
+  } catch {
+    graphPopulated = false;
+  }
+
+  // Fallback: graph not yet built — use pure vector search
+  if (!graphPopulated) {
+    const { retrieveRagContext } = await import('./rag');
+    const vectorResult = await retrieveRagContext(query, genAI);
+    return {
+      contextText: vectorResult.contextText,
+      mode: 'vector_only',
+      vectorChunks: vectorResult.chunks.length,
+      entitiesMatched: [],
+      communitiesUsed: [],
+      hopsTraversed: 0,
+      usedRag: vectorResult.usedRag,
+      chunks: vectorResult.chunks,
+      thresholdBypassed: vectorResult.thresholdBypassed,
+      threshold: vectorResult.threshold,
+      topK: vectorResult.topK,
+      embeddingModel: vectorResult.embeddingModel,
+    };
+  }
+
+  // Bootstrap vector store if needed
+  const { ensureRagBootstrap, getEmbedding, queryVectorDocuments } = await import('./rag');
+  await ensureRagBootstrap(genAI);
+
+  // Pre-computation: shared query embedding + entity extraction (both in parallel)
+  const [queryEmbedding, queryEntities] = await Promise.all([
+    getEmbedding(query, genAI),
+    extractQueryEntities(query, genAI),
+  ]);
+
+  // Three retrieval legs in parallel
+  const [vectorChunks, entityContext, communityMatches] = await Promise.all([
+    queryVectorDocuments(queryEmbedding, topK, threshold),
+    localGraphSearch(queryEntities),
+    queryCommunitiesByEmbedding(queryEmbedding),
+  ]);
+
+  // Determine mode
+  const hasEntities = queryEntities.length > 0 && entityContext.trim().length > 0;
+  const hasCommunities = communityMatches.length > 0;
+  const mode: GraphRagMode =
+    hasEntities && hasCommunities
+      ? 'graphrag_hybrid'
+      : hasEntities
+      ? 'graphrag_local'
+      : hasCommunities
+      ? 'graphrag_global'
+      : 'vector_only';
+
+  // Assemble context
+  const vectorParts = vectorChunks.map(
+    (c, i) =>
+      `Chunk ${i + 1} [${c.source}] (score ${Number(c.score).toFixed(3)}): ${c.content}`
+  );
+  const communityParts = communityMatches.map(
+    (c) => `[Community: ${c.title}] ${c.summary}`
+  );
+  const contextText = assembleContext(vectorParts, entityContext, communityParts);
+
+  return {
+    contextText,
+    mode,
+    vectorChunks: vectorChunks.length,
+    entitiesMatched: queryEntities,
+    communitiesUsed: communityMatches.map((c) => c.title),
+    hopsTraversed: hasEntities
+      ? (entityContext.split('\n').some((l) => l.startsWith('    ')) ? 2 : 1)
+      : 0,
+    usedRag: vectorChunks.length > 0 || hasEntities || hasCommunities,
+    chunks: vectorChunks,
+    thresholdBypassed: false,
+    threshold,
+    topK,
+    embeddingModel: 'gemini-embedding-001',
+  };
 }
