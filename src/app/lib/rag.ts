@@ -34,7 +34,7 @@ type CourseRecord = {
   course_status?: string | number | null;
 };
 
-type RetrievedChunk = {
+export type RetrievedChunk = {
   id: string;
   source: string;
   content: string;
@@ -70,7 +70,7 @@ function chunkText(input: string, maxLen = 1200, overlap = 200): string[] {
   return chunks;
 }
 
-function toVectorLiteral(values: number[]) {
+export function toVectorLiteral(values: number[]) {
   return `[${values.join(',')}]`;
 }
 
@@ -127,7 +127,7 @@ async function ensureRagTable() {
   await ragTableInitPromise;
 }
 
-async function getEmbedding(text: string, genAI: GoogleGenerativeAI) {
+export async function getEmbedding(text: string, genAI: GoogleGenerativeAI) {
   const modelsToTry = resolvedEmbeddingModel ? [resolvedEmbeddingModel] : getEmbeddingModelCandidates();
   let lastError: unknown = null;
 
@@ -294,7 +294,7 @@ async function upsertDocuments(documents: RagDocument[], genAI: GoogleGenerative
   }
 }
 
-async function ensureRagBootstrap(genAI: GoogleGenerativeAI) {
+export async function ensureRagBootstrap(genAI: GoogleGenerativeAI) {
   if (!ragBootstrapPromise) {
     ragBootstrapPromise = (async () => {
       await ensureRagTable();
@@ -348,6 +348,31 @@ export async function retrieveRagContext(query: string, genAI: GoogleGenerativeA
     threshold,
     embeddingModel: resolvedEmbeddingModel ?? 'unknown',
   };
+}
+
+/**
+ * Query rag_documents using a pre-computed embedding vector.
+ * Used by graphrag.ts so the embedding is computed only once per turn.
+ */
+export async function queryVectorDocuments(
+  queryVector: number[],
+  topK: number,
+  threshold: number
+): Promise<RetrievedChunk[]> {
+  const queryVec = toVectorLiteral(queryVector);
+  const result = await sql<RetrievedChunk>`
+    SELECT
+      id,
+      source,
+      content,
+      1 - (embedding <=> ${queryVec}::vector) AS score
+    FROM rag_documents
+    ORDER BY embedding <=> ${queryVec}::vector
+    LIMIT ${topK}
+  `;
+  const all = result.rows ?? [];
+  const filtered = all.filter((r) => Number(r.score ?? 0) >= threshold);
+  return filtered.length > 0 ? filtered : all;
 }
 
 export async function reindexRag(genAI: GoogleGenerativeAI) {
